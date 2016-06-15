@@ -1,4 +1,4 @@
-package com.kingbosky.commons.hessian4;
+package com.kingbosky.commons.hessian;
 
 import com.caucho.hessian.client.HessianConnectionFactory;
 import com.caucho.hessian.client.HessianProxyFactory;

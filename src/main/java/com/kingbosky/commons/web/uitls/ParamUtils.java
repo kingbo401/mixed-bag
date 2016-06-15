@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.util.CollectionUtils;
+import com.kingbosky.commons.util.CollectionUtil;
 
 public class ParamUtils {
 
@@ -49,7 +49,7 @@ public class ParamUtils {
 	}
 	
     public static <T> String getKeyAndValueStr(Map<String, T> params){
-		if(CollectionUtils.isEmpty(params)) return "";
+		if(CollectionUtil.isEmpty(params)) return "";
 		StringBuilder sb = new StringBuilder();
         Map<String, String> paramsMap = new TreeMap<String, String>();
 		for (Map.Entry<String, T> entry : params.entrySet()) {
@@ -70,8 +70,8 @@ public class ParamUtils {
 		return sb.toString();
 	}
     
-    public static <T> String joinValueOnly(Map<String, T> params){
-    	if(CollectionUtils.isEmpty(params)) return "";
+    public static <T> String joinValue(Map<String, T> params){
+    	if(CollectionUtil.isEmpty(params)) return "";
     	StringBuilder sb = new StringBuilder();
         TreeMap<String, String> paramsMap = new TreeMap<String, String>();
 		for (Map.Entry<String, T> entry : params.entrySet()) {
@@ -90,7 +90,7 @@ public class ParamUtils {
     }
     
     public static <T> String joinValue(Map<String, T> params, char split){
-    	if(CollectionUtils.isEmpty(params)) return "";
+    	if(CollectionUtil.isEmpty(params)) return "";
 		StringBuilder sb = new StringBuilder();
         TreeMap<String, String> paramsMap = new TreeMap<String, String>();
 		for (Map.Entry<String, T> entry : params.entrySet()) {
@@ -112,7 +112,7 @@ public class ParamUtils {
 	}
 
 	public static <T> String joinKeyValue(Map<String, T> params){
-		if(CollectionUtils.isEmpty(params)) return "";
+		if(CollectionUtil.isEmpty(params)) return "";
     	StringBuilder sb = new StringBuilder();
         TreeMap<String, String> paramsMap = new TreeMap<String, String>();
 		for (Map.Entry<String, T> entry : params.entrySet()) {

@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.commons.lang.math.NumberUtils;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+
+import com.kingbosky.commons.util.NumberUtil;
 
 public class JedisClient {
 	private static JedisPool pool;
@@ -26,10 +26,9 @@ public class JedisClient {
 			ins = JedisClient.class.getResourceAsStream("/redis.properties");
 			prop.load(ins);
 			String ip = prop.getProperty("ip");
-			int port = NumberUtils.toInt(prop.getProperty("port"));
-			int maxTotal = NumberUtils.toInt(prop.getProperty("maxTotal"));
-			long maxWaitMillis = NumberUtils.toLong(prop
-					.getProperty("maxWaitMillis"));
+			int port = NumberUtil.getInt(prop.getProperty("port"));
+			int maxTotal = NumberUtil.getInt(prop.getProperty("maxTotal"));
+			long maxWaitMillis = NumberUtil.getLong(prop.getProperty("maxWaitMillis"));
 			JedisPoolConfig config = new JedisPoolConfig();
 			config.setMaxTotal(maxTotal);
 			config.setMaxIdle(Math.max(config.getMaxTotal() / 10, 10));

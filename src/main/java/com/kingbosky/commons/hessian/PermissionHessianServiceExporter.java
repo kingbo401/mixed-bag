@@ -1,4 +1,4 @@
-package com.kingbosky.commons.hessian4;
+package com.kingbosky.commons.hessian;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.remoting.caucho.HessianServiceExporter;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
-import com.kingbosky.commons.utils.SecurityUtils;
+import com.kingbosky.commons.encrypt.MD5Util;
+import com.kingbosky.commons.util.CollectionUtil;
+import com.kingbosky.commons.util.StringUtil;
 import com.kingbosky.commons.web.uitls.IPUtils;
 
 public class PermissionHessianServiceExporter extends HessianServiceExporter{
@@ -25,7 +25,7 @@ public class PermissionHessianServiceExporter extends HessianServiceExporter{
 	public void handleRequest(HttpServletRequest request,  
             HttpServletResponse response) throws ServletException, IOException {
 		//验证ip白名单
-		if(!CollectionUtils.isEmpty(whiteIpList)){
+		if(!CollectionUtil.isEmpty(whiteIpList)){
 			String ip = IPUtils.getIpAddr(request);
 			if(!whiteIpList.contains(ip)){
 				logger.error("ip:" + ip + " no access permission");
@@ -34,10 +34,10 @@ public class PermissionHessianServiceExporter extends HessianServiceExporter{
 			}
 		}
 		//验证签名
-		if(!StringUtils.isEmpty(secretKey)){
+		if(!StringUtil.isEmpty(secretKey)){
 	        String sign = request.getHeader("Signature-Sign");
 	        String timestamp = request.getHeader("Signature-Timestamp");
-	        if (!SecurityUtils.md5(timestamp + secretKey).equals(sign)){
+	        if (!MD5Util.encrypt(timestamp + secretKey).equals(sign)){
 	        	logger.error("sign error:timestamp=" + timestamp + ",sign=" + sign);
 	        	response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 	        	return;
@@ -65,7 +65,7 @@ public class PermissionHessianServiceExporter extends HessianServiceExporter{
 	} 
 	
 	public List<String> getWhiteIpList(){
-		if(!StringUtils.isEmpty(whiteIps)){
+		if(!StringUtil.isEmpty(whiteIps)){
 			return Arrays.asList(whiteIps.split(","));
 		}
 		return null;

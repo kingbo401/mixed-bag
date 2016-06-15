@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import com.kingbosky.commons.utils.MapObjectConvertor;
+import com.kingbosky.commons.util.MapObjectConvertor;
 
 public class JdbcOrmTemplate {
 	private NamedParameterJdbcDaoSupport jdbcDaoSupport = new NamedParameterJdbcDaoSupport();

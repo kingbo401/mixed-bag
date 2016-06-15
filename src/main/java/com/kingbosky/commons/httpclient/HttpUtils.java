@@ -50,9 +50,9 @@ import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
+import com.kingbosky.commons.util.CollectionUtil;
+import com.kingbosky.commons.util.StringUtil;
 import com.kingbosky.commons.web.uitls.ParamUtils;
 
 public class HttpUtils {
@@ -251,7 +251,7 @@ public class HttpUtils {
 				httpPost.setHeader(entry.getKey(), entry.getValue());
 			}
 		}
-		encode = StringUtils.isEmpty(encode) ? Consts.UTF_8.name() : encode;
+		encode = StringUtil.isEmpty(encode) ? Consts.UTF_8.name() : encode;
 
 		try {
 			HttpEntity requestEntity = new StringEntity(content, encode);
@@ -313,7 +313,7 @@ public class HttpUtils {
 		}
 
 		try {
-			httpPost.setEntity(new UrlEncodedFormEntity(paramPairs, StringUtils
+			httpPost.setEntity(new UrlEncodedFormEntity(paramPairs, StringUtil
 					.isEmpty(encode) ? Consts.UTF_8.name() : encode));
 			CloseableHttpResponse response = null;
 			try {
@@ -358,11 +358,11 @@ public class HttpUtils {
 			conn.setReadTimeout(soTimeout);
 			conn.setConnectTimeout(connectTimeout);
 			String params = ParamUtils.getKeyAndValueStr(paramMap);
-			if(!StringUtils.isEmpty(params)){
+			if(!StringUtil.isEmpty(params)){
 				fullUrl.append("?").append(params);
 			}
 			logger.info("SimpleHttp Post begin invoke:" + fullUrl.toString());
-			if(!CollectionUtils.isEmpty(paramMap)){
+			if(!CollectionUtil.isEmpty(paramMap)){
 				conn.setRequestProperty("Content-Length", String.valueOf(params.length()));  
 				conn.setDoOutput(true);
 				BufferedOutputStream bos = null;
@@ -412,7 +412,7 @@ public class HttpUtils {
 		HttpURLConnection conn = null;
 		String params = null;
 		StringBuilder fullUrl = new StringBuilder(url);
-		if(!CollectionUtils.isEmpty(paramMap)){
+		if(!CollectionUtil.isEmpty(paramMap)){
 			fullUrl.append("?");
 			params = ParamUtils.getKeyAndValueStr(paramMap);
 			fullUrl.append(params);

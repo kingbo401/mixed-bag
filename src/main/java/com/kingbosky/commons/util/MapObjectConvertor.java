@@ -1,4 +1,4 @@
-package com.kingbosky.commons.utils;
+package com.kingbosky.commons.util;
 
 import java.lang.reflect.Method;
 import java.sql.Timestamp;

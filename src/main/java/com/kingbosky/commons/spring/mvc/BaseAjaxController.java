@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
-import com.kingbosky.commons.utils.JsonUtils;
+import com.kingbosky.commons.util.JsonUtil;
 
 public class BaseAjaxController extends BaseController{
 	protected void outputJsonObject(HttpServletResponse response,Object o){
@@ -28,7 +28,7 @@ public class BaseAjaxController extends BaseController{
 	
 	public void outJsonp(HttpServletRequest request, HttpServletResponse response, Object object) {
 		String callback = request.getParameter("callback");
-		String string = JsonUtils.objectToJson(object);
+		String string = JsonUtil.objectToJson(object);
 		if (callback != null && callback.length() > 0) {
 			response.setContentType("text/javascript;charset=UTF-8");
 			string = (new StringBuilder()).append(callback).append("(").append(string).append(")").toString();
@@ -40,7 +40,7 @@ public class BaseAjaxController extends BaseController{
 
 	public void outJsonJsonp(HttpServletRequest request, HttpServletResponse response, Object object) {
 		String callback = request.getParameter("callback");
-		String string = JsonUtils.objectToJson(object);
+		String string = JsonUtil.objectToJson(object);
 		if (callback != null && callback.length() > 0) {
 			response.setContentType("text/javascript;charset=UTF-8");
 			string = (new StringBuilder()).append(callback).append("(").append(string).append(")").toString();

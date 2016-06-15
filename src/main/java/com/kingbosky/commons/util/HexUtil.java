@@ -1,6 +1,6 @@
-package com.kingbosky.commons.utils;
+package com.kingbosky.commons.util;
 
-public final class HexUtils {
+public final class HexUtil {
 
     private static final String HEX_CHARS = "0123456789abcdef";
 
@@ -13,8 +13,8 @@ public final class HexUtils {
     public static String toHexString(byte[] b) {
         StringBuffer sb = new StringBuffer();
         for (byte aB : b) {
-            sb.append(HexUtils.HEX_CHARS.charAt(aB >>> 4 & 0x0F));
-            sb.append(HexUtils.HEX_CHARS.charAt(aB & 0x0F));
+            sb.append(HexUtil.HEX_CHARS.charAt(aB >>> 4 & 0x0F));
+            sb.append(HexUtil.HEX_CHARS.charAt(aB & 0x0F));
         }
         return sb.toString();
     }

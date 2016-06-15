@@ -35,9 +35,9 @@ public class CookieUtils {
 		if ((cookies == null) || (cookies.length == 0)) {
 			return null;
 		}
-		for (Cookie cooky : cookies) {
-			if (cooky.getName().equals(key)) {
-				return cooky.getValue();
+		for (Cookie cookie : cookies) {
+			if (key.equals(cookie.getName())) {
+				return cookie.getValue();
 			}
 		}
 		return null;

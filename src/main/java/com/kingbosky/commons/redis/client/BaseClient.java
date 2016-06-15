@@ -4,8 +4,8 @@ import java.io.UnsupportedEncodingException;
 
 import redis.clients.jedis.Jedis;
 
+import com.kingbosky.commons.hessian.HessianSerializeUtil;
 import com.kingbosky.commons.redis.JedisClient;
-import com.kingbosky.commons.redis.SerializeUtil;
 
 public class BaseClient {
 	protected final String DFT_CHARSET = "UTF-8";
@@ -26,11 +26,11 @@ public class BaseClient {
 	}
 	
 	protected <T> T decode(byte[] data) {
-		return SerializeUtil.deserialize(data);
+		return HessianSerializeUtil.deserialize(data);
 	}
 	
 	protected byte[] encode(Object value) {
-		return SerializeUtil.serialize(value);
+		return HessianSerializeUtil.serialize(value);
 	}
 	
 	protected byte[] getBytes(String str) {

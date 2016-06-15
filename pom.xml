@@ -232,6 +232,12 @@
 		</dependency>
 		
 		<dependency>
+		    <groupId>dom4j</groupId>
+		    <artifactId>dom4j</artifactId>
+		    <version>${dom4j.version}</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
@@ -248,6 +254,7 @@
     <properties>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     	<spring.version>3.2.3.RELEASE</spring.version>
+    	<dom4j.version>1.6.1</dom4j.version>
 		<junit.version>4.11</junit.version>
 		<derby.version>10.12.1.1</derby.version>
 		<jdk.version>1.6</jdk.version>

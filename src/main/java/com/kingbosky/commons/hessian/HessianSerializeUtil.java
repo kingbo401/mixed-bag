@@ -1,4 +1,4 @@
-package com.kingbosky.commons.redis;
+package com.kingbosky.commons.hessian;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,7 +8,7 @@ import com.caucho.hessian.io.Hessian2Input;
 import com.caucho.hessian.io.Hessian2Output;
 import com.caucho.hessian.io.SerializerFactory;
 
-public class SerializeUtil {
+public class HessianSerializeUtil {
 
 	private static final SerializerFactory _serializerFactory = new SerializerFactory();
 

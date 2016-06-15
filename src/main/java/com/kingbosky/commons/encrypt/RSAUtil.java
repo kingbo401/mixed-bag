@@ -1,4 +1,4 @@
-package com.kingbosky.commons.utils;
+package com.kingbosky.commons.encrypt;
 
 import java.io.ByteArrayOutputStream;
 import java.security.Key;
@@ -22,7 +22,7 @@ import org.apache.commons.codec.binary.Base64;
 
 /** 
  */
-public class RSAUtils {
+public class RSAUtil {
 
 	/** */
 	/**

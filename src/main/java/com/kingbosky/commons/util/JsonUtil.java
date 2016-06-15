@@ -1,4 +1,4 @@
-package com.kingbosky.commons.utils;
+package com.kingbosky.commons.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,16 +6,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonParser.Feature;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.JavaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JsonUtils {
+public class JsonUtil {
 
-	private final static Logger logger = LoggerFactory.getLogger(JsonUtils.class);
+	private final static Logger logger = LoggerFactory.getLogger(JsonUtil.class);
 	private static ObjectMapper mapper = new ObjectMapper();
 
 	static {
@@ -72,7 +71,7 @@ public class JsonUtils {
 	@SuppressWarnings("unchecked")
 	public static Map<String, Object> parse(String str) {
 		Map<String, Object> retMap = null;
-		if (StringUtils.isBlank(str)) {
+		if (StringUtil.isEmpty(str)) {
 			return null;
 		}
 		try {
@@ -92,7 +91,7 @@ public class JsonUtils {
 	@SuppressWarnings("unchecked")
 	public static Map<String, String> parseToStringMap(String str) {
 		Map<String, String> retMap = null;
-		if (StringUtils.isBlank(str)) {
+		if (StringUtil.isEmpty(str)) {
 			return null;
 		}
 		try {
@@ -112,7 +111,7 @@ public class JsonUtils {
 	 */
 	public static <T> T parseToObject(String str, Class<T> t) {
 		T object = null;
-		if (StringUtils.isBlank(str)) {
+		if (StringUtil.isEmpty(str)) {
 			return null;
 		}
 		try {
@@ -134,7 +133,7 @@ public class JsonUtils {
 	@SuppressWarnings("unchecked")
 	public static List<Map<String, Object>> parseArray(String str) {
 		List<Map<String, Object>> array = null;
-		if (StringUtils.isBlank(str)) {
+		if (StringUtil.isEmpty(str)) {
 			return null;
 		}
 		try {
@@ -154,7 +153,7 @@ public class JsonUtils {
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> parseToList(String jsonStr, Class<T> clazz) {
 		List<T> list = null;
-		if (StringUtils.isBlank(jsonStr)) {
+		if (StringUtil.isEmpty(jsonStr)) {
 			return null;
 		}
 		try {
@@ -178,7 +177,7 @@ public class JsonUtils {
 	public static <T> Object parseToCollection(String jsonStr, Class<? extends Collection> collectionClass,
 			Class<T> clazz) {
 		Object collectionObj = null;
-		if (StringUtils.isBlank(jsonStr)) {
+		if (StringUtil.isEmpty(jsonStr)) {
 			return null;
 		}
 		try {
@@ -200,7 +199,7 @@ public class JsonUtils {
 	 */
 	public static <T> T parseToGeneric(String jsonStr, Class<T> genericClass, Class<?>... parameterClasses) {
 		T genericObject = null;
-		if (StringUtils.isBlank(jsonStr)) {
+		if (StringUtil.isEmpty(jsonStr)) {
 			return null;
 		}
 		try {
@@ -223,7 +222,7 @@ public class JsonUtils {
 	 */
 	public static <T> T parseToGeneric(String jsonStr, Class<T> genericClass, JavaType... parameterClasses) {
 		T genericObject = null;
-		if (StringUtils.isBlank(jsonStr)) {
+		if (StringUtil.isEmpty(jsonStr)) {
 			return null;
 		}
 		try {

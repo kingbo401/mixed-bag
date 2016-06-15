@@ -1,12 +1,9 @@
 package com.kingbosky.commons.lock;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Transaction;
 
 import com.kingbosky.commons.redis.JedisClient;
 
@@ -33,23 +30,11 @@ public class RedisDistributedLock implements ILock{
 					logger.error("Redis Connect Exception");
 					return true;
 				}
-//				if("OK".equals(jedis.set(key, "1", "NX", "PX", expire))){
-//					logger.info("get lock : " + key);
-//					return true;
-//				}
-				//线上redis是2.4版本，不支持上面的命令，运维不给改，哎；只能用下面的方式实现
-				
-				Transaction trans = jedis.multi();
-				trans.setnx(key, "1");
-				trans.expire(key, expire);
-				List<Object> lst = trans.exec();
-				if((Long)lst.get(0) == 1 && (Long) lst.get(1) != 1){
-					//set成功，expire失败，删除key，这种概率几乎为0
-					jedis.del(key);
-				}
-				if((Long)lst.get(0) == 1 && (Long) lst.get(1) == 1){
+				if("OK".equals(jedis.set(key, "1", "NX", "PX", expire))){
+					logger.info("get lock : " + key);
 					return true;
 				}
+				
 			}finally{
 				if(jedis != null)
 					jedis.close();
