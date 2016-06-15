@@ -209,32 +209,38 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-lgpl</artifactId>
 			<version>${jackson.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-lgpl</artifactId>
 			<version>${jackson.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-xc</artifactId>
 			<version>${jackson.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 		    <groupId>com.caucho</groupId>
 		    <artifactId>hessian</artifactId>
 		    <version>${hessian.version}</version>
+		    <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>${jedis.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
 		    <groupId>dom4j</groupId>
 		    <artifactId>dom4j</artifactId>
 		    <version>${dom4j.version}</version>
+		    <scope>provided</scope>
 		</dependency>
 		
 		<dependency>
