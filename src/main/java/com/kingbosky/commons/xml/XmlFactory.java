@@ -1,7 +1,3 @@
-/**
- * $Id$
- * Copyright(C) 2011-2016 dreamingame.com. All rights reserved.
- */
 package com.kingbosky.commons.xml;
 
 import java.io.File;
@@ -19,12 +15,6 @@ import com.kingbosky.commons.util.CloseUtil;
 import com.kingbosky.commons.xml.core.XmlCreatorBase;
 import com.kingbosky.commons.xml.core.XmlParserBase;
 
-/**
- * 
- * @author <a href="mailto:shiyang.zhao@dreamingame.com">Rex Zhao</a>
- * @version 1.0
- * @since 1.0 Dec 20, 2011 1:55:48 AM
- */
 public class XmlFactory {
 
 	private XmlFactory() {}

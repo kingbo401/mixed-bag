@@ -1,7 +1,3 @@
-/**
- * $Id$
- * Copyright(C) 2011-2016 dreamingame.com All rights reserved.
- */
 package com.kingbosky.commons.xml.core;
 
 import java.util.List;
@@ -14,11 +10,6 @@ import org.dom4j.Node;
 import com.kingbosky.commons.util.StringUtil;
 import com.kingbosky.commons.xml.XmlParser;
 
-/**
- * 
- * @author <a href="mailto:shiyang.zhao@dreamingame.com">Rex Zhao</a>
- * @version 1.0 Dec 23, 2011 2:09:02 PM
- */
 public class XmlParserBase implements XmlParser {
 
 	protected final Document doc;

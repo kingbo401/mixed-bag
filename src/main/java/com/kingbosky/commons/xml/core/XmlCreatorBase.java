@@ -1,7 +1,3 @@
-/**
- * $Id: XmlCreatorBase.java 494 2012-01-09 17:05:27Z shiyang.zhao $
- * Copyright(C) 2011-2016 dreamingame.com All rights reserved.
- */
 package com.kingbosky.commons.xml.core;
 
 import java.io.ByteArrayOutputStream;
@@ -23,11 +19,6 @@ import com.kingbosky.commons.util.StringUtil;
 import com.kingbosky.commons.xml.XmlCreator;
 import com.kingbosky.commons.xml.XmlParser;
 
-/**
- * 
- * @author <a href="mailto:shiyang.zhao@dreamingame.com">Rex Zhao</a>
- * @version 1.0 2012-1-7 下午2:05:46
- */
 public class XmlCreatorBase implements XmlCreator {
 
 	private final Document doc;

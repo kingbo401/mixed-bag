@@ -1,7 +1,3 @@
-/**
- * $Id$
- * Copyright(C) 2011-2016 dreamingame.com. All rights reserved.
- */
 package com.kingbosky.commons.util;
 
 import java.io.Closeable;
@@ -15,12 +11,6 @@ import java.sql.Statement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * 
- * @author <a href="mailto:shiyang.zhao@dreamingame.com">Rex Zhao</a>
- * @version 1.0
- * @since 1.0 Sep 26, 2011 10:25:16 AM
- */
 public class CloseUtil {
 
 	private static final CloseUtil instance = new CloseUtil();

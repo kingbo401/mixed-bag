@@ -1,7 +1,3 @@
-/**
- * $Id: IOUtil.java 474 2012-01-07 07:21:02Z shiyang.zhao $
- * Copyright(C) 2011-2016 dreamingame.com All rights reserved.
- */
 package com.kingbosky.commons.util;
 
 import java.io.BufferedInputStream;
@@ -19,12 +15,6 @@ import java.io.OutputStreamWriter;
 import java.util.List;
 
 import com.kingbosky.commons.exception.GeneralException;
-
-/**
- * 
- * @author <a href="mailto:shiyang.zhao@dreamingame.com">Rex Zhao</a>
- * @version 1.0 2011-12-28 上午1:40:22
- */
 public class IOUtil {
 
 	private final static IOUtil instance = new IOUtil();

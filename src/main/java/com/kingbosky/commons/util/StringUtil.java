@@ -1,7 +1,3 @@
-/**
- * $Id$
- * Copyright(C) 2011-2016 dreamingame.com All rights reserved.
- */
 package com.kingbosky.commons.util;
 
 import java.io.UnsupportedEncodingException;
@@ -15,8 +11,6 @@ import com.kingbosky.commons.exception.GeneralException;
 
 /**
  * 字符串工具类
- * @author <a href="mailto:shiyang.zhao@dreamingame.com">Rex Zhao</a>
- * @version 1.0 2011-09-26 00:51:58
  */
 public class StringUtil {
 	/** 单例 */

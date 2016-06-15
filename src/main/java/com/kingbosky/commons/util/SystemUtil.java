@@ -1,17 +1,5 @@
-/**
- * $Id$
- * Copyright(C) 2011-2016 dreamingame.com All rights reserved.
- */
 package com.kingbosky.commons.util;
 
-
-
-
-/**
- * 
- * @author <a href="mailto:shiyang.zhao@dreamingame.com">Rex Zhao</a>
- * @version 1.0 2011-11-27 01:35:05
- */
 public class SystemUtil {
 	
 	private static final SystemUtil instance = new SystemUtil();

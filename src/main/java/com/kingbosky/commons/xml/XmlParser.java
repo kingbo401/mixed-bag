@@ -1,7 +1,3 @@
-/**
- * $Id$
- * Copyright(C) 2011-2016 dreamingame.com All rights reserved.
- */
 package com.kingbosky.commons.xml;
 
 import java.util.List;
@@ -10,11 +6,6 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
-/**
- * 
- * @author <a href="mailto:shiyang.zhao@dreamingame.com">Rex Zhao</a>
- * @version 1.0 Dec 23, 2011 2:07:16 PM
- */
 public interface XmlParser {
 
 	public Document document();

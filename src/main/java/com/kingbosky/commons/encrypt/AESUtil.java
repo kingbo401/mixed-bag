@@ -1,7 +1,3 @@
-/**
- * $Id: AESUtil.java 1736 2012-11-27 06:48:17Z shiyang.zhao $
- * Copyright(C) 2011-2016 dreamingame.com All rights reserved.
- */
 package com.kingbosky.commons.encrypt;
 
 import java.security.Key;
@@ -13,11 +9,6 @@ import com.kingbosky.commons.exception.GeneralException;
 import com.kingbosky.commons.util.Constants;
 import com.kingbosky.commons.util.StringUtil;
 
-/**
- * 
- * @author <a href="mailto:shiyang.zhao@dreamingame.com">Zhao Rex</a>
- * @version 1.0 2012-11-16 下午6:45:17
- */
 public class AESUtil {
 
 	private final static String HEX = "0123456789ABCDEF";
