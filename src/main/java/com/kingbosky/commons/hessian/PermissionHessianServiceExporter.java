@@ -15,7 +15,7 @@ import org.springframework.remoting.caucho.HessianServiceExporter;
 import com.kingbosky.commons.encrypt.MD5Util;
 import com.kingbosky.commons.util.CollectionUtil;
 import com.kingbosky.commons.util.StringUtil;
-import com.kingbosky.commons.web.uitls.IPUtils;
+import com.kingbosky.commons.web.util.IPUtil;
 
 public class PermissionHessianServiceExporter extends HessianServiceExporter{
 	private final static Logger logger = LoggerFactory.getLogger(PermissionHessianServiceExporter.class);
@@ -26,7 +26,7 @@ public class PermissionHessianServiceExporter extends HessianServiceExporter{
             HttpServletResponse response) throws ServletException, IOException {
 		//验证ip白名单
 		if(!CollectionUtil.isEmpty(whiteIpList)){
-			String ip = IPUtils.getIpAddr(request);
+			String ip = IPUtil.getIpAddr(request);
 			if(!whiteIpList.contains(ip)){
 				logger.error("ip:" + ip + " no access permission");
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);

@@ -1,10 +1,10 @@
-package com.kingbosky.commons.web.uitls;
+package com.kingbosky.commons.web.util;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CookieUtils {
+public class CookieUtil {
 
 	/**
 	 * 添加cookie

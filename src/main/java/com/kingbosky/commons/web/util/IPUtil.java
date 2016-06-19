@@ -1,4 +1,4 @@
-package com.kingbosky.commons.web.uitls;
+package com.kingbosky.commons.web.util;
 
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.kingbosky.commons.util.StringUtil;
 
-public class IPUtils {
+public class IPUtil {
 	private static final String ipPattern = "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9]{1,2})(\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9]{1,2})){3}$";   
 	
 	public static boolean isValidIp(String ip){

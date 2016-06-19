@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
 
 import com.kingbosky.commons.util.CollectionUtil;
 import com.kingbosky.commons.util.StringUtil;
-import com.kingbosky.commons.web.uitls.ParamUtils;
+import com.kingbosky.commons.web.util.ParamUtil;
 
 public class HttpUtils {
 	private final static Logger logger = LoggerFactory.getLogger(HttpUtils.class);
@@ -357,7 +357,7 @@ public class HttpUtils {
 			conn.setDoInput(true);
 			conn.setReadTimeout(soTimeout);
 			conn.setConnectTimeout(connectTimeout);
-			String params = ParamUtils.getKeyAndValueStr(paramMap);
+			String params = ParamUtil.getKeyAndValueStr(paramMap);
 			if(!StringUtil.isEmpty(params)){
 				fullUrl.append("?").append(params);
 			}
@@ -414,7 +414,7 @@ public class HttpUtils {
 		StringBuilder fullUrl = new StringBuilder(url);
 		if(!CollectionUtil.isEmpty(paramMap)){
 			fullUrl.append("?");
-			params = ParamUtils.getKeyAndValueStr(paramMap);
+			params = ParamUtil.getKeyAndValueStr(paramMap);
 			fullUrl.append(params);
 		}
 		logger.info("SimpleHttp Get begin invoke:" + fullUrl.toString());

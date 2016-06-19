@@ -1,4 +1,4 @@
-package com.kingbosky.commons.web.uitls;
+package com.kingbosky.commons.web.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.kingbosky.commons.util.CollectionUtil;
 
-public class ParamUtils {
+public class ParamUtil {
 
 	public static String urlEncode(String s, String charset) {
 		if(s == null || "".equals(s)) return "";
