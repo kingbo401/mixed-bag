@@ -19,14 +19,9 @@ import com.kingbosky.commons.util.MapObjectConvertor;
 
 public class JdbcOrmTemplate {
 	private NamedParameterJdbcDaoSupport jdbcDaoSupport = new NamedParameterJdbcDaoSupport();
-	private DataSource dataSource;
 	private boolean mapUnderscoreToCamelCase = true;
-	public DataSource getDataSource() {
-		return dataSource;
-	}
 
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+	public final void setDataSource(DataSource dataSource) {
 		jdbcDaoSupport.setDataSource(dataSource);
 	}
 	
