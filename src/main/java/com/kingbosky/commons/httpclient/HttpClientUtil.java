@@ -1,13 +1,6 @@
 package com.kingbosky.commons.httpclient;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.nio.charset.CodingErrorAction;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -55,8 +48,8 @@ import com.kingbosky.commons.util.CollectionUtil;
 import com.kingbosky.commons.util.StringUtil;
 import com.kingbosky.commons.web.util.ParamUtil;
 
-public class HttpUtils {
-	private final static Logger logger = LoggerFactory.getLogger(HttpUtils.class);
+public class HttpClientUtil {
+	private final static Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
 	// http client
 	public static PoolingHttpClientConnectionManager httpConnManager = null;
 	private static CloseableHttpClient httpClient = null;
@@ -135,38 +128,23 @@ public class HttpUtils {
 			
 			httpClient = HttpClients.custom().setConnectionManager(httpConnManager).setKeepAliveStrategy(keepAliveStrategy).build();
 		} catch (Exception e) {
-			logger.error("InitHttpClient Exception:", e);
+			logger.error("Init HttpClient Exception:", e);
 		}
 	}
 	
 	public static String httpClientGet(String url, Map<String, String> params, String encode, int connectTimeout,
 			int soTimeout) {
-		return httpClientGet(url, params, null, encode, connectTimeout, soTimeout);
+		return get(url, params, null, encode, connectTimeout, soTimeout);
 	}
-	public static String httpClientGet(String url, Map<String, String> params,
+	public static String get(String url, Map<String, String> params,
 			Map<String, String> headers, String encode, int connectTimeout,
 			int soTimeout) {
-		StringBuilder fullUrl = new StringBuilder();
-		fullUrl.append(url);
-		int i = 0;
-		for (Entry<String, String> entry : params.entrySet()) {
-			if (i == 0 && !url.contains("?")) {
-				fullUrl.append("?");
-			} else {
-				fullUrl.append("&");
-			}
-			fullUrl.append(entry.getKey());
-			fullUrl.append("=");
-			String value = entry.getValue();
-			try {
-				fullUrl.append(URLEncoder.encode(value, "UTF-8"));
-			} catch (UnsupportedEncodingException e) {
-				logger.warn("encode http get params error, value is " + value,
-						e);
-			}
-			i++;
+		StringBuilder logMsg = new StringBuilder();
+		logMsg.append("url : ").append(url).append(", params: ").append(ParamUtil.getKeyAndValueStr(params)).append(", headers : ").append(headers);
+		StringBuilder fullUrl = new StringBuilder(url);
+		if(!CollectionUtil.isEmpty(params)){
+			fullUrl.append("?").append(ParamUtil.getKeyAndValueStr(params, true));
 		}
-		logger.info("HttpClient Get begin invoke:" + fullUrl.toString());
 		HttpGet httpGet = new HttpGet(fullUrl.toString());
 		RequestConfig config = RequestConfig.custom()
 				.setSocketTimeout(soTimeout).setConnectTimeout(connectTimeout)
@@ -188,7 +166,7 @@ public class HttpUtils {
 				if (entity != null) {
 					result = EntityUtils.toString(entity, Consts.UTF_8);
 				}
-				logger.info("HttpClient Get RequestUri : " + fullUrl.toString()
+				logger.info("HttpUtils HttpClient Get Result : " + logMsg
 						+ ", Response status code : " + statusCode
 						+ ", Response content : " + result);
 				return result;
@@ -199,7 +177,7 @@ public class HttpUtils {
 			}
 		} catch (Exception e) {
 			httpGet.abort();
-			logger.error(String.format("HttpClient Get error, url:%s", fullUrl.toString()), e);
+			logger.error("HttpClient Get error :" + logMsg, e);
 		} finally {
 			try {
 				httpClient.close();
@@ -220,8 +198,8 @@ public class HttpUtils {
 	 * @param soTimeout
 	 * @return
 	 */
-	public static String httpClientPost(String url, String content, String encode, int connectTimeout, int soTimeout) {
-		return httpClientPost(url, content, null, encode, connectTimeout, soTimeout);
+	public static String post(String url, String content, String encode, int connectTimeout, int soTimeout) {
+		return post(url, content, null, encode, connectTimeout, soTimeout);
 	}
 
 	/**
@@ -235,11 +213,14 @@ public class HttpUtils {
 	 * @param soTimeout
 	 * @return
 	 */
-	public static String httpClientPost(String url, String content, Map<String, String> headers, String encode,
+	public static String post(String url, String content, Map<String, String> headers, String encode,
 			int connectTimeout, int soTimeout) {
 		if (content == null || content.length() == 0) {
 			throw new IllegalArgumentException();
 		}
+		StringBuilder logMsg = new StringBuilder();
+		logMsg.append("url : ").append(url).append(", params : ")
+				.append(content).append(", headers : ").append(headers);
 		HttpPost httpPost = new HttpPost(url);
 		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(soTimeout)
 				.setConnectTimeout(connectTimeout).setConnectionRequestTimeout(connectTimeout)
@@ -265,7 +246,9 @@ public class HttpUtils {
 				if (entity != null) {
 					result = EntityUtils.toString(entity, Consts.UTF_8);
 				}
-				logger.info("[HttpUtils POST] RequestUri : " + url +" content:" + content  + ", Response status code : " + statusCode + ", Response content : " + result);
+				logger.info("HttpClient POST Result : " + logMsg  
+						+ ", Response status code : " + statusCode 
+						+ ", Response content : " + result);
 				return result;
 			} finally {
 				if (response != null) {
@@ -274,23 +257,22 @@ public class HttpUtils {
 			}
 		}catch (Exception e) {
 			httpPost.abort();
-			logger.error(String.format("[HttpUtils Post]HttpClient POST error, url:%s", url), e);
+			logger.error("HttpClient Post error : " + logMsg, e);
 		}
 		return null;
 	}
 
-	public static String httpClientPost(String url, Map<String, String> params, String encode, int connectTimeout,
+	public static String post(String url, Map<String, String> params, String encode, int connectTimeout,
 			int soTimeout){
-		return httpClientPost(url, params, null, encode, connectTimeout, soTimeout);
+		return post(url, params, null, encode, connectTimeout, soTimeout);
 	}
-	public static String httpClientPost(String url, Map<String, String> params,
+	public static String post(String url, Map<String, String> params,
 			Map<String, String> headers, String encode, int connectTimeout,
 			int soTimeout) {
-		StringBuilder fullUrl = new StringBuilder();
-		fullUrl.append("url : ").append(url).append(", params : ")
-				.append(params.toString());
+		StringBuilder logMsg = new StringBuilder();
+		logMsg.append("url : ").append(url).append(", params : ")
+				.append(ParamUtil.getKeyAndValueStr(params)).append(", headers : ").append(headers);
 
-		logger.info("[HttpClient POST] Begin post, " + fullUrl.toString());
 		List<NameValuePair> paramPairs = new ArrayList<NameValuePair>();
 		if (params != null && !params.isEmpty()) {
 			for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -324,7 +306,7 @@ public class HttpUtils {
 				if (entity != null) {
 					result = EntityUtils.toString(entity, Consts.UTF_8);
 				}
-				logger.info("HttpClient POST RequestUri : " + fullUrl.toString()
+				logger.info("HttpClient POST Result : " + logMsg
 						+ ", Response status code : " + statusCode
 						+ ", Response content : " + result);
 				return result;
@@ -335,122 +317,8 @@ public class HttpUtils {
 			}
 		} catch (Exception e) {
 			httpPost.abort();
-			logger.error(String.format("HttpClient POST error, url:%s", fullUrl.toString()), e);
-		} finally {
-			try {
-				httpClient.close();
-			} catch (IOException e) {
-				logger.error("Exception", e);
-			}
-		}
-		return null;
-	}
-	
-	
-	
-	public static String simpleHttpPost(String url, Map<String, String> paramMap, String encode, int connectTimeout, int soTimeout) {
-		HttpURLConnection conn = null;
-		StringBuilder fullUrl = new StringBuilder(url);
-		try {
-			conn = (HttpURLConnection) new URL(url).openConnection();
-			conn.setRequestMethod("POST");
-			conn.setDoInput(true);
-			conn.setReadTimeout(soTimeout);
-			conn.setConnectTimeout(connectTimeout);
-			String params = ParamUtil.getKeyAndValueStr(paramMap);
-			if(!StringUtil.isEmpty(params)){
-				fullUrl.append("?").append(params);
-			}
-			logger.info("SimpleHttp Post begin invoke:" + fullUrl.toString());
-			if(!CollectionUtil.isEmpty(paramMap)){
-				conn.setRequestProperty("Content-Length", String.valueOf(params.length()));  
-				conn.setDoOutput(true);
-				BufferedOutputStream bos = null;
-				try{
-					bos = new BufferedOutputStream(conn.getOutputStream());
-					bos.write(params.getBytes(encode));
-					bos.flush();
-				}catch(Exception e){
-					logger.error("Exception SimpleHttp : " + fullUrl, e);
-				}finally{
-					if(bos != null){
-						bos.close();
-					}
-				}
-			}
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			InputStream is = conn.getInputStream();
-			try{
-				int n;
-				byte[] b = new byte[4096];
-				while ((n = is.read(b, 0, b.length)) != -1) {
-					baos.write(b, 0, n);
-				}
-				String result = baos.toString(encode);
-				logger.info("SimpleHttp Post RequestUri : " + fullUrl.toString()
-						+ ", Response status code : " + conn.getResponseCode()
-						+ ", Response content : " + result);
-				return result;
-			}finally{
-				if(baos != null){
-					baos.close();
-				}
-				if(is != null){
-					is.close();
-				}
-			}
-		} catch (Exception e) {
-			logger.error("Exception SimpleHttp : " + fullUrl, e);
-		} finally {
-			if (conn != null)
-				conn.disconnect();
-		}
-		return null;
-	}
-
-	public static String simpleHttpGet(String url, Map<String, String> paramMap, String encode, int connectTimeout, int soTimeout) {
-		HttpURLConnection conn = null;
-		String params = null;
-		StringBuilder fullUrl = new StringBuilder(url);
-		if(!CollectionUtil.isEmpty(paramMap)){
-			fullUrl.append("?");
-			params = ParamUtil.getKeyAndValueStr(paramMap);
-			fullUrl.append(params);
-		}
-		logger.info("SimpleHttp Get begin invoke:" + fullUrl.toString());
-		try {
-			conn = (HttpURLConnection) new URL(fullUrl.toString()).openConnection();
-			conn.setRequestMethod("GET");
-			conn.setDoInput(true);
-			conn.setReadTimeout(soTimeout);
-			conn.setConnectTimeout(connectTimeout);
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			InputStream is = conn.getInputStream();
-			try{
-				int n;
-				byte[] b = new byte[4096];
-				while ((n = is.read(b, 0, b.length)) != -1) {
-					baos.write(b, 0, n);
-				}
-				String result = baos.toString(encode);
-				logger.info("SimpleHttp Get RequestUri : " + fullUrl.toString()
-						+ ", Response status code : " + conn.getResponseCode()
-						+ ", Response content : " + result);
-				return result;
-			}finally{
-				if(baos != null){
-					baos.close();
-				}
-				if(is != null){
-					is.close();
-				}
-			}
-		} catch (Exception e) {
-			logger.error("SimpleHttp : " + fullUrl, e);
-		} finally {
-			if (conn != null)
-				conn.disconnect();
-		}
+			logger.error("HttpClient POST error :" + logMsg, e);
+		} 
 		return null;
 	}
 }

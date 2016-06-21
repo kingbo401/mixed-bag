@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 
 import com.kingbosky.commons.util.CollectionUtil;
+import com.kingbosky.commons.util.Constants;
 
 public class ParamUtil {
 
@@ -49,6 +50,10 @@ public class ParamUtil {
 	}
 	
     public static <T> String getKeyAndValueStr(Map<String, T> params){
+		return getKeyAndValueStr(params, false);
+	}
+    
+    public static <T> String getKeyAndValueStr(Map<String, T> params, boolean urlEncode){
 		if(CollectionUtil.isEmpty(params)) return "";
 		StringBuilder sb = new StringBuilder();
         Map<String, String> paramsMap = new TreeMap<String, String>();
@@ -62,7 +67,11 @@ public class ParamUtil {
 			}
         }
 		for (Map.Entry<String, String> entry : paramsMap.entrySet()){
-            sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+			String value = entry.getValue();
+			if(urlEncode){
+				value = urlEncode(value, Constants.DFT_CHARSET);
+			}
+            sb.append(entry.getKey()).append("=").append(value).append("&");
 		}
 		if(sb.length() > 0){
 			sb.deleteCharAt(sb.length() - 1);

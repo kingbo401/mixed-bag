@@ -12,7 +12,7 @@ public class IdleConnectionMonitorServletListener implements ServletContextListe
 	
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		execs.execute(IdleConnectionMonitorThread.instance(HttpUtils.httpConnManager));
+		execs.execute(IdleConnectionMonitorThread.instance(HttpClientUtil.httpConnManager));
 	}
 
 	@Override
