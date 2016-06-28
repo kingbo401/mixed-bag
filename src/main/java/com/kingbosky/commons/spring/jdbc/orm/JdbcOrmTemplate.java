@@ -34,12 +34,12 @@ public class JdbcOrmTemplate {
 	}
 
 	public int insert(String sql, Object obj){
-		Map<String, Object> params = MapObjectConvertor.convertObjectToMap(obj);
+		Map<String, Object> params = convertObjectToMap(obj);
 		return jdbcDaoSupport.getNamedParameterJdbcTemplate().update(sql, params);
 	}
 	
 	public long insertGetGeneratedKey(String sql, Object obj){
-		Map<String, Object> params = MapObjectConvertor.convertObjectToMap(obj);
+		Map<String, Object> params = convertObjectToMap(obj);
 		KeyHolder generatedKeyHolder = new GeneratedKeyHolder();  
 		jdbcDaoSupport.getNamedParameterJdbcTemplate().update(sql, new MapSqlParameterSource(params), generatedKeyHolder);
 		return generatedKeyHolder.getKey().longValue();
@@ -54,7 +54,7 @@ public class JdbcOrmTemplate {
 	}
 
 	public int update(String sql, Object obj){
-		Map<String, Object> params = MapObjectConvertor.convertObjectToMap(obj);
+		Map<String, Object> params = convertObjectToMap(obj);
 		return jdbcDaoSupport.getNamedParameterJdbcTemplate().update(sql, params);
 	}
 	
@@ -74,7 +74,7 @@ public class JdbcOrmTemplate {
 		List<Map<String, ?>> mapList = new ArrayList<Map<String, ?>>();
 		for(int i = 0; i < len; i++){
 			Object object = paramsList.get(i);
-			mapList.add(MapObjectConvertor.convertObjectToMap(object));
+			mapList.add(convertObjectToMap(object));
 		}
 		return batchUpdate1(sql, mapList);
 	}
@@ -83,7 +83,7 @@ public class JdbcOrmTemplate {
 		if (clazz == null) {
 			return null;
 		}
-		List<Map<String, Object>> mapList = jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForList(sql, MapObjectConvertor.convertObjectToMap(obj));
+		List<Map<String, Object>> mapList = jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForList(sql, convertObjectToMap(obj));
 		return convertToObjectList(mapList, clazz);
 	}
 	
@@ -137,7 +137,7 @@ public class JdbcOrmTemplate {
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
-		return MapObjectConvertor.converMapToObject(map, clazz, mapUnderscoreToCamelCase);
+		return convertMapToObject(map, clazz);
 	}
 
 	public <T> T queryForObject0(String sql, Class<T> clazz, Object... params){
@@ -150,7 +150,7 @@ public class JdbcOrmTemplate {
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
-		return MapObjectConvertor.converMapToObject(tempMap, clazz, mapUnderscoreToCamelCase);
+		return convertMapToObject(tempMap, clazz);
 	}
 	public <T> T queryForObject(String sql, Class<T> clazz, Object obj){
 		if (clazz == null) {
@@ -158,11 +158,11 @@ public class JdbcOrmTemplate {
 		}
 		Map<String, Object> map = null;
 		try {
-			map = jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForMap(sql, MapObjectConvertor.convertObjectToMap(obj));
+			map = jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForMap(sql, convertObjectToMap(obj));
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
-		return MapObjectConvertor.converMapToObject(map, clazz, mapUnderscoreToCamelCase);
+		return convertMapToObject(map, clazz);
 	}
 	
 	public List<Map<String, Object>> queryForList1(String sql, Map<String, ?> params){
@@ -174,7 +174,7 @@ public class JdbcOrmTemplate {
 	}
 
 	public List<Map<String, Object>> queryForList(String sql, Object obj){
-		return jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForList(sql, MapObjectConvertor.convertObjectToMap(obj));
+		return jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForList(sql, convertObjectToMap(obj));
 	}
 	
 	public Map<String, Object> queryForMap1(String sql, Map<String, ?> params){
@@ -195,7 +195,7 @@ public class JdbcOrmTemplate {
 	
 	public Map<String, Object> queryForMap(String sql, Object obj) {
 		try{
-			return jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForMap(sql, MapObjectConvertor.convertObjectToMap(obj));
+			return jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForMap(sql, convertObjectToMap(obj));
 		}catch(EmptyResultDataAccessException e){
 			return null;
 		}
@@ -208,9 +208,17 @@ public class JdbcOrmTemplate {
 		Iterator<Map<String, Object>> iter = mapList.iterator();
 		while (iter.hasNext()) {
 			map = (Map<String, Object>) iter.next();
-			obj = MapObjectConvertor.converMapToObject(map, clazz, mapUnderscoreToCamelCase);
+			obj = convertMapToObject(map, clazz);
 			resultList.add(obj);
 		}
 		return resultList;
+	}
+	
+	private <T> T convertMapToObject(Map<String, Object> dataMap, Class<T> clazz){
+		return MapObjectConvertor.convertMapToObject(dataMap, clazz, mapUnderscoreToCamelCase);
+	}
+	
+	private Map<String, Object> convertObjectToMap(Object obj){
+		return MapObjectConvertor.convertObjectToMap(obj);
 	}
 }

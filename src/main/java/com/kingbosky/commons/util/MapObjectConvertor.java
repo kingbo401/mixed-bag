@@ -98,7 +98,7 @@ public class MapObjectConvertor {
 //	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T> T converMapToObject(Map<String, Object> dataMap, Class<T> clazz, boolean mapUnderscoreToCamelCase) {
+	public static <T> T convertMapToObject(Map<String, Object> dataMap, Class<T> clazz, boolean mapUnderscoreToCamelCase) {
 		if (dataMap == null || clazz == null || clazz.equals(Void.class)) return null;
 		Object obj = null;
 		if(isSingleFieldClass(clazz)){//只有一列
