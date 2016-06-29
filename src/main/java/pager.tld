@@ -6,10 +6,10 @@
     <tlib-version>1.0</tlib-version>
     <jsp-version>1.2</jsp-version>
     <short-name>pager</short-name>
-    <uri>http://zhidao.wanmei.com/tags/pager</uri>
+    <uri>http://www.kingbosky.com/tags/pager</uri>
     <tag>
         <name>pager</name>
-        <tag-class>com.wanmei.zhidao.tag.PagerTag</tag-class>
+        <tag-class>com.kingbosky.commons.web.tag.PagerTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>id</name>
@@ -60,7 +60,7 @@
     </tag>
     <tag>
         <name>pager-param</name>
-        <tag-class>com.wanmei.zhidao.tag.PagerParamTag</tag-class>
+        <tag-class>com.kingbosky.commons.web.tag.PagerParamTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>name</name>
