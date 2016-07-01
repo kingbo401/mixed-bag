@@ -14,7 +14,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import com.kingbosky.commons.exception.MapObjectConvertException;
 
-public class MapObjectConvertor {
+public class MapObjectConverter {
 	public static <T> Object convertSingleFieldObject(Object value, Class<T> clazz){
 		if(value == null) return null;
 		Object obj = value;

@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import com.kingbosky.commons.util.MapObjectConvertor;
+import com.kingbosky.commons.util.MapObjectConverter;
 
 public class JdbcOrmTemplate {
 	private NamedParameterJdbcDaoSupport jdbcDaoSupport = new NamedParameterJdbcDaoSupport();
@@ -215,10 +215,10 @@ public class JdbcOrmTemplate {
 	}
 	
 	private <T> T convertMapToObject(Map<String, Object> dataMap, Class<T> clazz){
-		return MapObjectConvertor.convertMapToObject(dataMap, clazz, mapUnderscoreToCamelCase);
+		return MapObjectConverter.convertMapToObject(dataMap, clazz, mapUnderscoreToCamelCase);
 	}
 	
 	private Map<String, Object> convertObjectToMap(Object obj){
-		return MapObjectConvertor.convertObjectToMap(obj);
+		return MapObjectConverter.convertObjectToMap(obj);
 	}
 }
