@@ -2,9 +2,12 @@ package com.kingbosky.commons.util;
 
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -12,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import com.kingbosky.commons.annotation.Ignore;
+import com.kingbosky.commons.exception.GeneralException;
 import com.kingbosky.commons.exception.MapObjectConvertException;
 
 public class MapObjectConverter {
@@ -196,7 +201,7 @@ public class MapObjectConverter {
 //	return rst;
 //}
 	
-	private static final Map<Class<?>, Method[]> clazzMethodCache = new ConcurrentHashMap<Class<?>, Method[]>();
+	private static final Map<Class<?>, List<Method>> clazzMethodCache = new ConcurrentHashMap<Class<?>, List<Method>>();
 	/**
 	 * 从get方法中获取属性
 	 * @param obj
@@ -206,14 +211,23 @@ public class MapObjectConverter {
 		if (obj == null) return null;
 		Map<String, Object> rst = new HashMap<String, Object>();
 		Class<?> clazz = obj.getClass();
-		Method[] methods = clazzMethodCache.get(clazz);
-		if(methods == null){
-			methods = clazz.getMethods();
-			clazzMethodCache.put(clazz, methods);
-		}
-		for (int i = 0; i < methods.length; i++) {
-			try {
+		
+		List<Method> methodList = clazzMethodCache.get(clazz);
+		if(methodList == null || methodList.size() == 0){
+			List<Method> tmpList = new ArrayList<Method>();
+			Method[] methods = clazz.getMethods();
+			for (int i = 0; i < methods.length; i++) {
 				Method method = methods[i];
+				if(method.isAnnotationPresent(Ignore.class) || method.getParameterTypes().length > 0) {
+					continue;
+				}
+				tmpList.add(method);
+			}
+			methodList = tmpList;
+			clazzMethodCache.put(clazz, Collections.synchronizedList(tmpList));
+		}
+		for (Method method : methodList) {
+			try {
 				String name = method.getName();
 				if(name.equals("getClass")){
 					continue;
@@ -229,7 +243,7 @@ public class MapObjectConverter {
 					rst.put(filedName.toString(), o);
 				}
 			}catch (Exception e){
-				throw new MapObjectConvertException(e);
+				throw new GeneralException(e);
 			}
 		}
 		return rst;
