@@ -42,7 +42,8 @@ public class JdbcOrmTemplate {
 		Map<String, Object> params = convertObjectToMap(obj);
 		KeyHolder generatedKeyHolder = new GeneratedKeyHolder();  
 		jdbcDaoSupport.getNamedParameterJdbcTemplate().update(sql, new MapSqlParameterSource(params), generatedKeyHolder);
-		return generatedKeyHolder.getKey().longValue();
+		Number key = generatedKeyHolder.getKey();
+		return key == null ? 0 : key.longValue();
 	}
 	
 	public int update1(String sql, Map<String, ?> params){
