@@ -221,7 +221,14 @@ public class MapObjectConverter {
 				if(method.isAnnotationPresent(Ignore.class) || method.getParameterTypes().length > 0) {
 					continue;
 				}
-				tmpList.add(method);
+				String name = method.getName();
+				if(name.equals("getClass")){
+					continue;
+				}
+				int len = name.length();
+				if(name.startsWith("get") && len > 3){
+					tmpList.add(method);
+				}
 			}
 			methodList = Collections.unmodifiableList(tmpList);
 			clazzMethodCache.put(clazz, methodList);
@@ -229,19 +236,14 @@ public class MapObjectConverter {
 		for (Method method : methodList) {
 			try {
 				String name = method.getName();
-				if(name.equals("getClass")){
-					continue;
-				}
 				int len = name.length();
-				if(name.startsWith("get") && len > 3){
-					StringBuilder filedName = new StringBuilder();
-					filedName.append(Character.toLowerCase(name.charAt(3)));
-					if(len > 4){
-						filedName.append(name.substring(4));
-					}
-					Object o = method.invoke(obj);
-					rst.put(filedName.toString(), o);
+				StringBuilder filedName = new StringBuilder();
+				filedName.append(Character.toLowerCase(name.charAt(3)));
+				if(len > 4){
+					filedName.append(name.substring(4));
 				}
+				Object o = method.invoke(obj);
+				rst.put(filedName.toString(), o);
 			}catch (Exception e){
 				throw new GeneralException(e);
 			}
