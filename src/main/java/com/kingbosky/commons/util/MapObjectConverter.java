@@ -223,8 +223,8 @@ public class MapObjectConverter {
 				}
 				tmpList.add(method);
 			}
-			methodList = tmpList;
-			clazzMethodCache.put(clazz, Collections.synchronizedList(tmpList));
+			methodList = Collections.unmodifiableList(tmpList);
+			clazzMethodCache.put(clazz, methodList);
 		}
 		for (Method method : methodList) {
 			try {
