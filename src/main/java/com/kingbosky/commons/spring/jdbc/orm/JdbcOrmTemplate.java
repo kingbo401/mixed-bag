@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.sql.DataSource;
 
@@ -17,6 +18,10 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import com.kingbosky.commons.util.MapObjectConverter;
 
+/**
+ * 非0方法的Object obj参数支持map
+ *
+ */
 public class JdbcOrmTemplate {
 	private NamedParameterJdbcDaoSupport jdbcDaoSupport = new NamedParameterJdbcDaoSupport();
 	private boolean mapUnderscoreToCamelCase = true;
@@ -46,10 +51,6 @@ public class JdbcOrmTemplate {
 		return key == null ? 0 : key.longValue();
 	}
 	
-	public int update1(String sql, Map<String, ?> params){
-		return jdbcDaoSupport.getNamedParameterJdbcTemplate().update(sql, params);
-	}
-	
 	public int update0(String sql, Object... params){
 		return jdbcDaoSupport.getJdbcTemplate().update(sql, params);
 	}
@@ -59,7 +60,7 @@ public class JdbcOrmTemplate {
 		return jdbcDaoSupport.getNamedParameterJdbcTemplate().update(sql, params);
 	}
 	
-	public int[] batchUpdate1(String sql, List<Map<String, ?>> mapList){
+	private int[] batchUpdate1(String sql, List<Map<String, ?>> mapList){
 		if(mapList == null || mapList.isEmpty()) return null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		@SuppressWarnings("unchecked")
@@ -96,20 +97,8 @@ public class JdbcOrmTemplate {
 		return convertToObjectList(mapList, clazz);
 	}
 	
-	public <T> List<T> queryForObjectList1(String sql, Class<T> clazz, Map<String, ?> params){
-		if (clazz == null) {
-			return null;
-		}
-		List<Map<String, Object>> mapList = jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForList(sql, params);
-		return convertToObjectList(mapList, clazz);
-	}
-	
 	public long queryForLong0(String sql, Object... params){
 		return queryForObject0(sql, long.class, params);
-	}
-	
-	public long queryForLong1(String sql, Map<String, ?> params){
-		return queryForObject1(sql, long.class, params);
 	}
 	
 	public long queryForLong(String sql, Object obj){
@@ -120,25 +109,8 @@ public class JdbcOrmTemplate {
 		return queryForObject0(sql, int.class, params);
 	}
 	
-	public int queryForInt1(String sql, Map<String, ?> params){
-		return queryForObject1(sql, int.class, params);
-	}
-	
 	public int queryForInt(String sql, Object obj){
 		return queryForObject(sql, int.class, obj);
-	}
-	
-	public <T> T queryForObject1(String sql, Class<T> clazz, Map<String, ?> params){
-		if (clazz == null) {
-			return null;
-		}
-		Map<String, Object> map = null;
-		try {
-			map = jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForMap(sql, params);
-		} catch (EmptyResultDataAccessException e) {
-			return null;
-		}
-		return convertMapToObject(map, clazz);
 	}
 
 	public <T> T queryForObject0(String sql, Class<T> clazz, Object... params){
@@ -165,10 +137,6 @@ public class JdbcOrmTemplate {
 		}
 		return convertMapToObject(map, clazz);
 	}
-	
-	public List<Map<String, Object>> queryForList1(String sql, Map<String, ?> params){
-		return jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForList(sql, params);
-	}
 
 	public List<Map<String, Object>> queryForList0(String sql, Object... params){
 		return jdbcDaoSupport.getJdbcTemplate().queryForList(sql, params);
@@ -176,14 +144,6 @@ public class JdbcOrmTemplate {
 
 	public List<Map<String, Object>> queryForList(String sql, Object obj){
 		return jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForList(sql, convertObjectToMap(obj));
-	}
-	
-	public Map<String, Object> queryForMap1(String sql, Map<String, ?> params){
-		try{
-			return jdbcDaoSupport.getNamedParameterJdbcTemplate().queryForMap(sql, params);
-		}catch(EmptyResultDataAccessException e){
-			return null;
-		}
 	}
 
 	public Map<String, Object> queryForMap0(String sql, Object... params) {
@@ -219,7 +179,16 @@ public class JdbcOrmTemplate {
 		return MapObjectConverter.convertMapToObject(dataMap, clazz, mapUnderscoreToCamelCase);
 	}
 	
-	private Map<String, Object> convertObjectToMap(Object obj){
+	private static Map<String, Object> convertObjectToMap(Object obj){
+		if(obj == null) return new HashMap<String, Object>();
+		if(obj instanceof Map){
+			Map<?, ?> objMap = (Map<?, ?>)obj;
+			Map<String, Object> map = new HashMap<String, Object>();
+			for(Entry<?, ?> entry : objMap.entrySet()){
+				map.put(String.valueOf(entry.getKey()), entry.getValue());
+			}
+			return map;
+		}
 		return MapObjectConverter.convertObjectToMap(obj);
 	}
 }
