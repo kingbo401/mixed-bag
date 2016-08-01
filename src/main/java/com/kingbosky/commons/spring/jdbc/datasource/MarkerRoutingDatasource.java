@@ -10,7 +10,7 @@ import com.kingbosky.commons.util.StringUtil;
 public class MarkerRoutingDatasource extends AbstractRoutingDataSource {
 	private final Logger logger = LoggerFactory.getLogger(MarkerRoutingDatasource.class);
 	private MarkerHolder markerHolder;
-	protected String defaultDatasource = "";
+	protected String defaultMarker = "";
 
 	public MarkerHolder getMarkerHolder() {
 		return markerHolder;
@@ -20,12 +20,12 @@ public class MarkerRoutingDatasource extends AbstractRoutingDataSource {
 		this.markerHolder = markerHolder;
 	}
 
-	public String getDefaultDatasource() {
-		return defaultDatasource;
+	public String getDefaultMarker() {
+		return defaultMarker;
 	}
 
-	public void setDefaultDatasource(String defaultDatasource) {
-		this.defaultDatasource = defaultDatasource;
+	public void setDefaultMarker(String defaultMarker) {
+		this.defaultMarker = defaultMarker;
 	}
 
 	protected Object determineCurrentLookupKey() {
@@ -33,6 +33,6 @@ public class MarkerRoutingDatasource extends AbstractRoutingDataSource {
 		if (logger.isDebugEnabled()) {
 			logger.debug("determine current data source type is " + marker);
 		}
-		return StringUtil.isEmpty(marker) ? defaultDatasource : marker;
+		return StringUtil.isEmpty(marker) ? defaultMarker : marker;
 	}
 }
