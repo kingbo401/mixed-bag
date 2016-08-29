@@ -25,7 +25,7 @@ public class SensitiveWordManagerImp implements SensitiveWordManager{
 		this.sensitiveSource = sensitiveSource;
 	}
 
-	public void sync() {
+	public void run() {
 		Map<Integer, NumberTree> map = new HashMap<Integer, NumberTree>();
 		List<String> lstWord = sensitiveSource.getAll();
 		for (String word : lstWord) {

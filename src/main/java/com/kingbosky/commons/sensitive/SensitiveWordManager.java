@@ -1,7 +1,6 @@
 package com.kingbosky.commons.sensitive;
 
-import com.kingbosky.commons.sync.IDataSync;
 
-public interface SensitiveWordManager extends IDataSync{
+public interface SensitiveWordManager extends Runnable{
 	public boolean hasSensitive(String word);
 }
