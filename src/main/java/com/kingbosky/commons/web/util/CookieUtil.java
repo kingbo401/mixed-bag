@@ -23,6 +23,18 @@ public class CookieUtil {
 		response.setHeader("P3P", "CP=\"IDC DSP COR CURa ADMa OUR IND PHY ONL COM STA\"");
 		response.addCookie(cookie);
 	}
+	
+	/**
+	 * 添加cookie
+	 * @param response
+	 * @param domain       域
+	 * @param key          键
+	 * @param value        值
+	 * @return
+	 */
+	public static void addCookie(HttpServletResponse response, String domain, String key, String value) {
+		addCookie(response, domain, key, value, -1);
+	}
 
 	/**
 	 * 取一个cookie
