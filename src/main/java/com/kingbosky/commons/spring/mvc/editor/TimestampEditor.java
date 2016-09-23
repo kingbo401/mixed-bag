@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.kingbosky.commons.spring.mvc.editor;
 
 import java.beans.PropertyEditorSupport;

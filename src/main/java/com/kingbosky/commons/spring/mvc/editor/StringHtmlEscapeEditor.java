@@ -4,23 +4,18 @@ import java.beans.PropertyEditorSupport;
 
 import org.springframework.web.util.HtmlUtils;
 
-public class StringHtmlEscapeEditor extends PropertyEditorSupport{
-	
-	public void setAsText(String text) 
-	{
-		if (text == null) 
-		{
+public class StringHtmlEscapeEditor extends PropertyEditorSupport {
+
+	public void setAsText(String text) {
+		if (text == null) {
 			setValue(null);
-		}
-		else 
-		{
+		} else {
 			String value = text.trim();
 			setValue(HtmlUtils.htmlEscape(value));
 		}
 	}
 
-	public String getAsText() 
-	{
+	public String getAsText() {
 		Object value = getValue();
 		return (value != null ? value.toString() : "");
 	}

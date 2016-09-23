@@ -8,16 +8,6 @@ import java.util.List;
 
 import org.springframework.util.StringUtils;
 
-/**
- * @author "Jiance Qin"
- * 
- * @date 2014年3月18日
- * 
- * @time 上午10:24:15
- * 
- * @desc
- * 
- */
 public class DateTimeEditor extends PropertyEditorSupport {
 
 	/**
