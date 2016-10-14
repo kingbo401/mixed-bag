@@ -37,24 +37,15 @@ public final class SecurityUtil {
 	 * @return
 	 */
 	public static String md5(String source) {
-		StringBuilder sb = new StringBuilder();
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			md.update(source.getBytes("UTF-8"));
 			byte bytes[] = md.digest();
-			String tempStr = "";
-			for (int i = 0; i < bytes.length; i++) {
-				tempStr = (Integer.toHexString(bytes[i] & 0xff));
-	            if (tempStr.length() == 1) {
-	            	sb.append("0").append(tempStr);
-	            } else {
-	            	sb.append(tempStr);
-	            }
-			}
+			return HexUtil.toHexString(bytes);
 		} catch (Exception e) {
 			logger.error("md5 Exceptoion", e);
 		}
-		return sb.toString();
+		return null;
 	}
 	
 	/**
@@ -63,23 +54,14 @@ public final class SecurityUtil {
 	 * @return
 	 */
 	public static String sha1(String source){
-		StringBuilder sb = new StringBuilder();
 		try {
 			MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
 			byte[] bytes = messageDigest.digest(source.getBytes("UTF-8"));
-			String tempStr = "";
-			for (int i = 0; i < bytes.length; i++) {
-				tempStr = (Integer.toHexString(bytes[i] & 0xff));
-	            if (tempStr.length() == 1) {
-	            	sb.append("0").append(tempStr);
-	            } else {
-	            	sb.append(tempStr);
-	            }
-			}
+			return HexUtil.toHexString(bytes);
 		} catch (Exception e) {
 			logger.error("sha1 Exceptoion", e);
 		}
-		return sb.toString();
+		return null;
 	}
 	
 	/**
