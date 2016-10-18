@@ -265,11 +265,25 @@
 			<version>${derby.version}</version>
 			<optional>true</optional>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+			<optional>true</optional>
+		</dependency>
     </dependencies>
     
     <properties>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     	<spring.version>3.2.3.RELEASE</spring.version>
+    	<poi.version>3.10-FINAL</poi.version>
     	<dom4j.version>1.6.1</dom4j.version>
 		<junit.version>4.11</junit.version>
 		<derby.version>10.12.1.1</derby.version>

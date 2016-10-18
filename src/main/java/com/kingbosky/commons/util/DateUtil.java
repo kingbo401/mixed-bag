@@ -27,33 +27,33 @@ public class DateUtil {
      * 将默认格式的字符串转换为日期对象
      * @param date 待转换字符串
      * @return 转换后日期对象
-     * @see #getDate(String, String, Date)
+     * @see #parseDate(String, String, Date)
      * @see com.nx.commons.lang.Constants#DFT_DATE_FORMAT
      * @see com.nx.commons.lang.Constants#DFT_DATE_VAL
      */
-    public static Date getDate(String date) {
-        return getDate(date, Constants.DFT_DATE_FORMAT, Constants.DFT_DATE_VAL);
+    public static Date parseDate(String date) {
+        return parseDate(date, Constants.DFT_DATE_FORMAT, Constants.DFT_DATE_VAL);
     }
     /**
      * 将yyyy-MM-dd HH:mm:ss格式的字符串转换为日期对象
      * @param date 待转换字符串
      * @return 转换后日期对象
-     * @see #getDate(String, String, Date)
+     * @see #parseDate(String, String, Date)
      * @see com.nx.commons.lang.Constants#DFT_DATETIME_FORMAT
      * @see com.nx.commons.lang.Constants#DFT_DATE_VAL
      */
-    public static Date getDateTime(String date) {
-        return getDate(date, Constants.DFT_DATETIME_FORMAT, Constants.DFT_DATE_VAL);
+    public static Date parseDateTime(String date) {
+        return parseDate(date, Constants.DFT_DATETIME_FORMAT, Constants.DFT_DATE_VAL);
     }
     /**
      * 将指定格式的字符串转换为日期对象
      * @param date 待转换字符串
      * @param format 日期格式
      * @return 转换后日期对象
-     * @see #getDate(String, String, Date)
+     * @see #parseDate(String, String, Date)
      */
-    public static Date getDate(String date, String format) {
-        return getDate(date, format, Constants.DFT_DATE_VAL);
+    public static Date parseDate(String date, String format) {
+        return parseDate(date, format, Constants.DFT_DATE_VAL);
     }
     /**
      * 将指定格式的字符串转换为日期对象
@@ -62,7 +62,7 @@ public class DateUtil {
      * @param dftVal 转换失败时的默认返回值
      * @return 转换后的日期对象
      */
-    public static Date getDate(String date, String format, Date dftVal) {
+    public static Date parseDate(String date, String format, Date dftVal) {
         if (StringUtil.isEmpty(date) || StringUtil.isEmpty(format)) return dftVal;
         Date d;
         try {
@@ -135,23 +135,23 @@ public class DateUtil {
      * 将字符串转化为时间戳对象
      * @param date 时间戳字符串对象
      * @return 转化后的时间戳对象
-     * @see #getTimestamp(String, String, Timestamp)
+     * @see #parseTimestamp(String, String, Timestamp)
      * @see com.nx.commons.lang.Constants#DFT_DATE_FORMAT
      * @see com.nx.commons.lang.Constants#DFT_DATE_VAL
      */
-    public static Timestamp getTimestamp(String date) {
-    	return getTimestamp(date, Constants.DFT_DATE_FORMAT, Constants.DFT_TIMESTAMP_VAL);
+    public static Timestamp parseTimestamp(String date) {
+    	return parseTimestamp(date, Constants.DFT_DATE_FORMAT, Constants.DFT_TIMESTAMP_VAL);
     }
     /**
      * 将字符串转化为时间戳对象
      * @param date 时间戳字符串对象
      * @param format 字符串格式
      * @return 转化后的时间戳对象
-     * @see #getTimestamp(String, String, Timestamp)
+     * @see #parseTimestamp(String, String, Timestamp)
      * @see com.nx.commons.lang.Constants#DFT_DATE_VAL
      */
-    public static Timestamp getTimestamp(String date, String format) {
-    	return getTimestamp(date, format, Constants.DFT_TIMESTAMP_VAL);
+    public static Timestamp parseTimestamp(String date, String format) {
+    	return parseTimestamp(date, format, Constants.DFT_TIMESTAMP_VAL);
     }
     /**
      * 将指定格式的字符串转换为时间戳
@@ -160,8 +160,8 @@ public class DateUtil {
      * @param dftVal 转换失败时的默认返回值
      * @return 转换后的日期对象
      */
-    public static Timestamp getTimestamp(String date, String format, Timestamp dftVal) {
-    	Date d = getDate(date, format);
+    public static Timestamp parseTimestamp(String date, String format, Timestamp dftVal) {
+    	Date d = parseDate(date, format);
     	return (d == null) ? dftVal : new Timestamp(d.getTime());
     }
     /**
