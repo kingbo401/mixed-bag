@@ -1,5 +1,6 @@
 package com.kingbosky.commons.marker;
 
+import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.kingbosky.commons.marker.annotation.Marker;
 import com.kingbosky.commons.util.StringUtil;
 
-public class MarkerIntecerptor {
+public class MarkerIntecerptor implements MethodInterceptor{
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	private MarkerHolder markerHolder;
 

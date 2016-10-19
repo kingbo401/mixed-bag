@@ -51,6 +51,15 @@ public class JdbcOrmTemplate {
 		return key == null ? 0 : key.longValue();
 	}
 	
+	public int delete0(String sql, Object... params){
+		return jdbcDaoSupport.getJdbcTemplate().update(sql, params);
+	}
+
+	public int delete(String sql, Object obj){
+		Map<String, Object> params = convertObjectToMap(obj);
+		return jdbcDaoSupport.getNamedParameterJdbcTemplate().update(sql, params);
+	}
+	
 	public int update0(String sql, Object... params){
 		return jdbcDaoSupport.getJdbcTemplate().update(sql, params);
 	}
