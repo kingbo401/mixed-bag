@@ -1,5 +1,6 @@
 package com.kingbosky.commons.util;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -34,5 +35,16 @@ public class ExcelUtil {
 				cell.setCellValue(StringUtil.getString(rowData.get(k)));
 			}
 		}
+	}
+	
+	/**
+	 * 给workbook添加一个sheet
+	 * @param workbook
+	 * @param sheetName
+	 * @param headers
+	 * @param datas
+	 */
+	public static void addSheetToWorkbook(HSSFWorkbook workbook, String sheetName, String[] headers, List<List<Object>> datas) {
+		addSheetToWorkbook(workbook, sheetName, Arrays.asList(headers), datas);
 	}
 }
