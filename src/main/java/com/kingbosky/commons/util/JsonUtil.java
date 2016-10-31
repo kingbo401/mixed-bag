@@ -1,7 +1,6 @@
 package com.kingbosky.commons.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -29,10 +28,8 @@ public class JsonUtil {
 	 * @return
 	 */
 	public static Map<String, Object> convertToMap(Object obj) {
+		if(obj == null) return null;
 		Map<String, Object> retMap = null;
-		if (obj == null) {
-			return null;
-		}
 		try {
 			JavaType mapType = constructGenericType(Map.class, String.class, Object.class);
 			retMap = mapper.convertValue(obj, mapType);
@@ -49,10 +46,8 @@ public class JsonUtil {
 	 * @return
 	 */
 	public static Map<String, String> convertToStringMap(Object obj) {
+		if(obj == null) return null;
 		Map<String, String> retMap = null;
-		if (obj == null) {
-			return null;
-		}
 		try {
 			JavaType mapType = constructGenericType(Map.class, String.class, String.class);
 			retMap = mapper.convertValue(obj, mapType);
@@ -70,14 +65,12 @@ public class JsonUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String, Object> parse(String str) {
+		if(StringUtil.isEmpty(str)) return null;
 		Map<String, Object> retMap = null;
-		if (StringUtil.isEmpty(str)) {
-			return null;
-		}
 		try {
 			retMap = mapper.readValue(str, Map.class);
 		} catch (Exception e) {
-			logger.error("String to map failed!", e);
+			logger.error("String to map failed,str:" + str, e);
 		}
 		return retMap;
 	}
@@ -90,14 +83,12 @@ public class JsonUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String, String> parseToStringMap(String str) {
+		if(StringUtil.isEmpty(str)) return null;
 		Map<String, String> retMap = null;
-		if (StringUtil.isEmpty(str)) {
-			return null;
-		}
 		try {
 			retMap = parseToGeneric(str, Map.class, String.class, String.class);
 		} catch (Exception e) {
-			logger.error("String to map failed!", e);
+			logger.error("String to map failed,str:" + str, e);
 		}
 		return retMap;
 	}
@@ -110,16 +101,12 @@ public class JsonUtil {
 	 * @return
 	 */
 	public static <T> T parseToObject(String str, Class<T> t) {
+		if(StringUtil.isEmpty(str)) return null;
 		T object = null;
-		if (StringUtil.isEmpty(str)) {
-			return null;
-		}
 		try {
-			logger.info("parseToObject : " + t + " , str : " + str);
 			object = (T) mapper.readValue(str, t);
-			logger.info("parseToObject object : " + object);
 		} catch (Exception e) {
-			logger.error("String to map failed!", e);
+			logger.error("String to map failed,str:" + str, e);
 		}
 		return object;
 	}
@@ -132,14 +119,12 @@ public class JsonUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static List<Map<String, Object>> parseArray(String str) {
+		if(StringUtil.isEmpty(str)) return null;
 		List<Map<String, Object>> array = null;
-		if (StringUtil.isEmpty(str)) {
-			return null;
-		}
 		try {
 			array = mapper.readValue(str, List.class);
 		} catch (Exception e) {
-			logger.error("String to map failed!", e);
+			logger.error("String to map failed,str:" + str, e);
 		}
 		return array;
 	}
@@ -152,17 +137,13 @@ public class JsonUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> parseToList(String jsonStr, Class<T> clazz) {
+		if(StringUtil.isEmpty(jsonStr)) return null;
 		List<T> list = null;
-		if (StringUtil.isEmpty(jsonStr)) {
-			return null;
-		}
 		try {
-			logger.info("parseToList: List<" + clazz + "> , jsonStr : " + jsonStr);
 			list = (List<T>) mapper.readValue(jsonStr,
 					mapper.getTypeFactory().constructCollectionType(ArrayList.class, clazz));
-			logger.info("parseToList: " + list);
 		} catch (Exception e) {
-			logger.error("String to list failed!", e);
+			logger.error("String to list failed,jsonStr:" + jsonStr, e);
 		}
 		return list;
 	}
@@ -176,17 +157,13 @@ public class JsonUtil {
 	@SuppressWarnings("rawtypes")
 	public static <T> Object parseToCollection(String jsonStr, Class<? extends Collection> collectionClass,
 			Class<T> clazz) {
+		if(StringUtil.isEmpty(jsonStr)) return null;
 		Object collectionObj = null;
-		if (StringUtil.isEmpty(jsonStr)) {
-			return null;
-		}
 		try {
-			logger.info("parseToCollection: " + collectionClass + "<" + clazz + "> , jsonStr : " + jsonStr);
 			collectionObj = mapper.readValue(jsonStr,
 					mapper.getTypeFactory().constructCollectionType(collectionClass, clazz));
-			logger.info("parseToCollection: " + collectionObj);
 		} catch (Exception e) {
-			logger.error("String to list failed!", e);
+			logger.error("String to list failed,jsonStr:" + jsonStr, e);
 		}
 		return collectionObj;
 	}
@@ -198,18 +175,13 @@ public class JsonUtil {
 	 * @return
 	 */
 	public static <T> T parseToGeneric(String jsonStr, Class<T> genericClass, Class<?>... parameterClasses) {
+		if(StringUtil.isEmpty(jsonStr)) return null;
 		T genericObject = null;
-		if (StringUtil.isEmpty(jsonStr)) {
-			return null;
-		}
 		try {
-			logger.info("parseToGeneric: " + genericClass + "<" + Arrays.toString(parameterClasses) + "> , jsonStr : "
-					+ jsonStr);
 			genericObject = mapper.readValue(jsonStr,
 					mapper.getTypeFactory().constructParametricType(genericClass, parameterClasses));
-			logger.info("parseToGeneric: " + genericObject);
 		} catch (Exception e) {
-			logger.error("String to list failed!", e);
+			logger.error("String to list failed,jsonStr:" + jsonStr, e);
 		}
 		return genericObject;
 	}
@@ -221,18 +193,13 @@ public class JsonUtil {
 	 * @return
 	 */
 	public static <T> T parseToGeneric(String jsonStr, Class<T> genericClass, JavaType... parameterClasses) {
+		if(StringUtil.isEmpty(jsonStr)) return null;
 		T genericObject = null;
-		if (StringUtil.isEmpty(jsonStr)) {
-			return null;
-		}
 		try {
-			logger.info("parseToGeneric: " + genericClass + "<" + Arrays.toString(parameterClasses) + "> , jsonStr : "
-					+ jsonStr);
 			genericObject = mapper.readValue(jsonStr,
 					mapper.getTypeFactory().constructParametricType(genericClass, parameterClasses));
-			logger.info("parseToGeneric: " + genericObject);
 		} catch (Exception e) {
-			logger.error("String to list failed!", e);
+			logger.error("String to list failed,jsonStr:" + jsonStr, e);
 		}
 		return genericObject;
 	}
@@ -277,10 +244,8 @@ public class JsonUtil {
 	 * @return
 	 */
 	public static String objectToJson(Object obj) {
+		if(obj == null) return null;
 		String retStr = "";
-		if (obj == null) {
-			return retStr;
-		}
 		try {
 			retStr = mapper.writeValueAsString(obj);
 		} catch (Exception e) {
