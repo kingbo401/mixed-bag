@@ -151,7 +151,7 @@ public class HttpClientUtil {
 				.setConnectionRequestTimeout(connectTimeout).build();
 		httpGet.setConfig(config);
 
-		if (headers != null && !headers.isEmpty()) {
+		if (!CollectionUtil.isEmpty(headers)) {
 			for (Entry<String, String> entry : headers.entrySet()) {
 				httpGet.setHeader(entry.getKey(), entry.getValue());
 			}
@@ -227,7 +227,7 @@ public class HttpClientUtil {
 				.setExpectContinueEnabled(false).build();
 		httpPost.setConfig(requestConfig);
 
-		if (headers != null && !headers.isEmpty()) {
+		if (!CollectionUtil.isEmpty(headers)) {
 			for (Entry<String, String> entry : headers.entrySet()) {
 				httpPost.setHeader(entry.getKey(), entry.getValue());
 			}
@@ -274,7 +274,7 @@ public class HttpClientUtil {
 				.append(ParamUtil.getKeyAndValueStr(params)).append(", headers : ").append(headers);
 
 		List<NameValuePair> paramPairs = new ArrayList<NameValuePair>();
-		if (params != null && !params.isEmpty()) {
+		if (!CollectionUtil.isEmpty(params)) {
 			for (Map.Entry<String, String> entry : params.entrySet()) {
 				BasicNameValuePair param = new BasicNameValuePair(
 						entry.getKey(), String.valueOf(entry.getValue()));
@@ -288,7 +288,7 @@ public class HttpClientUtil {
 				.setExpectContinueEnabled(false).build();
 		httpPost.setConfig(requestConfig);
 
-		if (headers != null && !headers.isEmpty()) {
+		if (!CollectionUtil.isEmpty(headers)) {
 			for (Entry<String, String> entry : headers.entrySet()) {
 				httpPost.setHeader(entry.getKey(), entry.getValue());
 			}
