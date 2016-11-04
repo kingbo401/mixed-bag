@@ -1,6 +1,8 @@
 package com.kingbosky.commons.util;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -32,7 +34,19 @@ public class ExcelUtil {
 			if (CollectionUtil.isEmpty(rowData)) continue;
 			for (int k = 0; k < rowData.size(); k++) {
 				HSSFCell cell = row.createCell(k);
-				cell.setCellValue(StringUtil.getString(rowData.get(k)));
+				Object data = rowData.get(k);
+				if(data == null) data = "";
+				if(data instanceof Date){
+					cell.setCellValue(DateUtil.formatDate((Date)data));
+				}else if(data instanceof Number){
+					cell.setCellValue(((Number)data).doubleValue());
+				}else if(data instanceof Calendar){
+					cell.setCellValue(DateUtil.formatDate(((Calendar)data).getTime()));
+				}else if(data instanceof Boolean){
+					cell.setCellValue((Boolean)data);
+				}else{
+					cell.setCellValue(String.valueOf(data));
+				} 
 			}
 		}
 	}
