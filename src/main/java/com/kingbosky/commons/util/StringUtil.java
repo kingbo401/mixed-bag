@@ -3,6 +3,8 @@ package com.kingbosky.commons.util;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -228,5 +230,19 @@ public class StringUtil {
 	
 	public static String toString(Object obj) {
 		return ToStringBuilder.reflectionToString(obj, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+	
+	public static String replaceEmoji(String source, String s) {
+		if (source != null) {
+			Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]",
+					Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
+			Matcher emojiMatcher = emoji.matcher(source);
+			if (emojiMatcher.find()) {
+				source = emojiMatcher.replaceAll(s);
+				return source;
+			}
+			return source;
+		}
+		return source;
 	}
 }
