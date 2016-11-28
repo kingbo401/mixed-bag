@@ -1,9 +1,14 @@
 package com.kingbosky.commons.encrypt;
 
 import java.security.MessageDigest;
+import java.security.SecureRandom;
 import java.util.UUID;
 
+import javax.crypto.Cipher;
 import javax.crypto.Mac;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
@@ -84,34 +89,38 @@ public final class SecurityUtil {
 		}
 	}
 
-	/**
-	 * base64编码
-	 * @param inStr
-	 * @return
-	 */
-	public static String base64Encode(String inStr) {
-		Base64 base64 = new Base64(false);
-		try {
-			return (new String(base64.encode(inStr.getBytes("UTF-8")), "UTF-8")).replaceAll("\\r\\n", "");
-		} catch (Exception e) {
-			logger.error("Base64Encode "+inStr+" exception", e);
-			return inStr;
+	public static String desEncrypt(String str, String key){
+		try{
+			SecureRandom sr = new SecureRandom();
+			DESKeySpec dks = new DESKeySpec(key.getBytes());
+			SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+			SecretKey securekey = keyFactory.generateSecret(dks);
+			Cipher cipher = Cipher.getInstance("DES");
+			cipher.init(Cipher.ENCRYPT_MODE, securekey, sr);
+			byte[] bytes = cipher.doFinal(str.getBytes());
+			String base64 = Base64.encodeBase64String(bytes);
+			return base64;
+		}catch(Exception e){
+			logger.error("desEncrypt Exceptoion", e);
+			return null;
 		}
 	}
 
-	/**
-	 * base64解码
-	 * @param inStr
-	 * @return
-	 */
-	public static String base64Decode(String inStr) {
-		Base64 base64 = new Base64(false);
-		try {
-			return new String(base64.decode(inStr.getBytes("UTF-8")), "UTF-8");
-		} catch (Exception e) {
-			logger.error("Base64Decode "+inStr+" exception", e);
-			return inStr;
+	public static String desDecrypt(String entry, String key){
+		try{
+			byte[] bytes = Base64.decodeBase64(entry);
+			SecureRandom sr = new SecureRandom();
+			DESKeySpec dks = new DESKeySpec(key.getBytes());
+			SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+			SecretKey securekey = keyFactory.generateSecret(dks);
+			Cipher cipher = Cipher.getInstance("DES");
+			cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
+			byte[] ret = cipher.doFinal(bytes);
+			String str = new String(ret, "UTF-8");
+			return str;
+		}catch(Exception e){
+			logger.error("desDecrypt Exceptoion", e);
+			return null;
 		}
 	}
-
 }

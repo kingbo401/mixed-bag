@@ -15,32 +15,26 @@ public class AESUtil {
 
 	public static String encrypt(String content, String pk) {
 		Key secureKey = new SecretKeySpec(pk.getBytes(), "AES");
-
-		byte[] encryptedData;
 		try {
 			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.ENCRYPT_MODE, secureKey);
-			encryptedData = cipher.doFinal(content.getBytes());
+			byte[] encryptedData = cipher.doFinal(content.getBytes());
+			return toHex(encryptedData);
 		} catch (Exception e) {
 			throw new GeneralException(StringUtil.join(", ", "AES加密异常", content, pk), e);
 		}
-
-		return toHex(encryptedData);
 	}
 
 	public static String decrypt(String content, String pk) {
 		Key secureKey = new SecretKeySpec(pk.getBytes(), "AES");
-
-		byte[] plainText;
 		try {
 			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.DECRYPT_MODE, secureKey);
-			plainText = cipher.doFinal(toByte(content));
+			byte[] plainText = cipher.doFinal(toByte(content));
+			return StringUtil.newString(plainText);
 		} catch (Exception e) {
 			throw new GeneralException("AES解密异常 content:" + content + "pk" + pk, e);
 		}
-
-		return StringUtil.newString(plainText);
 	}
 
 	private static String toHex(byte[] buf) {
