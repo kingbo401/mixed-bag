@@ -14,11 +14,11 @@ public class AESUtil {
 	private final static String HEX = "0123456789ABCDEF";
 
 	public static String encrypt(String content, String pk) {
-		Key secureKey = new SecretKeySpec(pk.getBytes(), "AES");
 		try {
+			Key secureKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
 			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.ENCRYPT_MODE, secureKey);
-			byte[] encryptedData = cipher.doFinal(content.getBytes());
+			byte[] encryptedData = cipher.doFinal(content.getBytes(Constants.DFT_CHARSET));
 			return toHex(encryptedData);
 		} catch (Exception e) {
 			throw new GeneralException(StringUtil.join(", ", "AES加密异常", content, pk), e);
@@ -26,8 +26,8 @@ public class AESUtil {
 	}
 
 	public static String decrypt(String content, String pk) {
-		Key secureKey = new SecretKeySpec(pk.getBytes(), "AES");
 		try {
+			Key secureKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
 			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.DECRYPT_MODE, secureKey);
 			byte[] plainText = cipher.doFinal(toByte(content));

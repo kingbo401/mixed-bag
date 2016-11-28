@@ -15,6 +15,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kingbosky.commons.util.Constants;
 import com.kingbosky.commons.util.HexUtil;
 
 public final class SecurityUtil {
@@ -78,9 +79,9 @@ public final class SecurityUtil {
 	public static String hmacMD5(String key, String... strs){
 		try {
 			Mac mac = Mac.getInstance("HmacMD5");
-	        mac.init(new SecretKeySpec(key.getBytes(), "HmacMD5"));
+	        mac.init(new SecretKeySpec(key.getBytes(Constants.DFT_CHARSET), "HmacMD5"));
 	        for(String str : strs){
-	            mac.update(str.getBytes());
+	            mac.update(str.getBytes(Constants.DFT_CHARSET));
 	        }
 	        return HexUtil.toHexString(mac.doFinal()); 
 		} catch (Exception e) {
@@ -92,12 +93,12 @@ public final class SecurityUtil {
 	public static String desEncrypt(String str, String key){
 		try{
 			SecureRandom sr = new SecureRandom();
-			DESKeySpec dks = new DESKeySpec(key.getBytes());
+			DESKeySpec dks = new DESKeySpec(key.getBytes(Constants.DFT_CHARSET));
 			SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
 			SecretKey securekey = keyFactory.generateSecret(dks);
 			Cipher cipher = Cipher.getInstance("DES");
 			cipher.init(Cipher.ENCRYPT_MODE, securekey, sr);
-			byte[] bytes = cipher.doFinal(str.getBytes());
+			byte[] bytes = cipher.doFinal(str.getBytes(Constants.DFT_CHARSET));
 			String base64 = Base64.encodeBase64String(bytes);
 			return base64;
 		}catch(Exception e){
@@ -110,7 +111,7 @@ public final class SecurityUtil {
 		try{
 			byte[] bytes = Base64.decodeBase64(entry);
 			SecureRandom sr = new SecureRandom();
-			DESKeySpec dks = new DESKeySpec(key.getBytes());
+			DESKeySpec dks = new DESKeySpec(key.getBytes(Constants.DFT_CHARSET));
 			SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
 			SecretKey securekey = keyFactory.generateSecret(dks);
 			Cipher cipher = Cipher.getInstance("DES");
