@@ -20,9 +20,9 @@ public class AESUtil {
 	public static byte[] encrypt(byte[] content, String pk) {
 		if(content == null || StringUtil.isEmpty(pk)) return null;
 		try {
-			Key secureKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
+			Key secretKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
 			Cipher cipher = Cipher.getInstance("AES");
-			cipher.init(Cipher.ENCRYPT_MODE, secureKey);
+			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 			byte[] encryptedData = cipher.doFinal(content);
 			return encryptedData;
 		} catch (Exception e) {
@@ -34,9 +34,9 @@ public class AESUtil {
 	public static byte[] decrypt(byte[] content, String pk) {
 		if(content == null || StringUtil.isEmpty(pk)) return null;
 		try {
-			Key secureKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
+			Key secretKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
 			Cipher cipher = Cipher.getInstance("AES");
-			cipher.init(Cipher.DECRYPT_MODE, secureKey);
+			cipher.init(Cipher.DECRYPT_MODE, secretKey);
 			byte[] plainText = cipher.doFinal(content);
 			return plainText;
 		} catch (Exception e) {
