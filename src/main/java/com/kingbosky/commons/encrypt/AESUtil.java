@@ -1,24 +1,23 @@
 package com.kingbosky.commons.encrypt;
 
-import java.io.UnsupportedEncodingException;
 import java.security.Key;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kingbosky.commons.util.Constants;
-import com.kingbosky.commons.util.StringUtil;
 
 public class AESUtil {
 	private static final Logger logger = LoggerFactory.getLogger(AESUtil.class);
 	private final static String HEX = "0123456789ABCDEF";
 
 	public static byte[] encrypt(byte[] content, String pk) {
-		if(content == null || StringUtil.isEmpty(pk)) return null;
+		if(content == null || StringUtils.isBlank(pk)) return null;
 		try {
 			Key secretKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
 			Cipher cipher = Cipher.getInstance("AES");
@@ -32,7 +31,7 @@ public class AESUtil {
 	}
 
 	public static byte[] decrypt(byte[] content, String pk) {
-		if(content == null || StringUtil.isEmpty(pk)) return null;
+		if(content == null || StringUtils.isBlank(pk)) return null;
 		try {
 			Key secretKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
 			Cipher cipher = Cipher.getInstance("AES");
@@ -47,8 +46,10 @@ public class AESUtil {
 	
 	public static String encryptHex(String content, String pk) {
 		try {
-			return toHex(encrypt(content.getBytes(Constants.DFT_CHARSET), pk));
-		} catch (UnsupportedEncodingException e) {
+			byte[] b = encrypt(content.getBytes(Constants.DFT_CHARSET), pk);
+			if(b == null) return null;
+			return toHex(b);
+		} catch (Exception e) {
 			logger.error("aes encryptHex error, content:" + content + " pk:" + pk, e);
 			return null;
 		}
@@ -56,8 +57,10 @@ public class AESUtil {
 
 	public static String decryptHex(String content, String pk) {
 		try {
-			return new String(decrypt(hexToByte(content), pk), Constants.DFT_CHARSET);
-		} catch (UnsupportedEncodingException e) {
+			byte[] b = decrypt(hexToByte(content), pk);
+			if(b == null) return null;
+			return new String(b, Constants.DFT_CHARSET);
+		} catch (Exception e) {
 			logger.error("aes decryptHex error, content:" + content + " pk:" + pk, e);
 			return null;
 		}
@@ -65,8 +68,10 @@ public class AESUtil {
 	
 	public static String encryptBase64(String content, String pk) {
 		try {
-			return Base64.encodeBase64String((encrypt(content.getBytes(Constants.DFT_CHARSET), pk)));
-		} catch (UnsupportedEncodingException e) {
+			byte[] b = encrypt(content.getBytes(Constants.DFT_CHARSET), pk);
+			if(b == null) return null;
+			return Base64.encodeBase64String(b);
+		} catch (Exception e) {
 			logger.error("aes encryptBase64 error, content:" + content + " pk:" + pk, e);
 			return null;
 		}
@@ -74,8 +79,10 @@ public class AESUtil {
 
 	public static String decryptBase64(String content, String pk) {
 		try {
-			return new String(decrypt(Base64.decodeBase64(content), pk), Constants.DFT_CHARSET);
-		} catch (UnsupportedEncodingException e) {
+			byte[] b = decrypt(Base64.decodeBase64(content), pk);
+			if(b == null) return null;
+			return new String(b, Constants.DFT_CHARSET);
+		} catch (Exception e) {
 			logger.error("aes decryptBase64 error, content:" + content + " pk:" + pk, e);
 			return null;
 		}
@@ -90,12 +97,25 @@ public class AESUtil {
 		return result.toString();
 	}
 
-	private static byte[] hexToByte(String hexString) {
-		int len = hexString.length() / 2;
+	private static byte[] hexToByte(String hexStr) {
+		if(hexStr == null) return null;
+		int len = hexStr.length() / 2;
 		byte[] result = new byte[len];
 		for (int i = 0; i < len; i++) {
-			result[i] = Integer.valueOf(hexString.substring(2 * i, 2 * i + 2), 16).byteValue();
+			result[i] = Integer.valueOf(hexStr.substring(2 * i, 2 * i + 2), 16).byteValue();
 		}
 		return result;
+	}
+	
+	public static void main(String[] args) {
+		String content = "{}";
+		String key ="lwfcxxxwmddfjpqc";
+		String encryptStr = encryptHex(content, key);
+		System.out.println(encryptStr);
+		System.out.println(decryptHex(encryptStr, key));
+		
+		encryptStr = encryptBase64(content, key);
+		System.out.println(encryptStr);
+		System.out.println(decryptBase64(encryptStr, key));
 	}
 }
