@@ -30,7 +30,7 @@ public class RedisDistributedLock implements ILock{
 					logger.error("Redis Connect Exception");
 					return true;
 				}
-				if("OK".equals(jedis.set(key, "1", "NX", "PX", expire))){
+				if("OK".equals(jedis.set(key, "1", "NX", "EX", expire))){
 					logger.info("get lock : " + key);
 					return true;
 				}
