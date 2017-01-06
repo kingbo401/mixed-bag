@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 /**
  * 定时任务管理器
  */
-public class FiexedRateTaskUtil {
-	private final static Logger logger = LoggerFactory.getLogger(FiexedRateTaskUtil.class);
+public class FixedRateTaskUtil {
+	private final static Logger logger = LoggerFactory.getLogger(FixedRateTaskUtil.class);
 	private static final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
 	public static void stop(){
