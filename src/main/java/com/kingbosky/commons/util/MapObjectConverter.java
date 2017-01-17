@@ -102,8 +102,15 @@ public class MapObjectConverter {
 //		}, java.util.Date.class);
 //	}
 	
+	/**
+	 * 
+	 * @param dataMap
+	 * @param clazz
+	 * @param mapKeyUnderlineToCamelCase 是否把dataMap key的下划线转换成驼峰模式
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T convertMapToObject(Map<String, Object> dataMap, Class<T> clazz, boolean mapUnderscoreToCamelCase) {
+	public static <T> T convertMapToObject(Map<String, Object> dataMap, Class<T> clazz, boolean mapKeyUnderlineToCamelCase) {
 		if (dataMap == null || clazz == null || clazz.equals(Void.class)) return null;
 		Object obj = null;
 		if(isSingleFieldClass(clazz)){//只有一列
@@ -133,7 +140,7 @@ public class MapObjectConverter {
 						itr.remove();
 					}
 				}
-				if(mapUnderscoreToCamelCase){
+				if(mapKeyUnderlineToCamelCase){
 					Set<String> keys = dataMap.keySet();
 					for(String key : keys){
 						data.put(underlineToCamel(key), dataMap.get(key));
@@ -169,6 +176,23 @@ public class MapObjectConverter {
 		return sb.toString();
 	}
 	
+	public static String camelToUnderline(String param) {
+		if (param == null || "".equals(param.trim())) {
+			return "";
+		}
+		int len = param.length();
+		StringBuilder sb = new StringBuilder(len);
+		for (int i = 0; i < len; i++) {
+			char c = param.charAt(i);
+			if (Character.isUpperCase(c)) {
+				sb.append(UNDERLINE);
+				sb.append(Character.toLowerCase(c));
+			} else {
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+	}  
 	
 //	private static void convertObjectToMap(Object obj, Class<?> clazz, Map<String, Object> rst){
 //	Field[] fields = clazz.getDeclaredFields();
@@ -202,12 +226,17 @@ public class MapObjectConverter {
 //}
 	
 	private static final Map<Class<?>, List<Method>> clazzMethodCache = new ConcurrentHashMap<Class<?>, List<Method>>();
+	public static Map<String, Object> convertObjectToMap(Object obj){
+		return convertObjectToMap(obj, false);
+	}
+	
 	/**
 	 * 从get方法中获取属性
 	 * @param obj
+	 * @param objFiledcamelToUnderline是否把obj属性字段的驼峰模式改成下划线
 	 * @return
 	 */
-	public static Map<String, Object> convertObjectToMap(Object obj){
+	public static Map<String, Object> convertObjectToMap(Object obj, boolean objFiledCamelToUnderline){
 		if (obj == null) return null;
 		Map<String, Object> rst = new HashMap<String, Object>();
 		Class<?> clazz = obj.getClass();
@@ -243,7 +272,11 @@ public class MapObjectConverter {
 					filedName.append(name.substring(4));
 				}
 				Object o = method.invoke(obj);
-				rst.put(filedName.toString(), o);
+				String key = filedName.toString();
+				if(objFiledCamelToUnderline){
+					key = camelToUnderline(key);
+				}
+				rst.put(key, o);
 			}catch (Exception e){
 				throw new GeneralException(e);
 			}

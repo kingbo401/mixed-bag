@@ -6,12 +6,6 @@ import org.apache.http.conn.HttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * HttpComponents空闲连接踢出线程
- * 默认策略：5秒执行一次，踢出过期的idle连接，同时关闭空闲60S以上的连接
- * @author tianbenzhen@pwrd.com
- * @version 2014-5-8 下午5:30:36
- */
 public class IdleConnectionMonitorThread extends Thread{
 	
 	private final HttpClientConnectionManager connMgr;
