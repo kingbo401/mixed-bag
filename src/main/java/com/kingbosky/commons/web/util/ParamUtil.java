@@ -38,8 +38,9 @@ public class ParamUtil {
 		@SuppressWarnings("unchecked")
 		Map<String, String[]> paraMap = request.getParameterMap();
 		Map<String, String> retMap = new HashMap<String, String>();
-		for (String key : paraMap.keySet()) {
-			String[] values = paraMap.get(key);
+		for(Map.Entry<String, String[]> entry : paraMap.entrySet()){
+			String key = entry.getKey();
+			String[] values = entry.getValue();
 			String valueStr = "";
 			if(values != null && values.length > 0 && values[0] != null){
 				valueStr = values[0];
