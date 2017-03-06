@@ -1,7 +1,3 @@
-/**
- * $Id: ForbiddenService.java 774 2013-04-08 03:44:02Z qiongbo.tian $
- * Copyright(C) 2011-2016 dreamingame.com All rights reserved.
- */
 package com.kingbosky.commons.sensitive.impl;
 
 import java.util.Collections;

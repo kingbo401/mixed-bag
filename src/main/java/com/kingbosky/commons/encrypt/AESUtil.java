@@ -15,12 +15,16 @@ import com.kingbosky.commons.util.Constants;
 public class AESUtil {
 	private static final Logger logger = LoggerFactory.getLogger(AESUtil.class);
 	private final static String HEX = "0123456789ABCDEF";
-
+	public static final String CIPHER_ALGORITHM_ECB = "AES/ECB/PKCS5Padding";//等同于Cipher.getInstance("AES");
+//	public static final String CIPHER_ALGORITHM_CBC = "AES/CBC/PKCS5Padding";
+//	public static final String CIPHER_ALGORITHM_CBC_NOPADDING = "AES/CBC/NoPadding";
+	private static final String CIPHER_ALGORITHM = CIPHER_ALGORITHM_ECB;
+	
 	public static byte[] encrypt(byte[] content, String pk) {
 		if(content == null || StringUtils.isBlank(pk)) return null;
 		try {
 			Key secretKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
-			Cipher cipher = Cipher.getInstance("AES");
+			Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 			byte[] encryptedData = cipher.doFinal(content);
 			return encryptedData;
@@ -34,7 +38,7 @@ public class AESUtil {
 		if(content == null || StringUtils.isBlank(pk)) return null;
 		try {
 			Key secretKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
-			Cipher cipher = Cipher.getInstance("AES");
+			Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
 			byte[] plainText = cipher.doFinal(content);
 			return plainText;
