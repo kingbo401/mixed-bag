@@ -24,7 +24,7 @@ public class FixedRateTaskUtil {
 				try{
 					task.run();
 				}catch(Exception e){
-					logger.error("FiexedRateTaskUtil error", e);
+					logger.error("FixedRateTaskUtil error", e);
 				}
 			}
 		}, initialDelay, period, unit);
