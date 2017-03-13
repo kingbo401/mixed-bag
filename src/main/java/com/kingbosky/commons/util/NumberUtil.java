@@ -76,16 +76,16 @@ public class NumberUtil {
 	 * @see #getInt(String, int)
 	 * @see com.nx.commons.lang.Constants#DFT_INTEGER_VAL
 	 */
-	public static int getInt(String input) {
+	public static int toInt(String input) {
 		return getInt(input, Constants.DFT_INTEGER_VAL);
 	}
 	
-	public static int getInt(Object input) {
+	public static int toInt(Object input) {
 		if (input == null) return Constants.DFT_INTEGER_VAL;
-		return getInt(input.toString());
+		return toInt(input.toString());
 	}
 	
-	public static int getInt(Object input, int defVal) {
+	public static int toInt(Object input, int defVal) {
 		if (input == null) return Constants.DFT_INTEGER_VAL;
 		return getInt(input.toString(), defVal);
 	}
@@ -103,7 +103,7 @@ public class NumberUtil {
 	public static List<Integer> toInts(String[] input) {
 		List<Integer> ret = CollectionUtil.newArrayList();
 		for (String s : input) {
-			ret.add(getInt(s));
+			ret.add(toInt(s));
 		}
 		return ret;
 	}
@@ -141,11 +141,11 @@ public class NumberUtil {
 	 * @return
 	 * <li>字符串可以转化为Java的整数时，返回转化后数值</li>
 	 * <li>其它，返回Constants.DFT_SHORT_VAL</li>
-	 * @see #getShort(String, short)
+	 * @see #toShort(String, short)
 	 * @see com.nx.commons.lang.Constants#DFT_SHORT_VAL
 	 */
-	public static short getShort(String input) {
-		return getShort(input, Constants.DFT_SHORT_VAL);
+	public static short toShort(String input) {
+		return toShort(input, Constants.DFT_SHORT_VAL);
 	}
 	/**
 	 * 将字符串转化为short类型的值
@@ -155,7 +155,7 @@ public class NumberUtil {
 	 * <li>字符串可以转化为Java的整数时，返回转化后数值</li>
 	 * <li>其它，返回参数defVal的值</li>
 	 */
-	public static short getShort(String input, short defVal) {
+	public static short toShort(String input, short defVal) {
 		return isShort(input) ? Short.parseShort(input) : defVal;
 	}
 	/**
@@ -191,11 +191,11 @@ public class NumberUtil {
 	 * @return
 	 * <li>字符串可以转化为byte值时，返回转化后数值</li>
 	 * <li>其它，返回Constants.DFT_BYTE_VAL</li>
-	 * @see #getByte(String, byte)
+	 * @see #toByte(String, byte)
 	 * @see com.nx.commons.lang.Constants#DFT_BYTE_VAL
 	 */
-	public static byte getByte(String input) {
-		return getByte(input, Constants.DFT_BYTE_VAL);
+	public static byte toByte(String input) {
+		return toByte(input, Constants.DFT_BYTE_VAL);
 	}
 	/**
 	 * 将字符串转化为byte类型的值
@@ -205,7 +205,7 @@ public class NumberUtil {
 	 * <li>字符串可以转化为byte值时，返回转化后数</li>
 	 * <li>其它，返回参数defVal的值</li>
 	 */
-	public static byte getByte(String input, byte defVal) {
+	public static byte toByte(String input, byte defVal) {
 		return isByte(input) ? Byte.parseByte(input) : defVal;
 	}
 	/**
@@ -228,11 +228,11 @@ public class NumberUtil {
 	 * @return
 	 * <li>字符串可以转化为long值时，返回转化后数值</li>
 	 * <li>其它，返回Constants.DFT_LONG_VAL</li>
-	 * @see #getLong(String, long)
+	 * @see #toLong(String, long)
 	 * @see com.nx.commons.lang.Constants#DFT_LONG_VAL
 	 */
-	public static long getLong(String input) {
-		return getLong(input, Constants.DFT_LONG_VAL);
+	public static long toLong(String input) {
+		return toLong(input, Constants.DFT_LONG_VAL);
 	}
 	/**
 	 * 将字符串转化为long类型的值
@@ -242,13 +242,13 @@ public class NumberUtil {
 	 * <li>字符串可以转化为long值时，返回转化后数值</li>
 	 * <li>其它，返回参数defVal的值</li>
 	 */
-	public static long getLong(String input, long defVal) {
+	public static long toLong(String input, long defVal) {
 		return isLong(input) ? Long.parseLong(input) : defVal;
 	}
-	public static List<Long> getLongs(String[] input) {
+	public static List<Long> toLongs(String[] input) {
 		List<Long> ret = CollectionUtil.newArrayList();
 		for (String s : input) {
-			ret.add(getLong(s));
+			ret.add(toLong(s));
 		}
 		return ret;
 	}
@@ -271,11 +271,11 @@ public class NumberUtil {
 	 * @return
 	 * <li>字符串可以转化为float值时，返回转化后数值</li>
 	 * <li>其它，返回Constants.DFT_FLOAT_VAL</li>
-	 * @see #getFloat(String, float)
+	 * @see #toFloat(String, float)
 	 * @see com.nx.commons.lang.Constants#DFT_FLOAT_VAL
 	 */
-	public static float getFloat(String input) {
-		return getFloat(input, Constants.DFT_FLOAT_VAL);
+	public static float toFloat(String input) {
+		return toFloat(input, Constants.DFT_FLOAT_VAL);
 	}
 	/**
 	 * 将字符串转化为float类型的值
@@ -285,7 +285,7 @@ public class NumberUtil {
 	 * <li>字符串可以转化为float值时，返回转化后数值</li>
 	 * <li>其它，返回参数defVal的值</li>
 	 */
-	public static float getFloat(String input, float defVal) {
+	public static float toFloat(String input, float defVal) {
 		return isFloat(input) ? Float.parseFloat(input) : defVal;
 	}
 	/**
@@ -307,11 +307,11 @@ public class NumberUtil {
 	 * @return
 	 * <li>字符串可以转化为double值时，返回转化后数值</li>
 	 * <li>其它，返Constants.DFT_DOUBLE_VAL</li>
-	 * @see #getDouble(String, double)
+	 * @see #toDouble(String, double)
 	 * @see com.nx.commons.lang.Constants#DFT_DOUBLE_VAL
 	 */
-	public static double getDouble(String input) {
-		return getDouble(input, Constants.DFT_DOUBLE_VAL);
+	public static double toDouble(String input) {
+		return toDouble(input, Constants.DFT_DOUBLE_VAL);
 	}
 	/**
 	 * 将字符串转化为double类型的值
@@ -321,7 +321,7 @@ public class NumberUtil {
 	 * <li>字符串可以转化为double值时，返回转化后数值</li>
 	 * <li>其它，返回参数defVal的值</li>
 	 */
-	public static double getDouble(String input, double defVal) {
+	public static double toDouble(String input, double defVal) {
 		return isDouble(input) ? Double.parseDouble(input) : defVal;
 	}
 	/**
@@ -343,11 +343,11 @@ public class NumberUtil {
 	 * @return
 	 * <li>字符串可以转化为boolean值时，返回转化后布尔值</li>
 	 * <li>其它，返回Constants.DFT_BOOLEAN_VAL</li>
-	 * @see #getBoolean(String, boolean)
+	 * @see #toBoolean(String, boolean)
 	 * @see com.nx.commons.lang.Constants#DFT_BOOLEAN_VAL
 	 */
-	public static boolean getBoolean(String input) {
-		return getBoolean(input, Constants.DFT_BOOLEAN_VAL);
+	public static boolean toBoolean(String input) {
+		return toBoolean(input, Constants.DFT_BOOLEAN_VAL);
 	}
 	/**
 	 * 将字符串转化为boolean类型的值
@@ -360,18 +360,18 @@ public class NumberUtil {
 	 *   <li>字符串为1个或多个"0"时，返回false</li>
 	 *   <li>其它，返回defVal指定的值</li>
 	 */
-	public static boolean getBoolean(String input, boolean defVal) {
+	public static boolean toBoolean(String input, boolean defVal) {
 		if (input == null) return defVal;
 		if (input.equalsIgnoreCase("true")) return true;
 		if (input.equalsIgnoreCase("false")) return false;
 		if (matchesNumber(input, NUMBER_PATTERN)) {
-			return (getInt(input) != 0);
+			return (toInt(input) != 0);
 		}
 		return defVal;
 	}
 	
-	public static boolean getBoolean(Object input) {
-		return getBoolean(StringUtil.getString(input), Constants.DFT_BOOLEAN_VAL);
+	public static boolean toBoolean(Object input) {
+		return toBoolean(StringUtil.getString(input), Constants.DFT_BOOLEAN_VAL);
 	}
 	
 	/**

@@ -26,9 +26,9 @@ public class JedisClient {
 			ins = JedisClient.class.getResourceAsStream("/redis.properties");
 			prop.load(ins);
 			String ip = prop.getProperty("ip");
-			int port = NumberUtil.getInt(prop.getProperty("port"));
-			int maxTotal = NumberUtil.getInt(prop.getProperty("maxTotal"));
-			long maxWaitMillis = NumberUtil.getLong(prop.getProperty("maxWaitMillis"));
+			int port = NumberUtil.toInt(prop.getProperty("port"));
+			int maxTotal = NumberUtil.toInt(prop.getProperty("maxTotal"));
+			long maxWaitMillis = NumberUtil.toLong(prop.getProperty("maxWaitMillis"));
 			JedisPoolConfig config = new JedisPoolConfig();
 			config.setMaxTotal(maxTotal);
 			config.setMaxIdle(Math.max(config.getMaxTotal() / 10, 10));
