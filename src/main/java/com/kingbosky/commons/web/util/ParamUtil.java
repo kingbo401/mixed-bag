@@ -139,4 +139,31 @@ public class ParamUtil {
 		}
 		return sb.toString();
 	}
+	
+	/**
+	 * 
+	 * @param params a=b&c=d
+	 */
+	public Map<String, String> parseKeyAndValStr(String params){
+		Map<String, String> paramMap = new HashMap<String, String>();
+		String[] pairs = params.split("&");
+		int len = pairs.length;
+		for (int i = 0; i < len; i++) {
+			String pair = pairs[i];
+			String[] keyValue = pair.split("=");
+			if (keyValue.length != 2) {
+				if (keyValue.length == 1) {
+					String key = keyValue[0];
+					paramMap.put(key, "");
+				} else {
+					return null;
+				}
+			} else {
+				String key = keyValue[0];
+				String value = keyValue[1];
+				paramMap.put(key, value);
+			}
+		}
+		return paramMap;
+	}
 }
