@@ -5,14 +5,14 @@ import java.io.UnsupportedEncodingException;
 import redis.clients.jedis.Jedis;
 
 import com.kingbosky.commons.hessian.HessianSerializeUtil;
-import com.kingbosky.commons.redis.JedisClient;
+import com.kingbosky.commons.redis.JedisPollClient;
 
 public class BaseClient {
 	protected final String DFT_CHARSET = "UTF-8";
 	protected <T> T doExecute(String key, Operation<T> operation) {
 		Jedis jedis = null;
 		try {
-			jedis = JedisClient.getResource(key);
+			jedis = JedisPollClient.getResource(key);
 			return operation.execute(jedis);
 		} finally {
 			if(jedis != null){

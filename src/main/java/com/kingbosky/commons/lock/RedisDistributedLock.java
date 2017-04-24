@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import redis.clients.jedis.Jedis;
 
-import com.kingbosky.commons.redis.JedisClient;
+import com.kingbosky.commons.redis.JedisPollClient;
 
 public class RedisDistributedLock implements ILock{
 	private  int expire = 3;//3秒
@@ -25,7 +25,7 @@ public class RedisDistributedLock implements ILock{
 		while(true){
 			Jedis jedis = null;
 			try{
-				jedis = JedisClient.getResource(key);
+				jedis = JedisPollClient.getResource(key);
 				if(!jedis.isConnected()){//防止redis挂的时候项目不可用
 					logger.error("Redis Connect Exception");
 					return true;
@@ -55,7 +55,7 @@ public class RedisDistributedLock implements ILock{
 	public void unLock(String key) {
 		Jedis jedis = null;
 		try{
-			jedis = JedisClient.getResource(key);
+			jedis = JedisPollClient.getResource(key);
 			jedis.del(key);
 		}finally{
 			if(jedis != null)

@@ -306,7 +306,7 @@
 		<httpmime.version>4.5.2</httpmime.version>
 		<jackson.version>1.9.13</jackson.version>
 		<hessian.version>4.0.38</hessian.version>
-		<jedis.version>2.7.0</jedis.version>
+		<jedis.version>2.9.0</jedis.version>
 		<jsp-api.version>2.0</jsp-api.version>
 	</properties>
   
