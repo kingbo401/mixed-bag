@@ -31,12 +31,15 @@ public abstract class BaseController implements IController {
 		format1.setLenient(false);
 		SimpleDateFormat format2 = new SimpleDateFormat(DATE_TIME_FORMATTER);
 		format2.setLenient(false);
-		SimpleDateFormat format3 = new SimpleDateFormat(DATE_TIME_FORMATTER_SLASH);
+		SimpleDateFormat format3 = new SimpleDateFormat(DATE_FORMATTER_SLASH);
 		format3.setLenient(false);
+		SimpleDateFormat format4 = new SimpleDateFormat(DATE_TIME_FORMATTER_SLASH);
+		format4.setLenient(false);
 		List<SimpleDateFormat> formats = new ArrayList<SimpleDateFormat>();
 		formats.add(format1);
 		formats.add(format2);
 		formats.add(format3);
+		formats.add(format4);
 
 		binder.registerCustomEditor(Date.class, new DateTimeEditor(formats, true));
 		binder.registerCustomEditor(Timestamp.class, new TimestampEditor(formats, true));
