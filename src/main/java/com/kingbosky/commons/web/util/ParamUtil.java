@@ -144,7 +144,7 @@ public class ParamUtil {
 	 * 
 	 * @param params a=b&c=d
 	 */
-	public Map<String, String> parseKeyAndValStr(String params){
+	public static Map<String, String> parseKeyAndValStr(String params){
 		Map<String, String> paramMap = new HashMap<String, String>();
 		String[] pairs = params.split("&");
 		int len = pairs.length;
