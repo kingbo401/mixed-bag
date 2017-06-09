@@ -8,7 +8,7 @@ import com.kingbosky.commons.hessian.HessianSerializeUtil;
 import com.kingbosky.commons.redis.JedisPollClient;
 
 public class BaseClient {
-	protected final String DFT_CHARSET = "UTF-8";
+	private final String DFT_CHARSET = "UTF-8";
 	protected <T> T doExecute(String key, Operation<T> operation) {
 		Jedis jedis = null;
 		try {

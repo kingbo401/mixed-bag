@@ -2,6 +2,7 @@ package com.kingbosky.commons.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -101,7 +102,7 @@ public class NumberUtil {
 		return isJavaInteger(input) ? Integer.parseInt(input) : defVal;
 	}
 	public static List<Integer> toInts(String[] input) {
-		List<Integer> ret = CollectionUtil.newArrayList();
+		List<Integer> ret = new ArrayList<Integer>();
 		for (String s : input) {
 			ret.add(toInt(s));
 		}
@@ -246,7 +247,7 @@ public class NumberUtil {
 		return isLong(input) ? Long.parseLong(input) : defVal;
 	}
 	public static List<Long> toLongs(String[] input) {
-		List<Long> ret = CollectionUtil.newArrayList();
+		List<Long> ret = new ArrayList<Long>();
 		for (String s : input) {
 			ret.add(toLong(s));
 		}

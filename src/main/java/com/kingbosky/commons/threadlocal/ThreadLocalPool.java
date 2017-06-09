@@ -1,8 +1,7 @@
 package com.kingbosky.commons.threadlocal;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.kingbosky.commons.util.CollectionUtil;
 
 /**
  * 全局ThreadLocal管理类
@@ -11,7 +10,7 @@ import com.kingbosky.commons.util.CollectionUtil;
 public class ThreadLocalPool {
 
 	private static final Object lock = new Object();
-	private static final List<ThreadLocal<Object>> lstLocal = CollectionUtil.newArrayList();
+	private static final List<ThreadLocal<Object>> lstLocal = new ArrayList<ThreadLocal<Object>>();
 
 	@SuppressWarnings("unchecked")
 	public static <T> ThreadLocal<T> createThreadLocal() {

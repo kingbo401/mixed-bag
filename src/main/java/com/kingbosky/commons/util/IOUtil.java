@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kingbosky.commons.exception.GeneralException;
@@ -91,7 +92,7 @@ public class IOUtil {
 	
 	public static List<String> readTextFileByLine(File textFile) {
 		BufferedReader br = null;
-		List<String> ret = CollectionUtil.newArrayList();
+		List<String> ret = new ArrayList<String>();
 		try {
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(textFile), Constants.DFT_CHARSET));
 			String line;
