@@ -1,4 +1,4 @@
-package com.kingbosky.commons.redis;
+package com.kingbosky.commons.redis.jedis.poll;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,13 +12,16 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.util.Pool;
 
-public class JedisPollClient {
-	private static JedisPollClient instance = new JedisPollClient();
+public class JedisPollClient implements JedisPoll{
 	private Pool<Jedis> pool;
+	
+	public JedisPollClient(){
+		this("redis.properties");
+	}
 
-	private JedisPollClient() {
+	public JedisPollClient(String configFile) {
 		String path = JedisPollClient.class.getResource("/").getPath()
-				+ "redis.properties";
+				+ configFile;
 		if (pool != null)
 			return;
 		Properties prop = new Properties();
@@ -53,7 +56,7 @@ public class JedisPollClient {
 		}
 	}
 	
-	public static Jedis getResource(String key) {//key供以后客户端集群扩展使用
-		return instance.pool.getResource();
+	public Jedis getResource(String key) {//key供以后客户端集群扩展使用
+		return pool.getResource();
 	}
 }

@@ -1,18 +1,30 @@
-package com.kingbosky.commons.redis.client;
+package com.kingbosky.commons.redis.jedis;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import redis.clients.jedis.Jedis;
 
 import com.kingbosky.commons.hessian.HessianSerializeUtil;
-import com.kingbosky.commons.redis.JedisPollClient;
+import com.kingbosky.commons.redis.jedis.poll.JedisPoll;
 
 public class BaseClient {
-	private final String DFT_CHARSET = "UTF-8";
+	protected final String DFT_CHARSET = "UTF-8";
+	
+	private JedisPoll jedisPoll;
+	
+	public JedisPoll getJedisPoll() {
+		return jedisPoll;
+	}
+
+	public void setJedisPoll(JedisPoll jedisPoll) {
+		this.jedisPoll = jedisPoll;
+	}
+
 	protected <T> T doExecute(String key, Operation<T> operation) {
 		Jedis jedis = null;
 		try {
-			jedis = JedisPollClient.getResource(key);
+			jedis = jedisPoll.getResource(key);
 			return operation.execute(jedis);
 		} finally {
 			if(jedis != null){
@@ -42,7 +54,41 @@ public class BaseClient {
 		return null;
 	}
 	
-//	private static boolean isBaseDataType(Class<?> clazz) {
+	public Long del(final String key){
+		return doExecute(key, new Operation<Long>(){
+			@Override
+			public Long execute(Jedis jedis) {
+				return jedis.del(key);
+			}
+		});
+	}
+	
+	public void del(final List<String> keys){
+		doExecute(null, new Operation<Long>(){
+			@Override
+			public Long execute(Jedis jedis) {
+				return jedis.del((String[])keys.toArray());
+			}
+		});
+	}
+	public Boolean exists(final String key) {
+		return doExecute(key, new Operation<Boolean>(){
+			@Override
+			public Boolean execute(Jedis jedis) {
+				return jedis.exists(key);
+			}
+		});
+	}
+	
+	public Long decrBy(final String key, final long num){
+		return doExecute(key, new Operation<Long>(){
+			@Override
+			public Long execute(Jedis jedis) {
+				return jedis.decrBy(key, num);
+			}
+		});
+	}
+//	private boolean isBaseDataType(Class<?> clazz) {
 //		return (clazz.equals(String.class) || clazz.equals(Integer.class)
 //				|| clazz.equals(Byte.class) || clazz.equals(Long.class)
 //				|| clazz.equals(Double.class) || clazz.equals(Float.class)

@@ -1,4 +1,4 @@
-package com.kingbosky.commons.redis.client;
+package com.kingbosky.commons.redis.jedis;
 
 import java.util.Set;
 
@@ -10,12 +10,20 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Tuple;
 
 import com.kingbosky.commons.lock.ILock;
-import com.kingbosky.commons.lock.RedisDistributedLock;
 
 @Service
 public class SortedSetClient extends BaseClient{
-	private final static Logger logger = LoggerFactory.getLogger(SortedSetClient.class);
-	private final ILock lock = new RedisDistributedLock(); 
+	private final Logger logger = LoggerFactory.getLogger(SortedSetClient.class);
+	private ILock distributedLock; 
+	
+	public ILock getDistributedLock() {
+		return distributedLock;
+	}
+
+	public void setDistributedLock(ILock distributedLock) {
+		this.distributedLock = distributedLock;
+	}
+
 	/**
 	 * 添加排行榜成员
 	 * @param key
@@ -39,13 +47,13 @@ public class SortedSetClient extends BaseClient{
 	 */
 	public void addScore(String key, String member, double num){
 		String lockKey = "sortedset:lock:" + key + ":" + member;
-		if(lock.lock(lockKey)){
+		if(distributedLock.lock(lockKey)){
 			try{
 				Double score = zscore(key, member);
 				if(score == null) score = 0d;
 				zadd(key, member, score + num);
 			}finally{
-				lock.unLock(lockKey);
+				distributedLock.unLock(lockKey);
 			}
 		}else {
 			logger.error("SortedSetClient get lock error,key:" + lockKey);

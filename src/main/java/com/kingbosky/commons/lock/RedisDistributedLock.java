@@ -5,17 +5,19 @@ import org.slf4j.LoggerFactory;
 
 import redis.clients.jedis.Jedis;
 
-import com.kingbosky.commons.redis.JedisPollClient;
+import com.kingbosky.commons.redis.jedis.poll.JedisPoll;
 
 public class RedisDistributedLock implements ILock{
 	private  int expire = 3;//3秒
 	private final  Logger logger = LoggerFactory.getLogger(getClass());
-
-	public RedisDistributedLock(){
-		
+	private JedisPoll jedisPoll;
+	
+	public RedisDistributedLock(JedisPoll jedisPoll){
+		this.jedisPoll = jedisPoll;
 	}
 	
-	public RedisDistributedLock(int expire){
+	public RedisDistributedLock(JedisPoll jedisPoll, int expire){
+		this.jedisPoll = jedisPoll;
 		this.expire = expire;
 	}
 
@@ -25,7 +27,7 @@ public class RedisDistributedLock implements ILock{
 		while(true){
 			Jedis jedis = null;
 			try{
-				jedis = JedisPollClient.getResource(key);
+				jedis = jedisPoll.getResource(key);
 				if(!jedis.isConnected()){//防止redis挂的时候项目不可用
 					logger.error("Redis Connect Exception");
 					return true;
@@ -55,11 +57,19 @@ public class RedisDistributedLock implements ILock{
 	public void unLock(String key) {
 		Jedis jedis = null;
 		try{
-			jedis = JedisPollClient.getResource(key);
+			jedis = jedisPoll.getResource(key);
 			jedis.del(key);
 		}finally{
 			if(jedis != null)
 			jedis.close();;
 		}
+	}
+	
+	public JedisPoll getJedisPoll() {
+		return jedisPoll;
+	}
+
+	public void setJedisPoll(JedisPoll jedisPoll) {
+		this.jedisPoll = jedisPoll;
 	}
 }

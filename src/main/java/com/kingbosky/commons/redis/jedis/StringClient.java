@@ -1,13 +1,13 @@
-package com.kingbosky.commons.redis.client;
+package com.kingbosky.commons.redis.jedis;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import redis.clients.jedis.Jedis;
 
 @Service
-public class CacheClient extends BaseClient {
+public class StringClient extends BaseClient {
 	public String get(final String key) {
 		return doExecute(key, new Operation<String>() {
 			@Override
@@ -40,41 +40,6 @@ public class CacheClient extends BaseClient {
 			@Override
 			public String execute(Jedis jedis) {
 				return jedis.set(getBytes(key), encode(value));
-			}
-		});
-	}
-	
-	public Long del(final String key){
-		return doExecute(key, new Operation<Long>(){
-			@Override
-			public Long execute(Jedis jedis) {
-				return jedis.del(key);
-			}
-		});
-	}
-	
-	public void del(final List<String> keys){
-		doExecute(null, new Operation<Long>(){
-			@Override
-			public Long execute(Jedis jedis) {
-				return jedis.del((String[])keys.toArray());
-			}
-		});
-	}
-	public Boolean exists(final String key) {
-		return doExecute(key, new Operation<Boolean>(){
-			@Override
-			public Boolean execute(Jedis jedis) {
-				return jedis.exists(key);
-			}
-		});
-	}
-	
-	public Long decrBy(final String key, final long num){
-		return doExecute(key, new Operation<Long>(){
-			@Override
-			public Long execute(Jedis jedis) {
-				return jedis.decrBy(key, num);
 			}
 		});
 	}
@@ -147,6 +112,24 @@ public class CacheClient extends BaseClient {
 			@Override
 			public Long execute(Jedis jedis) {
 				return jedis.expire(key, seconds);
+			}
+		});
+	}
+	
+	public String hmget(final String key) {
+		return doExecute(key, new Operation<String>() {
+			@Override
+			public String execute(Jedis jedis) {
+				return jedis.get(key);
+			}
+		});
+	}
+	
+	public String hmset(final String key, final Map<String, String> hash){
+		return doExecute(key, new Operation<String>(){
+			@Override
+			public String execute(Jedis jedis) {
+				return jedis.hmset(key, hash);
 			}
 		});
 	}
