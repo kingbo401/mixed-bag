@@ -1,4 +1,4 @@
-package com.kingbosky.commons.redis.jedis;
+package com.kingbosky.commons.redis;
 
 import java.util.Map;
 
