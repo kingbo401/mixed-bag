@@ -6,25 +6,25 @@ import java.util.List;
 import redis.clients.jedis.Jedis;
 
 import com.kingbosky.commons.hessian.HessianSerializeUtil;
-import com.kingbosky.commons.redis.jedis.poll.JedisPoll;
+import com.kingbosky.commons.redis.jedis.pool.JedisResourcePool;
 
 public class BaseClient {
 	protected final String DFT_CHARSET = "UTF-8";
 	
-	private JedisPoll jedisPoll;
+	private JedisResourcePool jedisResourcePool;
 	
-	public JedisPoll getJedisPoll() {
-		return jedisPoll;
+	public JedisResourcePool getJedisResourcePool() {
+		return jedisResourcePool;
 	}
 
-	public void setJedisPoll(JedisPoll jedisPoll) {
-		this.jedisPoll = jedisPoll;
+	public void setJedisResourcePool(JedisResourcePool jedisResourcePool) {
+		this.jedisResourcePool = jedisResourcePool;
 	}
 
 	protected <T> T doExecute(String key, Operation<T> operation) {
 		Jedis jedis = null;
 		try {
-			jedis = jedisPoll.getResource(key);
+			jedis = jedisResourcePool.getResource(key);
 			return operation.execute(jedis);
 		} finally {
 			if(jedis != null){
