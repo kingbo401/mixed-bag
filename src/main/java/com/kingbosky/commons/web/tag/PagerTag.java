@@ -58,7 +58,14 @@ public class PagerTag extends TagSupport {
 	
 	@Override
 	public void release() {
+		pageParam = null;
 		params = null;
+		curPage = 1; // 当前页面
+		pageSize = 10;// 每页显示多少数据
+		total = 0;// 数据总条数
+		url = null;// 跳转页面
+		css = "page";
+		maxPage = 10;// 显示多少页码
 		super.release();
 	}
 
