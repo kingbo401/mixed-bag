@@ -132,7 +132,7 @@ public class HttpClientUtil {
 		}
 	}
 	
-	public static String httpClientGet(String url, Map<String, String> params, String encode, int connectTimeout,
+	public static String get(String url, Map<String, String> params, String encode, int connectTimeout,
 			int soTimeout) {
 		return get(url, params, null, encode, connectTimeout, soTimeout);
 	}
