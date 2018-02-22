@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -93,8 +94,7 @@ public class HttpClientUtil {
 									return true;
 								}//解决https请求 hostname in certificate didn't match的问题
 					})).build();
-			
-			httpConnManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
+			httpConnManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry, null, null , null, 360L, TimeUnit.SECONDS);
 			// Create socket configuration
 			SocketConfig socketConfig = SocketConfig.custom().setTcpNoDelay(true).setSoKeepAlive(true)
 					.setSoReuseAddress(true).build();
