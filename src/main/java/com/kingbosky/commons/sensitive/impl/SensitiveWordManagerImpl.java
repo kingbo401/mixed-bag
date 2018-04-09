@@ -1,5 +1,6 @@
 package com.kingbosky.commons.sensitive.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Map;
 import com.kingbosky.commons.sensitive.SensitiveWordManager;
 import com.kingbosky.commons.sensitive.SensitiveWordSource;
 
-public class SensitiveWordManagerImp implements SensitiveWordManager{
+public class SensitiveWordManagerImpl implements SensitiveWordManager{
 	private static Map<Integer, NumberTree> forbiddenMap = new HashMap<Integer, NumberTree>();
 	
 	private SensitiveWordSource sensitiveSource;
@@ -46,7 +47,7 @@ public class SensitiveWordManagerImp implements SensitiveWordManager{
 		createWordTree(word, index + 1, tree.map);
 	}
 	
-	private class NumberTree {
+	private static class NumberTree {
 		Map<Integer, NumberTree> map = new HashMap<Integer, NumberTree>();;
 		boolean finishFlg = false;
 	}
@@ -66,5 +67,17 @@ public class SensitiveWordManagerImp implements SensitiveWordManager{
 		NumberTree tree = map.get(ch);
 		if (tree.finishFlg) return true; 
 		return hasSensitive(word, index + 1, length, tree.map);
+	}
+	
+	public static void main(String[] args) {
+		List<String> lstWord = new ArrayList<String>();
+		lstWord.add("法轮功");
+		lstWord.add("fuck");
+		lstWord.add("江泽民");
+		SensitiveWordManagerImpl manager = new SensitiveWordManagerImpl();
+		for (String word : lstWord) {
+			manager.createWordTree(word.trim(), 0, forbiddenMap);
+		}
+		System.out.println(manager.hasSensitive("llasdfuckyoux"));
 	}
 }
