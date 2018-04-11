@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.kingbosky.commons.sensitive.SensitiveWordManager;
 import com.kingbosky.commons.sensitive.SensitiveWordSource;
+import com.kingbosky.commons.util.FullHalfConvert;
 
 /**
  * 敏感词过滤 DFA有穷状态机算法的实现
@@ -103,7 +104,8 @@ public class SensitiveWordManagerImpl implements SensitiveWordManager{
 	 * @param c
 	 * @return
 	 */
-	private static int charConvert(char c) {  
+	private static int charConvert(char c) { 
+		c = FullHalfConvert.full2half(c + "").charAt(0);
         return (c >= 'A' && c <= 'Z') ? c + 32 : c;  
     }  
 	
@@ -117,6 +119,6 @@ public class SensitiveWordManagerImpl implements SensitiveWordManager{
 			manager.createWordTree(word.trim(), 0, forbiddenMap);
 		}
 		System.out.println(manager.hasSensitiveWord("llasdFuckyoux"));
-		System.out.println(manager.filterSensitiveWord("法轮功ll法轮功asdFFFuckyou江泽民x",'*'));
+		System.out.println(manager.filterSensitiveWord("法轮功ll法轮功asdFｕｃｋyou江泽民x",'*'));
 	}
 }
