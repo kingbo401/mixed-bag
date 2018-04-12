@@ -3,8 +3,10 @@ package com.kingbosky.commons.sensitive.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.kingbosky.commons.sensitive.SensitiveWordManager;
 import com.kingbosky.commons.sensitive.SensitiveWordSource;
@@ -17,6 +19,13 @@ import com.kingbosky.commons.util.FullHalfConvert;
  */
 public class SensitiveWordManagerImpl implements SensitiveWordManager{
 	private static Map<Integer, NumberTree> forbiddenMap = new HashMap<Integer, NumberTree>();
+	private static String stopWordStr = " \\/*-_+,`~!@#$%^&()=!<>{}[]！《》【】、，.。（）";
+	private static Set<Integer> stopWords = new HashSet<Integer>();
+	static{
+		for(int i = 0; i < stopWordStr.length(); i++){
+			stopWords.add((int)stopWordStr.charAt(i));
+		}
+	}
 	
 	private SensitiveWordSource sensitiveSource;
 	
@@ -93,7 +102,13 @@ public class SensitiveWordManagerImpl implements SensitiveWordManager{
 	private int getFinishFlagIndex(String str, int index, int length, Map<Integer, NumberTree> map) {
 		if (index >= length) return -1;
 		int ch = charConvert(str.charAt(index));
-		if (!map.containsKey(ch)) return -1;
+		if (!map.containsKey(ch)){
+			if(stopWords.contains(ch)){
+				return getFinishFlagIndex(str, index + 1, length, map);
+			}else{
+				return -1;
+			}
+		}
 		NumberTree tree = map.get(ch);
 		if (tree.finishFlag) return index; 
 		return getFinishFlagIndex(str, index + 1, length, tree.map);
@@ -119,6 +134,6 @@ public class SensitiveWordManagerImpl implements SensitiveWordManager{
 			manager.createWordTree(word.trim(), 0, forbiddenMap);
 		}
 		System.out.println(manager.hasSensitiveWord("llasdFuckyoux"));
-		System.out.println(manager.filterSensitiveWord("法轮功ll法轮功asdFｕｃｋyou江泽民x",'*'));
+		System.out.println(manager.filterSensitiveWord("1111Fｕｃｋyou哈哈哈法-轮 -功",'*'));
 	}
 }
