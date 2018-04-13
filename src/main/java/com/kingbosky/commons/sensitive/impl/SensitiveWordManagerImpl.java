@@ -103,6 +103,9 @@ public class SensitiveWordManagerImpl implements SensitiveWordManager{
 		if (index >= length) return -1;
 		int ch = charConvert(str.charAt(index));
 		if (!map.containsKey(ch)){
+			if(map.equals(forbiddenMap)){//第一层递归，直接返回-1
+				return -1;
+			}
 			if(stopWords.contains(ch)){
 				return getFinishFlagIndex(str, index + 1, length, map);
 			}else{
@@ -134,6 +137,6 @@ public class SensitiveWordManagerImpl implements SensitiveWordManager{
 			manager.createWordTree(word.trim(), 0, forbiddenMap);
 		}
 		System.out.println(manager.hasSensitiveWord("llasdFuckyoux"));
-		System.out.println(manager.filterSensitiveWord("1111Fｕｃｋyou哈哈哈法-轮 -功",'*'));
+		System.out.println(manager.filterSensitiveWord("你丫的【*F#ｕｃｋ】you##哈哈哈【法-轮 -功】",'*'));
 	}
 }
