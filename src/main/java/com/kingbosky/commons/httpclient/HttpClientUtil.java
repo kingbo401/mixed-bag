@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -46,6 +47,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kingbosky.commons.util.CollectionUtil;
+import com.kingbosky.commons.util.NumberUtil;
+import com.kingbosky.commons.util.PropertiesLoader;
 import com.kingbosky.commons.util.StringUtil;
 import com.kingbosky.commons.web.util.ParamUtil;
 
@@ -56,9 +59,6 @@ public class HttpClientUtil {
 	private static CloseableHttpClient httpClient = null;
 	private static int POOL_MAX_TOTAL = 1000;
 	private static int POOL_MAX_PER_ROUTE = 100;
-	// common config
-	public static int HTTP_TIMEOUT = 5000;
-	public static int SO_TIMEOUT = 5000;
 	private static int KEEP_ALIVE = 5000;
 
 	static {
@@ -70,6 +70,22 @@ public class HttpClientUtil {
 	 */
 	private static void initHttpClient() {
 		try {
+			Properties properties = PropertiesLoader.load("httpClientUtil.properties");
+			if(properties != null){
+				int poolMaxTotal = NumberUtil.toInt(properties.getProperty("POOL_MAX_TOTAL"));
+				if(poolMaxTotal > 0){
+					POOL_MAX_TOTAL = poolMaxTotal;
+				}
+				int poolMaxPerRoute = NumberUtil.toInt(properties.getProperty("POOL_MAX_PER_ROUTE"));
+				if(poolMaxPerRoute > 0){
+					POOL_MAX_PER_ROUTE = poolMaxPerRoute;
+				}
+				int keepAlive = NumberUtil.toInt(properties.getProperty("KEEP_ALIVE"));
+				if(keepAlive > 0){
+					KEEP_ALIVE = keepAlive;
+				}
+			}
+			
 			SSLContext sslContext = SSLContexts.custom().useProtocol("TLS").build();
 			sslContext.init(null, new TrustManager[] { new X509TrustManager() {
 

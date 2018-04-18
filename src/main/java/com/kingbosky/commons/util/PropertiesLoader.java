@@ -3,18 +3,17 @@ package com.kingbosky.commons.util;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 public class PropertiesLoader{
 	private static final Logger logger = LoggerFactory.getLogger(PropertiesLoader.class);
 	public static Properties load(String fileName){
+		Assert.hasText(fileName, "fileName不能为空");
 		Properties properties = new Properties();
-		if(!StringUtils.isEmpty(fileName)){
-			if(!fileName.startsWith("/")){
-				fileName = "/"+fileName;
-			}
+		if(!fileName.startsWith("/")){
+			fileName = "/"+fileName;
 		}
 		InputStream is = null;
 		try {
