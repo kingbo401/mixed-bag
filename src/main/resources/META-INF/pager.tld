@@ -17,7 +17,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>curPage</name>
+            <name>pageNum</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

@@ -16,7 +16,7 @@ public class PagerTag extends TagSupport {
 
     private static final long serialVersionUID = 1L;
 	private String pageParam = "pn";
-	private int curPage = 1; // 当前页面
+	private int pageNum = 1; // 当前页面
 	private int pageSize = 10;// 每页显示多少数据
 	private int total;// 数据总条数
 	private String url;// 跳转页面
@@ -60,7 +60,7 @@ public class PagerTag extends TagSupport {
 	public void release() {
 		pageParam = null;
 		params = null;
-		curPage = 1; // 当前页面
+		pageNum = 1; // 当前页面
 		pageSize = 10;// 每页显示多少数据
 		total = 0;// 数据总条数
 		url = null;// 跳转页面
@@ -70,11 +70,11 @@ public class PagerTag extends TagSupport {
 	}
 
 	private String getNavigatorBar() {
-		int offset = (curPage - 1) / maxPage;
+		int offset = (pageNum - 1) / maxPage;
 		int totalPage = (total + pageSize - 1) / pageSize;
 		StringBuilder bar = new StringBuilder();
-		if (curPage > 1) {
-			params.put(pageParam, String.valueOf(curPage - 1));
+		if (pageNum > 1) {
+			params.put(pageParam, String.valueOf(pageNum - 1));
 			bar.append("<a href=\"").append(getUri(url, params)).append("\">上一页</a>");
 		}
 		if (offset > 0){
@@ -89,9 +89,9 @@ public class PagerTag extends TagSupport {
 	    }else{
 	    	pageShowNum = totalPage;
 	    }
-	    if(curPage <= totalPage){
+	    if(pageNum <= totalPage){
 	    	for(int i = offset * maxPage + 1; i <= pageShowNum; i++){
-	    		if(curPage != i){
+	    		if(pageNum != i){
 	    			params.put(pageParam, String.valueOf(i));
 	    			bar.append("<a href=\"").append(getUri(url, params)).append("\">" + i + "</a>");
 	    		}else{
@@ -100,8 +100,8 @@ public class PagerTag extends TagSupport {
 	    	}
 	    } 
 	    
-		if (curPage < totalPage) {
-			params.put(pageParam, String.valueOf(curPage + 1));
+		if (pageNum < totalPage) {
+			params.put(pageParam, String.valueOf(pageNum + 1));
 			bar.append("<a href=\"").append(getUri(url, params)).append("\">下一页</a>");
 		}
 		return bar.toString();
@@ -144,12 +144,12 @@ public class PagerTag extends TagSupport {
 		this.pageParam = pageParam;
 	}
 
-	public int getCurPage() {
-		return curPage;
+	public int getPageNum() {
+		return pageNum;
 	}
 
-	public void setCurPage(int curPage) {
-		this.curPage = curPage;
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	}
 
 	public int getPageSize() {
