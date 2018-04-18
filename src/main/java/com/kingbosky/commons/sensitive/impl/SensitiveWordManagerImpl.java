@@ -10,7 +10,7 @@ import java.util.Set;
 
 import com.kingbosky.commons.sensitive.SensitiveWordManager;
 import com.kingbosky.commons.sensitive.SensitiveWordSource;
-import com.kingbosky.commons.util.FullHalfConvert;
+import com.kingbosky.commons.util.FullHalfConverter;
 
 /**
  * 敏感词过滤 DFA有穷状态机算法的实现
@@ -123,7 +123,7 @@ public class SensitiveWordManagerImpl implements SensitiveWordManager{
 	 * @return
 	 */
 	private static int charConvert(char c) { 
-		c = FullHalfConvert.full2half(c + "").charAt(0);
+		c = FullHalfConverter.full2half(c + "").charAt(0);
         return (c >= 'A' && c <= 'Z') ? c + 32 : c;  
     }  
 	

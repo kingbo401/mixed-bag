@@ -1,6 +1,6 @@
 package com.kingbosky.commons.util;
 
-public class FullHalfConvert {
+public class FullHalfConverter {
 	/**
 	 * ASCII表中可见字符从!开始，偏移位值为33(Decimal)
 	 */
