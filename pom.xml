@@ -2,23 +2,23 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.kingbosky</groupId>
+	<groupId>kingbo401</groupId>
 	<artifactId>commons</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0</version>
-	<name>kingbosky-commons</name>
-	<url>https://github.com/kingbosky/commons</url>
+	<name>kingbo401-commons</name>
+	<url>https://github.com/kingbo401/commons</url>
 	
 	<developers>
 		<developer>
-			<id>kingbosky</id>
-			<name>kingbosky</name>
-			<email>kingbosky@126.com</email>
+			<id>kingbo401</id>
+			<name>kingbo401</name>
+			<email>kingbo401@126.com</email>
 		</developer>
 	</developers>
 	
     <build>
-    	<finalName>kingbosky-commons</finalName>
+    	<finalName>kingbo401-commons</finalName>
 		<plugins>
 			
 			<plugin>
