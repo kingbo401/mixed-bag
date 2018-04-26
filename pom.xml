@@ -3,11 +3,11 @@
   
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kingbo401</groupId>
-	<artifactId>kingbo-commons</artifactId>
+	<artifactId>mix-bag</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0</version>
-	<name>kingbo-commons</name>
-	<url>https://github.com/kingbo401/commons</url>
+	<name>mix-bag</name>
+	<url>https://github.com/kingbo401/mix-bag</url>
 	
 	<developers>
 		<developer>
@@ -18,7 +18,7 @@
 	</developers>
 	
     <build>
-    	<finalName>kingbo-commons</finalName>
+    	<finalName>mix-bag</finalName>
 		<plugins>
 			
 			<plugin>
