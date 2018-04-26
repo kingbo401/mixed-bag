@@ -3,10 +3,10 @@
   
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kingbo401</groupId>
-	<artifactId>commons</artifactId>
+	<artifactId>kingbo-commons</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0</version>
-	<name>kingbo401-commons</name>
+	<name>kingbo-commons</name>
 	<url>https://github.com/kingbo401/commons</url>
 	
 	<developers>
@@ -18,7 +18,7 @@
 	</developers>
 	
     <build>
-    	<finalName>kingbo401-commons</finalName>
+    	<finalName>kingbo-commons</finalName>
 		<plugins>
 			
 			<plugin>
