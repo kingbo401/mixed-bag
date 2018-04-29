@@ -5,7 +5,7 @@
 	<groupId>kingbo401</groupId>
 	<artifactId>mix-bag</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0</version>
+	<version>1.0.0</version>
 	<name>mix-bag</name>
 	<url>https://github.com/kingbo401/mix-bag</url>
 	
