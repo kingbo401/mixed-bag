@@ -35,8 +35,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version>
 				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
+					<source>${jdk-version}</source>
+					<target>${jdk-version}</target>
 					<encoding>utf-8</encoding>
 					<showWarnings>true</showWarnings>
 				</configuration>
@@ -103,211 +103,211 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>${servlet.version}</version>
+			<version>${servlet-version}</version>
 			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jsp-api</artifactId>
-			<version>${jsp-api.version}</version>
+			<version>${jsp-api-version}</version>
 			<scope>provided</scope>
 		</dependency>
 		
     	<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-version}</version>
 			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>${httpclient.version}</version>
+			<version>${httpclient-version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpmime</artifactId>
-			<version>${httpmime.version}</version>
+			<version>${httpmime-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<version>${commons-beanutils.version}</version>
+			<version>${commons-beanutils-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>${commons-lang.version}</version>
+			<version>${commons-lang-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>${commons-io.version}</version>
+			<version>${commons-io-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		 <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <version>${slf4j-version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
+            <version>${logback-version}</version>
            <optional>true</optional>
         </dependency>
         <dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${slf4j.version}</version>
+			<version>${slf4j-version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-lgpl</artifactId>
-			<version>${jackson.version}</version>
+			<version>${jackson-version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-lgpl</artifactId>
-			<version>${jackson.version}</version>
+			<version>${jackson-version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-xc</artifactId>
-			<version>${jackson.version}</version>
+			<version>${jackson-version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 		    <groupId>com.caucho</groupId>
 		    <artifactId>hessian</artifactId>
-		    <version>${hessian.version}</version>
+		    <version>${hessian-version}</version>
 		    <optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>${jedis.version}</version>
+			<version>${jedis-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
 		    <groupId>dom4j</groupId>
 		    <artifactId>dom4j</artifactId>
-		    <version>${dom4j.version}</version>
+		    <version>${dom4j-version}</version>
 		    <optional>true</optional>
 		</dependency>
 		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
+			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
-			<version>${derby.version}</version>
+			<version>${derby-version}</version>
 			<optional>true</optional>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>${poi.version}</version>
+			<version>${poi-version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>${poi.version}</version>
+			<version>${poi-version}</version>
 			<optional>true</optional>
 		</dependency>
 		 <dependency>
 		      <groupId>com.googlecode.xmemcached</groupId>
 		      <artifactId>xmemcached</artifactId>
-		      <version>${xmemcached.version}</version>
+		      <version>${xmemcached-version}</version>
 		      <optional>true</optional>
 		 </dependency>
     </dependencies>
     
     <properties>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    	<spring.version>3.2.3.RELEASE</spring.version>
-    	<poi.version>3.10-FINAL</poi.version>
-    	<xmemcached.version>2.1.0</xmemcached.version>
-    	<dom4j.version>1.6.1</dom4j.version>
-		<junit.version>4.11</junit.version>
-		<derby.version>10.12.1.1</derby.version>
-		<jdk.version>1.6</jdk.version>
+    	<spring-version>3.2.3.RELEASE</spring-version>
+    	<poi-version>3.10-FINAL</poi-version>
+    	<xmemcached-version>2.1.0</xmemcached-version>
+    	<dom4j-version>1.6.1</dom4j-version>
+		<junit-version>4.11</junit-version>
+		<derby-version>10.12.1.1</derby-version>
+		<jdk-version>1.6</jdk-version>
 		<javadoc.skip>true</javadoc.skip>
-		<slf4j.version>1.7.21</slf4j.version>
-		<logback.version>1.1.7</logback.version>
-		<commons-lang.version>2.6</commons-lang.version>
-		<commons-beanutils.version>1.9.2</commons-beanutils.version>
-		<commons-io.version>2.5</commons-io.version>
-		<servlet.version>2.5</servlet.version>
-		<httpclient.version>4.5.2</httpclient.version>
-		<httpmime.version>4.5.2</httpmime.version>
-		<jackson.version>1.9.13</jackson.version>
-		<hessian.version>4.0.38</hessian.version>
-		<jedis.version>2.9.0</jedis.version>
-		<jsp-api.version>2.0</jsp-api.version>
+		<slf4j-version>1.7.21</slf4j-version>
+		<logback-version>1.1.7</logback-version>
+		<commons-lang-version>2.6</commons-lang-version>
+		<commons-beanutils-version>1.9.2</commons-beanutils-version>
+		<commons-io-version>2.5</commons-io-version>
+		<servlet-version>2.5</servlet-version>
+		<httpclient-version>4.5.2</httpclient-version>
+		<httpmime-version>4.5.2</httpmime-version>
+		<jackson-version>1.9.13</jackson-version>
+		<hessian-version>4.0.38</hessian-version>
+		<jedis-version>2.9.0</jedis-version>
+		<jsp-api-version>2.0</jsp-api-version>
 	</properties>
   
     <profiles>

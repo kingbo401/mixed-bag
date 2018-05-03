@@ -2,7 +2,7 @@ package com.kingbo401.commons.model.result;
 
 import org.apache.poi.ss.formula.functions.T;
 
-import com.kingbo401.commons.model.vo.PageVO;
+import com.kingbo401.commons.model.PageVO;
 
 public class PageResult extends BaseResult{
 	private static final long serialVersionUID = -6503398929445154329L;

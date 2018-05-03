@@ -1,8 +1,8 @@
-package com.kingbo401.commons.model.vo;
+package com.kingbo401.commons.model;
 
 import java.util.List;
 
-import com.kingbo401.commons.model.BaseObject;
+import com.kingbo401.commons.model.param.PageParam;
 
 public class PageVO<T> extends BaseObject{
 	private static final long serialVersionUID = -3085358027434978191L;
@@ -10,6 +10,18 @@ public class PageVO<T> extends BaseObject{
 	private int pageNum;
 	private long total;
 	private List<T> items;
+
+	public PageVO() {
+		super();
+	}
+	
+	public PageVO(PageParam param){
+		if(param == null){
+			return;
+		}
+		this.pageNum = param.getPageNum();
+		this.pageSize = param.getPageSize();
+	}
 
 	public int getTotalPage() {
 		if(pageSize < 1 || pageNum < 1 || total < 1){
