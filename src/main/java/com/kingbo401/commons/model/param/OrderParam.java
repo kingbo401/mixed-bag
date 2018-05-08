@@ -3,11 +3,12 @@ package com.kingbo401.commons.model.param;
 import java.util.regex.Pattern;
 
 import com.kingbo401.commons.model.BasePojo;
+import com.kingbo401.commons.util.Constants;
 
 public class OrderParam extends BasePojo{
 	private static final Pattern FIELD_PATTERN = Pattern.compile("[a-zA-Z0-9_\\-\\.]+");//防止sql注入
 	private String orderByField;
-	private String sort = "asc";
+	private String sort = Constants.ORDER_ASC;
 	public String getOrderByField() {
 		checkField();
 		return orderByField;
@@ -43,7 +44,7 @@ public class OrderParam extends BasePojo{
 		if(sort == null || sort.isEmpty()){
 			throw new IllegalArgumentException("sort cannot null");
 		}
-		if(!sort.equalsIgnoreCase("asc") && !sort.equalsIgnoreCase("desc")){
+		if(!sort.equalsIgnoreCase(Constants.ORDER_ASC) && !sort.equalsIgnoreCase(Constants.ORDER_DESC)){
 			throw new IllegalArgumentException("sort illegal:" + sort);
 		}
 	}

@@ -41,4 +41,7 @@ public interface Constants {
 	public static final Date DFT_DATE_VAL = null;
 	/** 默认时间戳值 */
 	public static final Timestamp DFT_TIMESTAMP_VAL = null;
+	
+	public static final String ORDER_ASC = "asc";
+	public static final String ORDER_DESC = "desc";
 }
