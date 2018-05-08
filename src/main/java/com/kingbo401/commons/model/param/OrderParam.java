@@ -7,45 +7,42 @@ import com.kingbo401.commons.util.Constants;
 
 public class OrderParam extends BasePojo{
 	private static final Pattern FIELD_PATTERN = Pattern.compile("[a-zA-Z0-9_\\-\\.]+");//防止sql注入
-	private String orderByField;
-	private String sort = Constants.ORDER_ASC;
-	public String getOrderByField() {
-		checkField();
-		return orderByField;
+	private String orderField;
+	private String orderType = Constants.ORDER_ASC;
+	public String getOrderField() {
+		checkOrderField();
+		return orderField;
 	}
-	public void setOrderByField(String orderByField) {
-		this.orderByField = orderByField;
-		checkField();
+	public void setOrderField(String orderField) {
+		this.orderField = orderField;
+		checkOrderField();
 	}
-	
-	public String getSort() {
-		checkSort();
-		return sort;
+	public String getOrderType() {
+		checkOrderType();
+		return orderType;
 	}
-	
-	public void setSort(String sort) {
-		this.sort = sort;
-		checkSort();
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+		checkOrderType();
 	}
-	
-	private void checkField(){
-		if(orderByField == null || orderByField.isEmpty()){
+	private void checkOrderField(){
+		if(orderField == null || orderField.isEmpty()){
 			return;
 		}
-		if(!FIELD_PATTERN.matcher(orderByField).matches()){
-			throw new IllegalArgumentException("orderByField illegal:" + orderByField);
+		if(!FIELD_PATTERN.matcher(orderField).matches()){
+			throw new IllegalArgumentException("orderField illegal:" + orderField);
 		}
 	}
 	
-	private void checkSort(){
-		if(orderByField == null || orderByField.isEmpty()){
+	private void checkOrderType(){
+		if(orderField == null || orderField.isEmpty()){
 			return;
 		}
-		if(sort == null || sort.isEmpty()){
-			throw new IllegalArgumentException("sort cannot null");
+		if(orderType == null || orderType.isEmpty()){
+			orderType = Constants.ORDER_ASC;
 		}
-		if(!sort.equalsIgnoreCase(Constants.ORDER_ASC) && !sort.equalsIgnoreCase(Constants.ORDER_DESC)){
-			throw new IllegalArgumentException("sort illegal:" + sort);
+		if(!orderType.equalsIgnoreCase(Constants.ORDER_ASC) && !orderType.equalsIgnoreCase(Constants.ORDER_DESC)){
+			throw new IllegalArgumentException("sort illegal:" + orderType);
 		}
 	}
 }
