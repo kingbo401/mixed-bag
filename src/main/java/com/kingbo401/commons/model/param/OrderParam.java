@@ -2,10 +2,9 @@ package com.kingbo401.commons.model.param;
 
 import java.util.regex.Pattern;
 
-import com.kingbo401.commons.model.BasePojo;
 import com.kingbo401.commons.util.Constants;
 
-public class OrderParam extends BasePojo{
+public class OrderParam extends BaseParam{
 	private static final Pattern FIELD_PATTERN = Pattern.compile("[a-zA-Z0-9_\\-\\.]+");//防止sql注入
 	private String orderField;
 	private String orderType = Constants.ORDER_ASC;
