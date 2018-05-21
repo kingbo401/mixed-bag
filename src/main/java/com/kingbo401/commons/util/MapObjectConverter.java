@@ -17,7 +17,6 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import com.kingbo401.commons.annotation.Ignore;
 import com.kingbo401.commons.exception.MixedBagException;
-import com.kingbo401.commons.exception.MapObjectConvertException;
 
 public class MapObjectConverter {
 	public static <T> Object convertSingleFieldObject(Object value, Class<T> clazz){
@@ -116,7 +115,7 @@ public class MapObjectConverter {
 		if(isSingleFieldClass(clazz)){//只有一列
 			if(dataMap.size() != 1) {
 				//如果clazz为单属性类且dataMap不是单值，抛出异常
-				throw new MapObjectConvertException("map convert to bean failed, map:" + dataMap + " clazz:" + clazz.getName());
+				throw new MixedBagException("map convert to bean failed, map:" + dataMap + " clazz:" + clazz.getName());
 			}
 			Iterator<Entry<String, Object>> itr = dataMap.entrySet().iterator();
 			if (itr.hasNext()) {
@@ -125,7 +124,7 @@ public class MapObjectConverter {
 				try{
 					obj = convertSingleFieldObject(value, clazz);
 				}catch(NumberFormatException e){
-					throw new MapObjectConvertException("mapSingleColumnRow failed, map:" + dataMap + " clazz:" + clazz.getName(), e);
+					throw new MixedBagException("mapSingleColumnRow failed, map:" + dataMap + " clazz:" + clazz.getName(), e);
 				}
 			}
 		}else {
@@ -150,7 +149,7 @@ public class MapObjectConverter {
 					BeanUtils.populate(obj, dataMap);
 				}
 			} catch (Exception e) {
-				throw new MapObjectConvertException("map convert to bean failed, map:" + dataMap + " clazz:" + clazz.getName(), e);
+				throw new MixedBagException("map convert to bean failed, map:" + dataMap + " clazz:" + clazz.getName(), e);
 			}
 		}
 		return (T) obj;
