@@ -13,7 +13,7 @@ import com.kingbo401.commons.sensitive.SensitiveWordSource;
 import com.kingbo401.commons.util.FullHalfConverter;
 
 /**
- * 敏感词过滤 DFA有穷状态机算法的实现
+ * 敏感词过滤 DFA有穷状态机算法的实现 trie树
  * @author tianqiongbo
  *
  */
@@ -47,7 +47,9 @@ public class SensitiveWordManagerImpl implements SensitiveWordManager{
 	}
 	
 	private void createWordTree(String word, int index, Map<Integer, NumberTree> map) {
-		if (index >= word.length()) return;
+		if (index >= word.length()) {
+			return;
+		}
 		
 		int ch = charConvert(word.charAt(index));
 		NumberTree tree = map.get(ch);
@@ -57,7 +59,9 @@ public class SensitiveWordManagerImpl implements SensitiveWordManager{
 			map.put(ch, tree);
 		}
 		
-		if (index == word.length() - 1) tree.finishFlag = true;
+		if (index == word.length() - 1){
+			tree.finishFlag = true;
+		}
 		
 		createWordTree(word, index + 1, tree.map);
 	}
@@ -71,7 +75,9 @@ public class SensitiveWordManagerImpl implements SensitiveWordManager{
 		int length = str.length();
 		for (int i = 0; i < length; i++) {
 			int last = getFinishFlagIndex(str, i, length, forbiddenMap);
-			if (last > -1) return true;
+			if (last > -1){
+				return true;
+			}
 		}
 		return false;
 	}
@@ -113,7 +119,9 @@ public class SensitiveWordManagerImpl implements SensitiveWordManager{
 			}
 		}
 		NumberTree tree = map.get(ch);
-		if (tree.finishFlag) return index; 
+		if (tree.finishFlag) {
+			return index; 
+		}
 		return getFinishFlagIndex(str, index + 1, length, tree.map);
 	}
 	
