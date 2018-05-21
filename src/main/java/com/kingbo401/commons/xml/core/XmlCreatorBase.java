@@ -12,7 +12,7 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultCDATA;
 
-import com.kingbo401.commons.exception.GeneralException;
+import com.kingbo401.commons.exception.MixedBagException;
 import com.kingbo401.commons.util.Constants;
 import com.kingbo401.commons.util.IOUtil;
 import com.kingbo401.commons.util.StringUtil;
@@ -92,12 +92,12 @@ public class XmlCreatorBase implements XmlCreator {
 			writer = new XMLWriter(new OutputStreamWriter(baos, Constants.DFT_CHARSET), format);
 			writer.write(doc);
 		} catch (Exception e) {
-			throw new GeneralException("create xml string failed.", e);
+			throw new MixedBagException("create xml string failed.", e);
 		} finally {
 			try {
 				if (writer != null) writer.close();
 			} catch (IOException e) {
-				throw new GeneralException("", e);
+				throw new MixedBagException("", e);
 			}
 		}
 		return baos.toByteArray();

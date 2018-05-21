@@ -10,7 +10,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 import org.xml.sax.InputSource;
 
-import com.kingbo401.commons.exception.GeneralException;
+import com.kingbo401.commons.exception.MixedBagException;
 import com.kingbo401.commons.util.CloseUtil;
 import com.kingbo401.commons.xml.core.XmlCreatorBase;
 import com.kingbo401.commons.xml.core.XmlParserBase;
@@ -30,7 +30,7 @@ public class XmlFactory {
             is = new FileInputStream(xmlFile);
             return parseXmlStream(is, false);
         } catch (FileNotFoundException e) {
-        	throw new GeneralException("无法找到Xml文件:" + xmlFile, e);
+        	throw new MixedBagException("无法找到Xml文件:" + xmlFile, e);
         } finally {
             CloseUtil.close(is);
         }
@@ -56,7 +56,7 @@ public class XmlFactory {
         try {
             return new XmlParserBase(saxReader.read(is));
         } catch (DocumentException e) {
-        	throw new GeneralException("解析XML失败", e);
+        	throw new MixedBagException("解析XML失败", e);
         } finally {
         	if (forceClose) CloseUtil.close(is);
         }
@@ -82,7 +82,7 @@ public class XmlFactory {
         try {
         	return new XmlParserBase(new SAXReader().read(source));
         } catch (DocumentException e) {
-        	throw new GeneralException("无法解析XML", e);
+        	throw new MixedBagException("无法解析XML", e);
         }
     }
     

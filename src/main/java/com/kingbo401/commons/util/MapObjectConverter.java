@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.kingbo401.commons.annotation.Ignore;
-import com.kingbo401.commons.exception.GeneralException;
+import com.kingbo401.commons.exception.MixedBagException;
 import com.kingbo401.commons.exception.MapObjectConvertException;
 
 public class MapObjectConverter {
@@ -278,7 +278,7 @@ public class MapObjectConverter {
 				}
 				rst.put(key, o);
 			}catch (Exception e){
-				throw new GeneralException(e);
+				throw new MixedBagException(e);
 			}
 		}
 		return rst;

@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
-import com.kingbo401.commons.exception.GeneralException;
+import com.kingbo401.commons.exception.MixedBagException;
 import com.kingbo401.commons.util.Constants;
 import com.kingbo401.commons.util.HexUtil;
 import com.kingbo401.commons.util.StringUtil;
@@ -30,13 +30,13 @@ public class MD5Util {
 	 */
 	public static String encrypt(String content) {
 		if (StringUtil.isEmpty(content))
-			throw new GeneralException("Empty MD5 source content.");
+			throw new MixedBagException("Empty MD5 source content.");
 		return encrypt0(content, Constants.DFT_CHARSET);
 	}
 	
 	public static String encrypt(String content, String charset) {
 			if (StringUtil.isEmpty(content))
-				throw new GeneralException("Empty MD5 source content.");
+				throw new MixedBagException("Empty MD5 source content.");
 		if (StringUtil.isEmpty(charset)) charset = Constants.DFT_CHARSET;
 		return encrypt0(content, charset);
 	}
@@ -47,19 +47,19 @@ public class MD5Util {
 			md.update(content.getBytes(charset));
 			return HexUtil.toHexString(md.digest());
 		} catch (Exception e) {
-			throw new GeneralException(e);
+			throw new MixedBagException(e);
 		}
 	}
 	
 	public static String encrypt(byte[] bytes) {
 		if (bytes == null || bytes.length == 0)
-			throw new GeneralException("Empty MD5 source bytes.");
+			throw new MixedBagException("Empty MD5 source bytes.");
 		try {
 			MessageDigest md = MessageDigest.getInstance(DFT_ENC_NAME);
 			md.update(bytes);
 			return HexUtil.toHexString(md.digest());
 		} catch (Exception e) {
-			throw new GeneralException("MD5 bytes Failed.", e);
+			throw new MixedBagException("MD5 bytes Failed.", e);
 		}
 	}
 	

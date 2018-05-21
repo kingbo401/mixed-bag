@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-import com.kingbo401.commons.exception.GeneralException;
+import com.kingbo401.commons.exception.MixedBagException;
 
 /**
  * 字符串工具类
@@ -133,7 +133,7 @@ public class StringUtil {
 		try {
 			return new String(bytes, charset);
 		} catch (UnsupportedEncodingException e) {
-			throw new GeneralException("不支持的字符集:" + charset, e);
+			throw new MixedBagException("不支持的字符集:" + charset, e);
 		}
 	}
 	
@@ -146,7 +146,7 @@ public class StringUtil {
 		try {
 			return input.getBytes(charset);
 		} catch (UnsupportedEncodingException e) {
-			throw new GeneralException("不支持的字符集:" + charset, e);
+			throw new MixedBagException("不支持的字符集:" + charset, e);
 		}
 	}
 	

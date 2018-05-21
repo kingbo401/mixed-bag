@@ -15,7 +15,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kingbo401.commons.exception.GeneralException;
+import com.kingbo401.commons.exception.MixedBagException;
 public class IOUtil {
 
 	private final static IOUtil instance = new IOUtil();
@@ -33,7 +33,7 @@ public class IOUtil {
 	
 	public static void mkdirs(File file) {
 		if (!file.isDirectory() && !file.mkdirs())
-			throw new GeneralException("can't create directory " + file);
+			throw new MixedBagException("can't create directory " + file);
 	}
 	
 	public static byte[] readFile(File file) {
@@ -47,7 +47,7 @@ public class IOUtil {
 				baos.write(b, 0, n);
 			}
 		} catch (IOException e) {
-			throw new GeneralException("can't read file " + file, e);
+			throw new MixedBagException("can't read file " + file, e);
 		} finally {
 			CloseUtil.close(bis);
 		}
@@ -65,7 +65,7 @@ public class IOUtil {
 			bos = new BufferedOutputStream(new FileOutputStream(file, append));
 			bos.write(fileBytes);
 		} catch (IOException e) {
-			throw new GeneralException("can't write file " + file, e);
+			throw new MixedBagException("can't write file " + file, e);
 		} finally {
 			CloseUtil.close(bos);
 		}
@@ -84,7 +84,7 @@ public class IOUtil {
 				bos.write(b, 0, n);
 			}
 		} catch (IOException e) {
-			throw new GeneralException("can't copy ", e);
+			throw new MixedBagException("can't copy ", e);
 		} finally {
 			CloseUtil.close(bis, bos);
 		}
@@ -100,7 +100,7 @@ public class IOUtil {
 				ret.add(StringUtil.getString(line));
 			}
 		} catch (Exception e) {
-			throw new GeneralException("can't read file" + textFile, e);
+			throw new MixedBagException("can't read file" + textFile, e);
 		} finally {
 			CloseUtil.close(br);
 		}
@@ -117,7 +117,7 @@ public class IOUtil {
 				bw.newLine();
 			}
 		} catch (Exception e) {
-			throw new GeneralException("write file failed " + outputFile, e);
+			throw new MixedBagException("write file failed " + outputFile, e);
 		} finally {
 			CloseUtil.close(bw);
 		}
@@ -135,11 +135,11 @@ public class IOUtil {
 			while (readLength < maxLength) {
 				//读取次数超过最大设置读取次数时还没有读取全部请求内容，返回错误
 				if ((++count) >= CONTENT_MAX_READ_TIMES)
-					throw new GeneralException("can't get full request content(" + readLength + "," + maxLength + ")");
+					throw new MixedBagException("can't get full request content(" + readLength + "," + maxLength + ")");
 				readLength += is.read(data, readLength, maxLength - readLength);
 			}
 		} catch (IOException e) {
-			throw new GeneralException("获得请求内容发生异常", e);
+			throw new MixedBagException("获得请求内容发生异常", e);
 		} finally {
 			if (closeFlag) CloseUtil.close(is);
 		}
@@ -159,7 +159,7 @@ public class IOUtil {
 				baos.write(b, 0, n);
 			}
 		} catch (IOException e) {
-			throw new GeneralException("read input stream error.", e);
+			throw new MixedBagException("read input stream error.", e);
 		} finally {
 			if (closeFlag) CloseUtil.close(is);
 		}
