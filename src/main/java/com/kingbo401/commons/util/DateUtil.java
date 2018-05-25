@@ -10,19 +10,6 @@ import java.util.Date;
  * 日期工具类
  */
 public class DateUtil {
-	/** 单例 */
-    private static final DateUtil instance = new DateUtil();
-
-    private DateUtil() {}
-
-    /**
-     * 取得该类唯一实例
-     * @return 该类唯一实例
-     */
-    public static DateUtil instance() {
-        return instance;
-    }
-    
     /**
      * 将默认格式的字符串转换为日期对象
      * @param date 待转换字符串
