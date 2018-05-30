@@ -32,6 +32,12 @@ public class PageParam extends OrderParam{
 	}
 	
 	public int getOffset(){
+		if(pageNum < 1){
+			pageNum = 1;
+		}
+		if(pageSize < 1){
+			pageSize = 10;
+		}
 		return (pageNum - 1) * pageSize;
 	}
 
