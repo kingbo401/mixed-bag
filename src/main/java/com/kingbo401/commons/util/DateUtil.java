@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.springframework.util.Assert;
+
 /**
  * 日期工具类
  */
@@ -206,6 +208,67 @@ public class DateUtil {
     		&& c1.get(Calendar.DAY_OF_MONTH)==c2.get(Calendar.DAY_OF_MONTH);
     }
     
+    /**
+	 * 判断生效时间、失效时间合法性
+	 * @param effectiveTime
+	 * @param expireTime
+	 */
+	public static boolean isEffectiveExpireTimeValid(Date effectiveTime, Date expireTime){
+		if(effectiveTime == null && expireTime == null){
+			return true;
+		}
+		
+		Date now = new Date();
+		if(effectiveTime == null && expireTime != null){
+			if(expireTime.before(now) || expireTime.equals(now)){
+				return false;
+			}
+		}else if(effectiveTime != null && expireTime == null){
+			return true;
+		} else if(effectiveTime != null && expireTime != null){
+			if(expireTime.before(effectiveTime) || expireTime.equals(effectiveTime)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * 判断时间是否有效
+	 * @param effectiveTime
+	 * @param expireTime
+	 * @param time
+	 * @return
+	 */
+	public static boolean isTimeValid(Date effectiveTime, Date expireTime, Date time){
+		Assert.notNull(time, "time不能为空");
+		if(effectiveTime == null && expireTime == null){
+			return true;
+		}
+		if(effectiveTime == null && expireTime != null){
+			return time.before(expireTime);
+		}
+		
+		if(effectiveTime != null && expireTime == null){
+			return time.after(effectiveTime);
+		}
+		
+		if(effectiveTime != null && expireTime != null){
+			return time.before(expireTime) && time.after(effectiveTime);
+		}
+		return false;
+	}
+	
+	/**
+	 * 判断当前时间是否有效
+	 * @param effectiveTime
+	 * @param expireTime
+	 * @return
+	 */
+	public static boolean isCurrentTimeValid(Date effectiveTime, Date expireTime){
+		return isTimeValid(effectiveTime, expireTime, new Date());
+	}
+	
     //-----------------------------------------------------------------------
     /**
      * Adds a number of years to a date returning a new object.
