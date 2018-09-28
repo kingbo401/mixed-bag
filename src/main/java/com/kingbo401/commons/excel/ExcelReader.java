@@ -1,4 +1,4 @@
-package com.kingbo401.commons.util;
+package com.kingbo401.commons.excel;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,6 +14,11 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+/**
+ * ExcelReader
+ * @author tianqiongbo
+ *
+ */
 public class ExcelReader {
 	Workbook wb = null;
 	List<String[]> dataList = new ArrayList<String[]>();
