@@ -24,8 +24,6 @@ import com.kingbo401.commons.util.StringUtil;
 import com.kingbo401.commons.web.util.FileDownloadUtil;
 /**
  * ExcelWriter
- * @author tianqiongbo
- *
  */
 public class ExcelWriter {
 	private Workbook workbook = null;

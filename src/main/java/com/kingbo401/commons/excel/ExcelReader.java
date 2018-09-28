@@ -16,8 +16,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 /**
  * ExcelReader
- * @author tianqiongbo
- *
  */
 public class ExcelReader {
 	Workbook wb = null;
