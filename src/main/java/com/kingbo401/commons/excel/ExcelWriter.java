@@ -7,6 +7,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -15,8 +18,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.kingbo401.commons.util.CollectionUtil;
+import com.kingbo401.commons.util.Constants;
 import com.kingbo401.commons.util.DateUtil;
 import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.web.util.FileDownloadUtil;
 /**
  * ExcelWriter
  * @author tianqiongbo
@@ -24,6 +29,7 @@ import com.kingbo401.commons.util.StringUtil;
  */
 public class ExcelWriter {
 	private Workbook workbook = null;
+	private ExcelVersion version = null;
 	
 	public ExcelWriter(ExcelVersion version){
 		if(ExcelVersion.XLS.equals(version)){
@@ -31,6 +37,7 @@ public class ExcelWriter {
 		}else{
 			workbook = new XSSFWorkbook();
 		}
+		this.version = version;
 	}
 	
 	/**
@@ -82,6 +89,26 @@ public class ExcelWriter {
 	
 	public void write(OutputStream stream) throws IOException{
 		workbook.write(stream);
+	}
+	
+	public void write(HttpServletRequest request, HttpServletResponse response, String fileName) throws IOException{
+		response.setCharacterEncoding(Constants.DFT_CHARSET);
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-disposition",
+				"attachment;" + FileDownloadUtil.buildFileName(fileName + "." + version.toString().toLowerCase(), request.getHeader("User-Agent")));
+		response.setHeader("Connection", "close");
+		OutputStream  output = response.getOutputStream();
+		workbook.write(output);
+		output.flush();
+		output.close();
+	}
+
+	public ExcelVersion getVersion() {
+		return version;
+	}
+
+	public void setVersion(ExcelVersion version) {
+		this.version = version;
 	}
 
 	public Workbook getWorkbook() {
