@@ -1,7 +1,7 @@
 package com.kingbo401.commons.util;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
+import java.util.Collection;
 import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
@@ -41,14 +41,48 @@ public class StringUtil {
 	 * <li>true：字符串是空字符串</li>
 	 * <li>false：字符串不是空字符串</li>
 	 */
-	public static boolean isEmpty(String input) {
-		return (input == null || input.trim().length() == 0);
+	public static boolean isEmpty(final CharSequence input) {
+		return (input == null || input.length() == 0);
 	}
 	
-	public static boolean isNotEmpty(String input) {
-		return (input != null && input.trim().length() > 0);
+	public static boolean isNotEmpty(final CharSequence input) {
+		return (input != null && input.length() > 0);
 	}
 	
+	public static boolean isBlank(final CharSequence cs) {
+        int strLen;
+        if (cs == null || (strLen = cs.length()) == 0) {
+            return true;
+        }
+        for (int i = 0; i < strLen; i++) {
+            if (Character.isWhitespace(cs.charAt(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * <p>Checks if a CharSequence is not empty (""), not null and not whitespace only.</p>
+     *
+     * <pre>
+     * StringUtils.isNotBlank(null)      = false
+     * StringUtils.isNotBlank("")        = false
+     * StringUtils.isNotBlank(" ")       = false
+     * StringUtils.isNotBlank("bob")     = true
+     * StringUtils.isNotBlank("  bob  ") = true
+     * </pre>
+     *
+     * @param cs  the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence is
+     *  not empty and not null and not whitespace
+     * @since 2.0
+     * @since 3.0 Changed signature from isNotBlank(String) to isNotBlank(CharSequence)
+     */
+    public static boolean isNotBlank(final CharSequence cs) {
+        return !StringUtil.isBlank(cs);
+    }
+    
 	/**
 	 * 将对象转换为字符串
 	 * @param input 待转换对象
@@ -175,7 +209,7 @@ public class StringUtil {
             .toString();
     }
     
-    public static <T> String joinList(String seperator, List<T> params) {
+    public static <T> String join(String seperator, Collection<T> params) {
     	if (params == null || params.size() == 0) return Constants.DFT_STRING_VAL;
 		if (seperator == null) seperator = Constants.DFT_STRING_VAL;
 		StringBuilder ret = new StringBuilder();
