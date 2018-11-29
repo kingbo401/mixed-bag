@@ -8,4 +8,5 @@ jedis封装
 敏感词过滤trie树实现  
 springjdbc orm封装  
 excel、xml、json、properties文件、date等读写工具类  
+java包扫描工具
 jsp分页组件，ip、cookie、http参数工具类  
