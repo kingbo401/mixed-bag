@@ -1,6 +1,5 @@
 package com.kingbo401.commons.httpclient;
 
-import java.io.IOException;
 import java.nio.charset.CodingErrorAction;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -194,12 +193,6 @@ public class HttpClientUtil {
 		} catch (Exception e) {
 			httpGet.abort();
 			logger.error("HttpClient Get error :" + logMsg, e);
-		} finally {
-			try {
-				httpClient.close();
-			} catch (IOException e) {
-				logger.error("Exception", e);
-			}
 		}
 
 		return null;

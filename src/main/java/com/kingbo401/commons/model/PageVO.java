@@ -6,9 +6,9 @@ import com.kingbo401.commons.model.param.PageParam;
 
 public class PageVO<T> extends BaseObject{
 	private static final long serialVersionUID = -3085358027434978191L;
-	private int pageSize;
-	private int pageNum;
-	private long total;
+	private Integer pageSize;
+	private Integer pageNum;
+	private Long total;
 	private List<T> items;
 
 	public PageVO() {
@@ -23,23 +23,24 @@ public class PageVO<T> extends BaseObject{
 		this.pageSize = param.getPageSize();
 	}
 
-	public int getTotalPage() {
-		if(pageSize < 1 || pageNum < 1 || total < 1){
+	public Integer getTotalPage() {
+		if(pageSize == null || pageSize < 1
+				|| total == null || total < 1){
 			return 0;
 		}
 		return (int)((total + pageSize -1) / pageSize);
 	}
 
-	public int getPageSize() {
+	public Integer getPageSize() {
 		return pageSize;
 	}
-	public void setPageSize(int pageSize) {
+	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
-	public int getPageNum() {
+	public Integer getPageNum() {
 		return pageNum;
 	}
-	public void setPageNum(int pageNum) {
+	public void setPageNum(Integer pageNum) {
 		this.pageNum = pageNum;
 	}
 	public long getTotal() {

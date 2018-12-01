@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.kingbo401.commons.marker.annotation.Marker;
 import com.kingbo401.commons.util.StringUtil;
 
-public class MarkerIntecerptor implements MethodInterceptor{
+public class MarkerInterceptor implements MethodInterceptor{
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	private MarkerHolder markerHolder;
 

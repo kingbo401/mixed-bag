@@ -1,9 +1,10 @@
 package com.kingbo401.commons.model.param;
 
 public class PageParam extends OrderParam {
-	private int pageNum = 1;
-	private int pageSize = 10;
-	private int maxPageSize = 1000;
+	private static final int DEFAULT_PAGE_SIZE = 10;
+	private Integer pageNum = 1;
+	private Integer pageSize = DEFAULT_PAGE_SIZE;
+	private Integer maxPageSize = 1000;
 	/**
 	 * 是否返回总条数
 	 */
@@ -12,37 +13,40 @@ public class PageParam extends OrderParam {
 	public PageParam() {
 	}
 
-	public PageParam(int pageNum, int pageSize) {
+	public PageParam(Integer pageNum, Integer pageSize) {
 		super();
 		this.pageNum = pageNum;
 		this.pageSize = pageSize;
 	}
 
-	public int getPageNum() {
+	public Integer getPageNum() {
 		return pageNum;
 	}
 
-	public void setPageNum(int pageNum) {
+	public void setPageNum(Integer pageNum) {
 		this.pageNum = pageNum;
 	}
 
-	public int getPageSize() {
+	public Integer getPageSize() {
+		if(pageSize == null || pageSize < 1){
+			pageSize = DEFAULT_PAGE_SIZE;
+		}
 		if (pageSize > maxPageSize) {
 			pageSize = maxPageSize;
 		}
 		return pageSize;
 	}
 
-	public void setPageSize(int pageSize) {
+	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
 
 	public int getOffset() {
-		if (pageNum < 1) {
+		if (pageNum == null || pageNum < 1) {
 			pageNum = 1;
 		}
-		if (pageSize < 1) {
-			pageSize = 10;
+		if (pageSize == null || pageSize < 1) {
+			pageSize = DEFAULT_PAGE_SIZE;
 		}
 		return (pageNum - 1) * pageSize;
 	}
@@ -55,7 +59,7 @@ public class PageParam extends OrderParam {
 		this.returnTotalCount = returnTotalCount;
 	}
 	
-	public void initMaxPageSize(int maxPageSize){
+	public void initMaxPageSize(Integer maxPageSize){
 		this.maxPageSize = maxPageSize;
 	}
 }
