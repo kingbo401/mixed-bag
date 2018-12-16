@@ -7,7 +7,9 @@ import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.SystemPropertyUtils;
 
 import com.kingbo401.commons.annotation.Ignore;
+import com.kingbo401.commons.enums.ClazzType;
 
 /**
  * java包扫描
@@ -30,130 +33,99 @@ public class PackageScanUtil {
     //扫描  scanPackages 下的文件的匹配符
     protected static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
 
-
     /**
-     * 结合spring的类扫描方式
-     * 根据需要扫描的包路径及相应的注解，获取method集合
-     * 仅返回public方法，如果方法是非public类型的，不会被返回
-     * 可以扫描工程下的class文件及jar中的class文件
-     *
+     * 扫描包内类的public方法
      * @param scanPackages
-     * @param annotation
+     * @param classAnno
+     * @param methodAnno
      * @return
+     * @author kingbo401
+     * @update 2018年12月16日 下午6:54:59
      */
-    public static Set<Method> scanPackageMethod(String scanPackages, Class<? extends Annotation> annotation) {
-        //获取所有的类
-        Set<String> clazzSet = scanPackageClass(scanPackages);
+    public static Set<Method> scanPackageClassMethod(String scanPackages, Class<? extends Annotation> classAnno, Class<? extends Annotation> methodAnno) {
+        Set<Class<?>> clazzs = scanPackageClazz(scanPackages, classAnno, ClazzType.ClASS);
         Set<Method> methods = new HashSet<Method>();
-        //遍历类，查询相应的annotation方法
-        for (String clazz : clazzSet) {
-            try {
-                Set<Method> ms = findClassMethod(clazz, annotation);
-                if (ms != null) {
-                    methods.addAll(ms);
-                }
-            } catch (ClassNotFoundException exception) {
+        for (Class<?> clazz : clazzs) {
+            Set<Method> ms = findClazzMethod(clazz, methodAnno);
+            if (ms != null) {
+                methods.addAll(ms);
             }
         }
         return methods;
     }
     
     /**
-     * 获取类中有注解的public方法
-     * @param fullClassName
-     */
-    public static Set<Method> findClassMethod(String fullClassName, Class<? extends Annotation> anno) throws ClassNotFoundException {
-        Set<Method> methodSet = new HashSet<Method>();
-        Class<?> clazz = Class.forName(fullClassName);
-        if(clazz.isAnnotationPresent(Ignore.class)){
-        	return methodSet;
-        }
-        Method[] methods = clazz.getDeclaredMethods();
-        if(methods == null || methods.length == 0){
-        	return methodSet;
-        }
-        for (Method method : methods) {
-            if (method.getModifiers() != Modifier.PUBLIC) {
-                continue;
-            }
-            if(method.isAnnotationPresent(Ignore.class)){
-            	continue;
-            }
-            if(clazz.isAnnotationPresent(anno) || method.isAnnotationPresent(anno)){
-            	methodSet.add(method);
-            }
-        }
-        return methodSet;
-    }
-    
-    /**
-     * 结合spring的类扫描方式
-     * 根据需要扫描的包路径，获取method集合
-     * 仅返回public方法，如果方法是非public类型的，不会被返回
-     * 可以扫描工程下的class文件及jar中的class文件
-     *
+     * 扫描包内接口的方法
      * @param scanPackages
-     * @param annotation
+     * @param classAnno
+     * @param methodAnno
      * @return
+     * @author kingbo401
+     * @update 2018年12月16日 下午6:55:28
      */
-    public static Set<Method> scanPackageMethod(String scanPackages) {
-        //获取所有的类
-        Set<String> clazzSet = scanPackageClass(scanPackages);
+    public static Set<Method> scanPackageInterfaceMethod(String scanPackages, Class<? extends Annotation> classAnno, Class<? extends Annotation> methodAnno) {
+        Set<Class<?>> clazzs = scanPackageClazz(scanPackages, classAnno, ClazzType.INTERFACE);
         Set<Method> methods = new HashSet<Method>();
-        //遍历类，查询相应的annotation方法
-        for (String clazz : clazzSet) {
-            try {
-                Set<Method> ms = findClassMethod(clazz);
-                if (ms != null) {
-                    methods.addAll(ms);
-                }
-            } catch (ClassNotFoundException exception) {
+        for (Class<?> clazz : clazzs) {
+            Set<Method> ms = findClazzMethod(clazz, methodAnno);
+            if (ms != null) {
+                methods.addAll(ms);
             }
         }
         return methods;
     }
+    
     /**
-     * 获取类中的public方法
-     * @param fullClassName
+     * 查询clazz的public方法
+     * @param clazz
+     * @param anno
+     * @return
+     * @author kingbo401
+     * @update 2018年12月16日 下午6:56:57
      */
-    public static Set<Method> findClassMethod(String fullClassName) throws ClassNotFoundException {
-        Set<Method> methodSet = new HashSet<Method>();
-        Class<?> clazz = Class.forName(fullClassName);
+    public static Set<Method> findClazzMethod(Class<?> clazz, Class<? extends Annotation> anno){
+        Set<Method> rst = new HashSet<Method>();
         if(clazz.isAnnotationPresent(Ignore.class)){
-        	return methodSet;
+        	return rst;
         }
         Method[] methods = clazz.getDeclaredMethods();
         if(methods == null || methods.length == 0){
-        	return methodSet;
+        	return rst;
         }
         for (Method method : methods) {
-            if (method.getModifiers() != Modifier.PUBLIC) {
+            if (!clazz.isInterface() && method.getModifiers() != Modifier.PUBLIC) {
                 continue;
             }
             if(method.isAnnotationPresent(Ignore.class)){
             	continue;
             }
-            methodSet.add(method);
+            if(anno == null || clazz.isAnnotationPresent(anno) || method.isAnnotationPresent(anno)){
+            	rst.add(method);
+            }
         }
-        return methodSet;
+        return rst;
     }
+    
 
+    private static final Map<String, Set<Class<?>>> packasgeClazzCache = new ConcurrentHashMap<String, Set<Class<?>>>();
+   
     /**
-     * 根据扫描包的,查询下面的所有类
-     *
-     * @param scanPackages 扫描的package路径
+     * 扫描包内所有类
+     * @param scanPackages
      * @return
+     * @author kingbo401
+     * @update 2018年12月16日 下午6:58:23
      */
-    @SuppressWarnings("unchecked")
-	public static Set<String> scanPackageClass(String scanPackages) {
-        if (StringUtil.isBlank(scanPackages)) {
-            return Collections.EMPTY_SET;
+	private static Set<Class<?>> scanPackageClazz(String scanPackages) {
+    	Set<Class<?>> rst = packasgeClazzCache.get(scanPackages);
+        if (CollectionUtil.isNotEmpty(rst)) {
+            return rst;
         }
+        rst = new HashSet<Class<?>>();
         //验证及排重包路径,避免父子路径多次扫描
         Set<String> packages = optimizePackage(scanPackages);
         ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
         MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resourcePatternResolver);
-        Set<String> clazzSet = new HashSet<String>();
         for (String basePackage : packages) {
             if (StringUtil.isBlank(basePackage)) {
                 continue;
@@ -164,29 +136,61 @@ public class PackageScanUtil {
                 Resource[] resources = resourcePatternResolver.getResources(packageSearchPath);
                 for (Resource resource : resources) {
                     //检查resource，这里的resource都是class
-                    String clazz = loadClassName(metadataReaderFactory, resource);
-                    clazzSet.add(clazz);
+                    String clazzName = loadClassName(metadataReaderFactory, resource);
+                    Class<?> clazz = Class.forName(clazzName);
+                    if(!clazz.isAnnotationPresent(Ignore.class)){
+                    	rst.add(clazz);
+                    }
                 }
             } catch (Exception e) {
                 LOGGER.error("获取包下面的类信息失败,package:" + basePackage, e);
             }
 
         }
-        return clazzSet;
+        packasgeClazzCache.put(scanPackages, rst);
+        return rst;
+    }
+    
+	/**
+	 * 扫描包内制定类型，有注解的类
+	 * @param scanPackages
+	 * @param anno 可为空
+	 * @param type
+	 * @return
+	 * @author kingbo401
+	 * @update 2018年12月16日 下午6:58:42
+	 */
+    public static Set<Class<?>> scanPackageClazz(String scanPackages, Class<? extends Annotation> anno, ClazzType type){
+    	Set<Class<?>> clazzs = scanPackageClazz(scanPackages);
+    	Set<Class<?>> rst = new HashSet<Class<?>>();
+    	if(CollectionUtil.isEmpty(clazzs)){
+    		return rst;
+    	}
+    	for(Class<?> clazz : clazzs){
+    		if(anno != null && !clazz.isAnnotationPresent(anno)){
+    			continue;
+    		}
+    		if(type.equals(ClazzType.ClASS) && clazz.isInterface()){
+    			continue;
+    		}
+    		if(type.equals(ClazzType.INTERFACE) && !clazz.isInterface()){
+    			continue;
+    		}
+    		rst.add(clazz);
+    	}
+    	return rst;
     }
 
     /**
      * 排重、检测package父子关系，避免多次扫描
-     *
      * @param scanPackages
      * @return 返回检查后有效的路径集合
      */
-    @SuppressWarnings("unchecked")
 	private static Set<String> optimizePackage(String scanPackages) {
-        if (StringUtil.isBlank(scanPackages)) {
-            return Collections.EMPTY_SET;
-        }
         Set<String> packages = new HashSet<String>();
+        if (StringUtil.isBlank(scanPackages)) {
+            return packages;
+        }
         //排重路径
         Collections.addAll(packages, scanPackages.split(","));
         for (String packageItem : packages) {
@@ -218,9 +222,8 @@ public class PackageScanUtil {
 
     /**
      * 加载资源，根据resource获取className
-     *
      * @param metadataReaderFactory spring中用来读取resource为class的工具
-     * @param resource              这里的资源就是一个Class
+     * @param resource              
      * @throws IOException
      */
     private static String loadClassName(MetadataReaderFactory metadataReaderFactory, Resource resource) throws IOException {
@@ -257,5 +260,12 @@ public class PackageScanUtil {
 		}
 		sb.append(")");
 		return sb.toString();
+	}
+    
+    public static void main(String[] args) {
+    	System.out.println(scanPackageClazz("com.kingbo401.commons.sensitive"));
+		System.out.println(scanPackageClazz("com.kingbo401.commons.sensitive", null, ClazzType.ClASS));
+		System.out.println(scanPackageClazz("com.kingbo401.commons.sensitive", null, ClazzType.INTERFACE));
+		System.out.println(scanPackageClassMethod("com.kingbo401.commons.sensitive", null, null));
 	}
 }
