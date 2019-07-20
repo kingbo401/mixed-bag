@@ -10,8 +10,14 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kingbo401.commons.util.Constants;
+import com.kingbo401.commons.constant.Constants;
 
+/**
+ * AES加密
+ *
+ * @author kingbo401
+ * @date 2019/07/20
+ */
 public class AESUtil {
 	private static final Logger logger = LoggerFactory.getLogger(AESUtil.class);
 	private final static String HEX = "0123456789ABCDEF";

@@ -12,8 +12,8 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultCDATA;
 
+import com.kingbo401.commons.constant.Constants;
 import com.kingbo401.commons.exception.MixedBagException;
-import com.kingbo401.commons.util.Constants;
 import com.kingbo401.commons.util.IOUtil;
 import com.kingbo401.commons.util.StringUtil;
 import com.kingbo401.commons.xml.XmlCreator;

@@ -26,10 +26,16 @@ import org.apache.http.Consts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kingbo401.commons.constant.Constants;
 import com.kingbo401.commons.exception.MixedBagException;
-import com.kingbo401.commons.util.Constants;
 import com.kingbo401.commons.util.StringUtil;
 
+/**
+ * 简版http工具类
+ *
+ * @author kingbo401
+ * @date 2019/07/20
+ */
 public class HttpUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
@@ -54,7 +60,6 @@ public class HttpUtil {
     	return post(url, params, null, encode, connectTimeout, soTimeout);
     }
     
-    @SuppressWarnings("restriction")
 	private static String request(String url, String requestMethod, Map<String, String> params, Map<String, String> headers, String encode, int connectTimeout,
 			int soTimeout){
         BufferedReader r = null;

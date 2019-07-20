@@ -15,9 +15,15 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kingbo401.commons.util.Constants;
+import com.kingbo401.commons.constant.Constants;
 import com.kingbo401.commons.util.HexUtil;
 
+/**
+ * 常用加密集合
+ *
+ * @author kingbo401
+ * @date 2019/07/20
+ */
 public final class SecurityUtil {
 
 	private final static Logger logger = LoggerFactory.getLogger(SecurityUtil.class);

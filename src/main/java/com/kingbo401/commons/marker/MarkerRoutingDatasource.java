@@ -1,10 +1,9 @@
-package com.kingbo401.commons.spring.jdbc.datasource;
+package com.kingbo401.commons.marker;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
-import com.kingbo401.commons.marker.MarkerHolder;
 import com.kingbo401.commons.util.StringUtil;
 
 public class MarkerRoutingDatasource extends AbstractRoutingDataSource {

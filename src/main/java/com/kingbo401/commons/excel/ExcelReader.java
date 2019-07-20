@@ -32,7 +32,6 @@ public class ExcelReader {
 	
 	/**
 	 * 取Excel所有数据，包含header
-	 * 
 	 * @return List<String[]>
 	 */
 	public List<String[]> getAllData(int sheetIndex) {

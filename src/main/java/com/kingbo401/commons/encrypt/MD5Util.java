@@ -5,11 +5,17 @@ import java.io.FileInputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
+import com.kingbo401.commons.constant.Constants;
 import com.kingbo401.commons.exception.MixedBagException;
-import com.kingbo401.commons.util.Constants;
 import com.kingbo401.commons.util.HexUtil;
 import com.kingbo401.commons.util.StringUtil;
 
+/**
+ * MD5加密
+ *
+ * @author kingbo401
+ * @date 2019/07/20
+ */
 public class MD5Util {
 
 	private static final MD5Util instance = new MD5Util();

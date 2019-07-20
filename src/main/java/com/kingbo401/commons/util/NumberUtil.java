@@ -5,6 +5,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kingbo401.commons.constant.Constants;
+
 /**
  * 数值工具类
  */
@@ -75,7 +77,7 @@ public class NumberUtil {
 	 * <li>字符串可以转化为Java的整数时，返回转化后数值</li>
 	 * <li>其它，返回Constant.DFT_INTEGER_VAL返回值</li>
 	 * @see #getInt(String, int)
-	 * @see com.nx.commons.lang.Constants#DFT_INTEGER_VAL
+	 * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_INTEGER_VAL
 	 */
 	public static int toInt(String input) {
 		return getInt(input, Constants.DFT_INTEGER_VAL);
@@ -143,7 +145,7 @@ public class NumberUtil {
 	 * <li>字符串可以转化为Java的整数时，返回转化后数值</li>
 	 * <li>其它，返回Constants.DFT_SHORT_VAL</li>
 	 * @see #toShort(String, short)
-	 * @see com.nx.commons.lang.Constants#DFT_SHORT_VAL
+	 * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_SHORT_VAL
 	 */
 	public static short toShort(String input) {
 		return toShort(input, Constants.DFT_SHORT_VAL);
@@ -193,7 +195,7 @@ public class NumberUtil {
 	 * <li>字符串可以转化为byte值时，返回转化后数值</li>
 	 * <li>其它，返回Constants.DFT_BYTE_VAL</li>
 	 * @see #toByte(String, byte)
-	 * @see com.nx.commons.lang.Constants#DFT_BYTE_VAL
+	 * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_BYTE_VAL
 	 */
 	public static byte toByte(String input) {
 		return toByte(input, Constants.DFT_BYTE_VAL);
@@ -230,7 +232,7 @@ public class NumberUtil {
 	 * <li>字符串可以转化为long值时，返回转化后数值</li>
 	 * <li>其它，返回Constants.DFT_LONG_VAL</li>
 	 * @see #toLong(String, long)
-	 * @see com.nx.commons.lang.Constants#DFT_LONG_VAL
+	 * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_LONG_VAL
 	 */
 	public static long toLong(String input) {
 		return toLong(input, Constants.DFT_LONG_VAL);
@@ -273,7 +275,7 @@ public class NumberUtil {
 	 * <li>字符串可以转化为float值时，返回转化后数值</li>
 	 * <li>其它，返回Constants.DFT_FLOAT_VAL</li>
 	 * @see #toFloat(String, float)
-	 * @see com.nx.commons.lang.Constants#DFT_FLOAT_VAL
+	 * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_FLOAT_VAL
 	 */
 	public static float toFloat(String input) {
 		return toFloat(input, Constants.DFT_FLOAT_VAL);
@@ -309,7 +311,7 @@ public class NumberUtil {
 	 * <li>字符串可以转化为double值时，返回转化后数值</li>
 	 * <li>其它，返Constants.DFT_DOUBLE_VAL</li>
 	 * @see #toDouble(String, double)
-	 * @see com.nx.commons.lang.Constants#DFT_DOUBLE_VAL
+	 * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_DOUBLE_VAL
 	 */
 	public static double toDouble(String input) {
 		return toDouble(input, Constants.DFT_DOUBLE_VAL);
@@ -345,7 +347,7 @@ public class NumberUtil {
 	 * <li>字符串可以转化为boolean值时，返回转化后布尔值</li>
 	 * <li>其它，返回Constants.DFT_BOOLEAN_VAL</li>
 	 * @see #toBoolean(String, boolean)
-	 * @see com.nx.commons.lang.Constants#DFT_BOOLEAN_VAL
+	 * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_BOOLEAN_VAL
 	 */
 	public static boolean toBoolean(String input) {
 		return toBoolean(input, Constants.DFT_BOOLEAN_VAL);
@@ -493,7 +495,7 @@ public class NumberUtil {
 	 * <li>字符串内容为数值时，返回转化后对象</li>
 	 * <li>其它，返回Constants.DFT_BIGDECIMAL_VAL</li>
 	 * @see #getBigDecimal(String, BigDecimal)
-	 * @see com.nx.commons.lang.Constants#DFT_BIGDECIMAL_VAL
+	 * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_BIGDECIMAL_VAL
 	 */
 	public static BigDecimal getBigDecimal(String input) {
 		return getBigDecimal(input, Constants.DFT_BIGDECIMAL_VAL);
@@ -518,7 +520,7 @@ public class NumberUtil {
 	 * <li>字符串内容为数值时，返回转化后对象</li>
 	 * <li>其它，返回Constants.DFT_BIGINTEGER_VAL</li>
 	 * @see #getBigInteger(String, BigInteger)
-	 * @see com.nx.commons.lang.Constants#DFT_BIGINTEGER_VAL
+	 * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_BIGINTEGER_VAL
 	 */
 	public static BigInteger getBigInteger(String input) {
 		return getBigInteger(input, Constants.DFT_BIGINTEGER_VAL);

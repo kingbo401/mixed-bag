@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import com.kingbo401.commons.constant.Constants;
 import com.kingbo401.commons.exception.MixedBagException;
 
 /**

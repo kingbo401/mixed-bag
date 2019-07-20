@@ -20,7 +20,11 @@ import javax.crypto.Cipher;
 import org.apache.commons.codec.binary.Base64;
 
 
-/** 
+/**
+ * RSA加密
+ *
+ * @author kingbo401
+ * @date 2019/07/20
  */
 public class RSAUtil {
 

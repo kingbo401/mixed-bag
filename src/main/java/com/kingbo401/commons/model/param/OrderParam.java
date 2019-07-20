@@ -2,7 +2,7 @@ package com.kingbo401.commons.model.param;
 
 import java.util.regex.Pattern;
 
-import com.kingbo401.commons.util.Constants;
+import com.kingbo401.commons.constant.Constants;
 
 public class OrderParam extends BaseParam{
 	private static final Pattern FIELD_PATTERN = Pattern.compile("[a-zA-Z0-9_\\-\\.]+");//防止sql注入
