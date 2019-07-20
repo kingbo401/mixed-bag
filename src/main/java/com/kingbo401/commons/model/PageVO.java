@@ -57,11 +57,4 @@ public class PageVO<T> extends BaseObject{
 	public void setItems(List<T> items) {
 		this.items = items;
 	}
-	
-	public static void main(String[] args) {
-        PageVO<Object> page = new PageVO<Object>();
-        page.setPageNum(10);
-        page.setPageSize(100);
-        System.out.println(page);
-    }
 }

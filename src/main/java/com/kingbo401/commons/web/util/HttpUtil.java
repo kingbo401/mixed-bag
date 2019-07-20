@@ -60,7 +60,8 @@ public class HttpUtil {
     	return post(url, params, null, encode, connectTimeout, soTimeout);
     }
     
-	private static String request(String url, String requestMethod, Map<String, String> params, Map<String, String> headers, String encode, int connectTimeout,
+	@SuppressWarnings("restriction")
+    private static String request(String url, String requestMethod, Map<String, String> params, Map<String, String> headers, String encode, int connectTimeout,
 			int soTimeout){
         BufferedReader r = null;
         try {
