@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.apache.commons.lang.math.NumberUtils;
+import com.kingbo401.commons.util.NumberUtil;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -30,9 +30,9 @@ public class JedisPoolClient implements JedisResourcePool{
 			fis = new FileInputStream(path);
 			prop.load(fis);
 			String ip = prop.getProperty("ip");
-			int port = NumberUtils.toInt(prop.getProperty("port"));
-			int maxTotal = NumberUtils.toInt(prop.getProperty("maxTotal"));
-			long maxWaitMillis = NumberUtils.toLong(prop
+			int port = NumberUtil.toInt(prop.getProperty("port"));
+			int maxTotal = NumberUtil.toInt(prop.getProperty("maxTotal"));
+			long maxWaitMillis = NumberUtil.toLong(prop
 					.getProperty("maxWaitMillis"));
 			JedisPoolConfig config = new JedisPoolConfig();
 			config.setMaxTotal(maxTotal);

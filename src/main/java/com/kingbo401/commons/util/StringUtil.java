@@ -4,9 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Random;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.kingbo401.commons.constant.Constants;
 import com.kingbo401.commons.exception.MixedBagException;
@@ -262,12 +261,8 @@ public class StringUtil {
 		return (len1 < len2) ? -1 : 1;
 	}
 	
-	public static String toString(Object obj) {
-		return ToStringBuilder.reflectionToString(obj, ToStringStyle.SHORT_PREFIX_STYLE);
-	}
-	
 	public static boolean containsEmoji(String source) {
-		if (StringUtils.isBlank(source)) {
+		if (isBlank(source)) {
 			return false;
 		}
 		int len = source.length();
@@ -307,7 +302,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static String filterEmoji(String source) {
-		if (StringUtils.isBlank(source)) return "";
+		if (isBlank(source)) return "";
 		if (!containsEmoji(source)) {
 			return source;// 如果不包含，直接返回
 		}
@@ -321,4 +316,13 @@ public class StringUtil {
 		}
 		return buf.toString();
 	}
+	
+	/**
+	 * 动态生成toString
+	 * @param o
+	 * @return
+	 */
+	public static String toString(Object o) {
+        return ToStringBuilder.reflectionToString(o, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 }

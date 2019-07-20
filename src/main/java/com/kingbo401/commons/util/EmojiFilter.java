@@ -1,6 +1,5 @@
 package com.kingbo401.commons.util;
 
-import org.apache.commons.lang.StringUtils;
 
 public class EmojiFilter {
 	public static void main(String[] args) {
@@ -10,7 +9,7 @@ public class EmojiFilter {
 	}
 
 	public static boolean containsEmoji(String source) {
-		if (StringUtils.isBlank(source)) {
+		if (StringUtil.isBlank(source)) {
 			return false;
 		}
 		int len = source.length();
@@ -52,7 +51,7 @@ public class EmojiFilter {
 	 * @return
 	 */
 	public static String filterEmoji(String source) {
-		if (StringUtils.isBlank(source)) return "";
+		if (StringUtil.isBlank(source)) return "";
 		if (!containsEmoji(source)) {
 			return source;// 如果不包含，直接返回
 		}

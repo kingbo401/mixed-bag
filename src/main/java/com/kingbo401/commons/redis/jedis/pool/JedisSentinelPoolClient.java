@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.lang.math.NumberUtils;
+import com.kingbo401.commons.util.NumberUtil;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
@@ -34,10 +34,10 @@ public class JedisSentinelPoolClient  implements JedisResourcePool{
 			prop.load(fis);
 			String masterName = prop.getProperty("masterName");
 			String sentinel = prop.getProperty("sentinels");
-			int maxTotal = NumberUtils.toInt(prop.getProperty("maxTotal"));
-			int timeout = NumberUtils.toInt(prop.getProperty("timeout"));
-			int database = NumberUtils.toInt(prop.getProperty("database"));
-			long maxWaitMillis = NumberUtils.toLong(prop
+			int maxTotal = NumberUtil.toInt(prop.getProperty("maxTotal"));
+			int timeout = NumberUtil.toInt(prop.getProperty("timeout"));
+			int database = NumberUtil.toInt(prop.getProperty("database"));
+			long maxWaitMillis = NumberUtil.toLong(prop
 					.getProperty("maxWaitMillis"));
 			JedisPoolConfig config = new JedisPoolConfig();
 			config.setMaxTotal(maxTotal);
