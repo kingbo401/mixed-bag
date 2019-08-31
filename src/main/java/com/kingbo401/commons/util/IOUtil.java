@@ -15,7 +15,6 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kingbo401.commons.constant.Constants;
 import com.kingbo401.commons.exception.MixedBagException;
 public class IOUtil {
 

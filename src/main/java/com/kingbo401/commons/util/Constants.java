@@ -1,4 +1,4 @@
-package com.kingbo401.commons.constant;
+package com.kingbo401.commons.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

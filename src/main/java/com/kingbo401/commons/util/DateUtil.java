@@ -8,8 +8,6 @@ import java.util.Date;
 
 import org.springframework.util.Assert;
 
-import com.kingbo401.commons.constant.Constants;
-
 /**
  * 日期工具类
  */
@@ -19,8 +17,8 @@ public class DateUtil {
      * @param date 待转换字符串
      * @return 转换后日期对象
      * @see #parseDate(String, String, Date)
-     * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_DATE_FORMAT
-     * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_DATE_VAL
+     * @see com.kingbo401.commons.util.nx.commons.lang.Constants#DFT_DATE_FORMAT
+     * @see com.kingbo401.commons.util.nx.commons.lang.Constants#DFT_DATE_VAL
      */
     public static Date parseDate(String date) {
         return parseDate(date, Constants.DFT_DATE_FORMAT, Constants.DFT_DATE_VAL);
@@ -30,8 +28,8 @@ public class DateUtil {
      * @param date 待转换字符串
      * @return 转换后日期对象
      * @see #parseDate(String, String, Date)
-     * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_DATETIME_FORMAT
-     * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_DATE_VAL
+     * @see com.kingbo401.commons.util.nx.commons.lang.Constants#DFT_DATETIME_FORMAT
+     * @see com.kingbo401.commons.util.nx.commons.lang.Constants#DFT_DATE_VAL
      */
     public static Date parseDateTime(String date) {
         return parseDate(date, Constants.DFT_DATETIME_FORMAT, Constants.DFT_DATE_VAL);
@@ -69,7 +67,7 @@ public class DateUtil {
      * @param date 待格式化日期对象
      * @return 格式化后的字符串
      * @see #formatDate(Date, String, String)
-     * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_DATE_FORMAT
+     * @see com.kingbo401.commons.util.nx.commons.lang.Constants#DFT_DATE_FORMAT
      */
     public static String formatDate(Date date) {
         return formatDate(date, Constants.DFT_DATE_FORMAT, null);
@@ -79,7 +77,7 @@ public class DateUtil {
      * @param date 待格式化日期对象
      * @return 格式化后的字符串
      * @see #formatDate(Date, String, String)
-     * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_DATETIME_FORMAT
+     * @see com.kingbo401.commons.util.nx.commons.lang.Constants#DFT_DATETIME_FORMAT
      */
     public static String formatDatetime(Date date) {
         return formatDate(date, Constants.DFT_DATETIME_FORMAT, null);
@@ -89,7 +87,7 @@ public class DateUtil {
      * @param date 待格式化日期对象
      * @return 格式化后的字符串
      * @see #formatDate(Date, String, String)
-     * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_TIME_FORMAT
+     * @see com.kingbo401.commons.util.nx.commons.lang.Constants#DFT_TIME_FORMAT
      */
     public static String formatTime(Date date) {
         return formatDate(date, Constants.DFT_TIME_FORMAT, null);
@@ -127,8 +125,8 @@ public class DateUtil {
      * @param date 时间戳字符串对象
      * @return 转化后的时间戳对象
      * @see #parseTimestamp(String, String, Timestamp)
-     * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_DATE_FORMAT
-     * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_DATE_VAL
+     * @see com.kingbo401.commons.util.nx.commons.lang.Constants#DFT_DATE_FORMAT
+     * @see com.kingbo401.commons.util.nx.commons.lang.Constants#DFT_DATE_VAL
      */
     public static Timestamp parseTimestamp(String date) {
     	return parseTimestamp(date, Constants.DFT_DATE_FORMAT, Constants.DFT_TIMESTAMP_VAL);
@@ -139,7 +137,7 @@ public class DateUtil {
      * @param format 字符串格式
      * @return 转化后的时间戳对象
      * @see #parseTimestamp(String, String, Timestamp)
-     * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_DATE_VAL
+     * @see com.kingbo401.commons.util.nx.commons.lang.Constants#DFT_DATE_VAL
      */
     public static Timestamp parseTimestamp(String date, String format) {
     	return parseTimestamp(date, format, Constants.DFT_TIMESTAMP_VAL);
@@ -160,7 +158,7 @@ public class DateUtil {
      * @param date 待格式化时间戳对象
      * @return 格式化后的字符串
      * @see #formatTimestamp(Timestamp, String, String)
-     * @see com.kingbo401.commons.constant.nx.commons.lang.Constants#DFT_DATE_FORMAT
+     * @see com.kingbo401.commons.util.nx.commons.lang.Constants#DFT_DATE_FORMAT
      */
     public static String formatTimestamp(Timestamp date) {
     	return formatDate(date, Constants.DFT_DATE_FORMAT, null);

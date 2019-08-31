@@ -26,8 +26,8 @@ import org.apache.http.Consts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kingbo401.commons.constant.Constants;
 import com.kingbo401.commons.exception.MixedBagException;
+import com.kingbo401.commons.util.Constants;
 import com.kingbo401.commons.util.StringUtil;
 
 /**

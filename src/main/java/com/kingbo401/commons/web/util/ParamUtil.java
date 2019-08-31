@@ -9,8 +9,8 @@ import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.kingbo401.commons.constant.Constants;
 import com.kingbo401.commons.util.CollectionUtil;
+import com.kingbo401.commons.util.Constants;
 
 public class ParamUtil {
 
