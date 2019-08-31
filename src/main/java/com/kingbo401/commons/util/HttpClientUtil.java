@@ -1,4 +1,4 @@
-package com.kingbo401.commons.httpclient;
+package com.kingbo401.commons.util;
 
 import java.nio.charset.CodingErrorAction;
 import java.security.cert.X509Certificate;
@@ -30,6 +30,7 @@ import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.config.SocketConfig;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
+import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -45,10 +46,6 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kingbo401.commons.util.CollectionUtil;
-import com.kingbo401.commons.util.NumberUtil;
-import com.kingbo401.commons.util.PropertiesLoader;
-import com.kingbo401.commons.util.StringUtil;
 import com.kingbo401.commons.web.util.ParamUtil;
 
 public class HttpClientUtil {
@@ -142,6 +139,8 @@ public class HttpClientUtil {
 			};
 			
 			httpClient = HttpClients.custom().setConnectionManager(httpConnManager).setKeepAliveStrategy(keepAliveStrategy).build();
+			IdleConnectionMonitorThread monitorThread = new HttpClientUtil.IdleConnectionMonitorThread(httpConnManager);
+			monitorThread.start();
 		} catch (Exception e) {
 			logger.error("Init HttpClient Exception:", e);
 		}
@@ -330,4 +329,35 @@ public class HttpClientUtil {
 		} 
 		return null;
 	}
+	
+	
+	private static class IdleConnectionMonitorThread extends Thread{
+		
+		private final HttpClientConnectionManager connMgr;
+	    private Logger logger = LoggerFactory.getLogger(IdleConnectionMonitorThread.class);
+	    
+	    IdleConnectionMonitorThread(HttpClientConnectionManager connMgr) {
+	        super();
+	        this.connMgr = connMgr;
+	    }
+
+	    @Override
+	    public void run() {
+	        try {
+	        	while (true) {
+	                synchronized (this) {
+	                    TimeUnit.SECONDS.sleep(5);
+	                    // 关闭失效的连接
+	                    connMgr.closeExpiredConnections();
+	                    // 可选的, 关闭30秒内不活动的连接
+	                    connMgr.closeIdleConnections(30, TimeUnit.SECONDS);
+	                }
+	            }
+	        } catch (InterruptedException ex) {
+	        	logger.info("IdleConnectionMonitorThread InterruptedException exits!");
+	        }
+	    }
+
+	}
+
 }
