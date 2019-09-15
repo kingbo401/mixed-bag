@@ -1,4 +1,4 @@
-package com.kingbo401.commons.util;
+package com.kingbo401.commons.web.util;
 
 import java.nio.charset.CodingErrorAction;
 import java.security.cert.X509Certificate;
@@ -46,7 +46,10 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kingbo401.commons.web.util.ParamUtil;
+import com.kingbo401.commons.util.CollectionUtil;
+import com.kingbo401.commons.util.NumberUtil;
+import com.kingbo401.commons.util.PropertiesLoader;
+import com.kingbo401.commons.util.StringUtil;
 
 public class HttpClientUtil {
 	private final static Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
