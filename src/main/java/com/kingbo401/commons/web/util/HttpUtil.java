@@ -22,7 +22,6 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import org.apache.http.Consts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,7 +76,7 @@ public class HttpUtil {
             		connection.setRequestProperty(entry.getKey(), entry.getValue());
             	}
             }
-            encode = StringUtil.isEmpty(encode) ? Consts.UTF_8.name() : encode;
+            encode = StringUtil.isEmpty(encode) ? Constants.DFT_CHARSET : encode;
             connection.setUseCaches(false);
             connection.setDoOutput(true);
             connection.setConnectTimeout(connectTimeout);
