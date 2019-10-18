@@ -341,6 +341,7 @@ public class HttpClientUtil {
 	    
 	    IdleConnectionMonitorThread(HttpClientConnectionManager connMgr) {
 	        super();
+	        super.setDaemon(true);
 	        this.connMgr = connMgr;
 	    }
 
