@@ -4,7 +4,7 @@ public class PageParam extends OrderParam {
 	private static final int DEFAULT_PAGE_SIZE = 10;
 	private Integer pageNum = 1;
 	private Integer pageSize = DEFAULT_PAGE_SIZE;
-	private Integer maxPageSize = 1000;
+	private Integer maxPageSize = 200;
 	/**
 	 * 是否返回总条数
 	 */

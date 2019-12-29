@@ -3,7 +3,6 @@ package com.kingbo401.commons.model.result;
 import java.util.Map;
 
 public class MapResult<K, V> extends BaseResult{
-	private static final long serialVersionUID = 2572747488462610245L;
 	private Map<K, V> content;
 	
 	public MapResult() {

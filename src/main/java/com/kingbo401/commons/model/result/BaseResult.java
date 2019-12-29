@@ -1,9 +1,8 @@
 package com.kingbo401.commons.model.result;
 
-import com.kingbo401.commons.model.BaseObject;
+import com.kingbo401.commons.model.BasePojo;
 
-public class BaseResult extends BaseObject{
-	private static final long serialVersionUID = -2156435211959393933L;
+public class BaseResult extends BasePojo{
 	private static final String SUCCESS_CODE     = "200";
     private static final String SUCCESS_MSG      = "success";
 	private boolean success;

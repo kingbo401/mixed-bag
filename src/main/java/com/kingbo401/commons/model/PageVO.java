@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.kingbo401.commons.model.param.PageParam;
 
-public class PageVO<T> extends BaseObject{
-	private static final long serialVersionUID = -3085358027434978191L;
+public class PageVO<T> extends BasePojo{
 	private Integer pageSize;
 	private Integer pageNum;
 	private Long total;

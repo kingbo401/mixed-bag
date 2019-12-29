@@ -1,7 +1,6 @@
 package com.kingbo401.commons.model.result;
 
 public class PojoResult<T> extends BaseResult{
-	private static final long serialVersionUID = 7054429837818609212L;
 	private T content;
 
 	public PojoResult() {

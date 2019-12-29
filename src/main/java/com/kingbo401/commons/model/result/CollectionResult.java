@@ -3,7 +3,6 @@ package com.kingbo401.commons.model.result;
 import java.util.Collection;
 
 public class CollectionResult<T> extends BaseResult{
-	private static final long serialVersionUID = -945634057879603559L;
 	private Collection<T> content;
 	
 	public CollectionResult() {
