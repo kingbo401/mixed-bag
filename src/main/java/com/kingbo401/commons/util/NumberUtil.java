@@ -372,7 +372,7 @@ public class NumberUtil {
 	}
 	
 	public static boolean toBoolean(Object input) {
-		return toBoolean(StringUtil.getString(input), Constants.DFT_BOOLEAN_VAL);
+		return toBoolean(StringTool.getString(input), Constants.DFT_BOOLEAN_VAL);
 	}
 	
 	/**

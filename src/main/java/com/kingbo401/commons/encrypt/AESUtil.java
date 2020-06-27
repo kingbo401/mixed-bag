@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kingbo401.commons.util.Constants;
-import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.util.StringTool;
 
 /**
  * AES加密
@@ -27,7 +27,7 @@ public class AESUtil {
 	private static final String CIPHER_ALGORITHM = CIPHER_ALGORITHM_ECB;
 	
 	public static byte[] encrypt(byte[] content, String pk) {
-		if(content == null || StringUtil.isBlank(pk)) return null;
+		if(content == null || StringTool.isBlank(pk)) return null;
 		try {
 			Key secretKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
 			Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
@@ -41,7 +41,7 @@ public class AESUtil {
 	}
 
 	public static byte[] decrypt(byte[] content, String pk) {
-		if(content == null || StringUtil.isBlank(pk)) return null;
+		if(content == null || StringTool.isBlank(pk)) return null;
 		try {
 			Key secretKey = new SecretKeySpec(pk.getBytes(Constants.DFT_CHARSET), "AES");
 			Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);

@@ -9,7 +9,7 @@ public class EmojiFilter {
 	}
 
 	public static boolean containsEmoji(String source) {
-		if (StringUtil.isBlank(source)) {
+		if (StringTool.isBlank(source)) {
 			return false;
 		}
 		int len = source.length();
@@ -51,7 +51,7 @@ public class EmojiFilter {
 	 * @return
 	 */
 	public static String filterEmoji(String source) {
-		if (StringUtil.isBlank(source)) return "";
+		if (StringTool.isBlank(source)) return "";
 		if (!containsEmoji(source)) {
 			return source;// 如果不包含，直接返回
 		}

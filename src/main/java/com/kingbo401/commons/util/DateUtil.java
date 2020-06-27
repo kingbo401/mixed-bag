@@ -52,7 +52,7 @@ public class DateUtil {
      * @return 转换后的日期对象
      */
     public static Date parseDate(String date, String format, Date dftVal) {
-        if (StringUtil.isEmpty(date) || StringUtil.isEmpty(format)) return dftVal;
+        if (StringTool.isEmpty(date) || StringTool.isEmpty(format)) return dftVal;
         Date d;
         try {
             d = new SimpleDateFormat(format).parse(date);
@@ -110,7 +110,7 @@ public class DateUtil {
      * @return 格式化后的字符串
      */
     public static String formatDate(Date date, String format, String dftVal) {
-        if (date == null || StringUtil.isEmpty(format)) return dftVal;
+        if (date == null || StringTool.isEmpty(format)) return dftVal;
         String ret;
         try {
             ret = new SimpleDateFormat(format).format(date);

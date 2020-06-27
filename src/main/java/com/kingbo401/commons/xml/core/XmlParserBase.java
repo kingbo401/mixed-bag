@@ -7,7 +7,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
-import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.util.StringTool;
 import com.kingbo401.commons.xml.XmlParser;
 
 public class XmlParserBase implements XmlParser {
@@ -32,12 +32,12 @@ public class XmlParserBase implements XmlParser {
     @Override
     public String nodeValue(Node node, String childPath) {
         Node childNode = (childPath == null) ? node : node.selectSingleNode("./" + childPath);
-        return (childNode == null) ? null : StringUtil.getString(childNode.getText());
+        return (childNode == null) ? null : StringTool.getString(childNode.getText());
     }
     
     @Override
     public String nodeValue(Node node) {
-    	return StringUtil.getString(node.getText());
+    	return StringTool.getString(node.getText());
     }
 
     @Override
@@ -70,13 +70,13 @@ public class XmlParserBase implements XmlParser {
     @Override
     public String attrValue(String xpath, String attrName) {
         Attribute attribute = (Attribute)doc.selectSingleNode(xpath + "/@" + attrName);
-        return (attribute == null) ? null : StringUtil.getString(attribute.getValue());
+        return (attribute == null) ? null : StringTool.getString(attribute.getValue());
     }
 
     @Override
     public String nodeValue(String xpath){
         Node node = doc.selectSingleNode(xpath);
-        return (node == null) ? null : StringUtil.getString(node.getText());
+        return (node == null) ? null : StringTool.getString(node.getText());
     }
 
     @Override

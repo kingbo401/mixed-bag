@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
 import com.kingbo401.commons.util.CollectionUtil;
 import com.kingbo401.commons.util.NumberUtil;
 import com.kingbo401.commons.util.PropertiesLoader;
-import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.util.StringTool;
 
 public class HttpClientUtil {
 	private final static Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
@@ -243,7 +243,7 @@ public class HttpClientUtil {
 				httpPost.setHeader(entry.getKey(), entry.getValue());
 			}
 		}
-		encode = StringUtil.isEmpty(encode) ? Consts.UTF_8.name() : encode;
+		encode = StringTool.isEmpty(encode) ? Consts.UTF_8.name() : encode;
 
 		try {
 			HttpEntity requestEntity = new StringEntity(content, encode);
@@ -306,7 +306,7 @@ public class HttpClientUtil {
 		}
 
 		try {
-			httpPost.setEntity(new UrlEncodedFormEntity(paramPairs, StringUtil
+			httpPost.setEntity(new UrlEncodedFormEntity(paramPairs, StringTool
 					.isEmpty(encode) ? Consts.UTF_8.name() : encode));
 			CloseableHttpResponse response = null;
 			try {

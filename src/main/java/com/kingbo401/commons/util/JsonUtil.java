@@ -65,7 +65,7 @@ public class JsonUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String, Object> parse(String str) {
-		if(StringUtil.isEmpty(str)) return null;
+		if(StringTool.isEmpty(str)) return null;
 		Map<String, Object> retMap = null;
 		try {
 			retMap = mapper.readValue(str, Map.class);
@@ -83,7 +83,7 @@ public class JsonUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String, String> parseToStringMap(String str) {
-		if(StringUtil.isEmpty(str)) return null;
+		if(StringTool.isEmpty(str)) return null;
 		Map<String, String> retMap = null;
 		try {
 			retMap = parseToGeneric(str, Map.class, String.class, String.class);
@@ -101,7 +101,7 @@ public class JsonUtil {
 	 * @return
 	 */
 	public static <T> T parseToObject(String str, Class<T> t) {
-		if(StringUtil.isEmpty(str)) return null;
+		if(StringTool.isEmpty(str)) return null;
 		T object = null;
 		try {
 			object = (T) mapper.readValue(str, t);
@@ -119,7 +119,7 @@ public class JsonUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static List<Map<String, Object>> parseArray(String str) {
-		if(StringUtil.isEmpty(str)) return null;
+		if(StringTool.isEmpty(str)) return null;
 		List<Map<String, Object>> array = null;
 		try {
 			array = mapper.readValue(str, List.class);
@@ -137,7 +137,7 @@ public class JsonUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> parseToList(String jsonStr, Class<T> clazz) {
-		if(StringUtil.isEmpty(jsonStr)) return null;
+		if(StringTool.isEmpty(jsonStr)) return null;
 		List<T> list = null;
 		try {
 			list = (List<T>) mapper.readValue(jsonStr,
@@ -157,7 +157,7 @@ public class JsonUtil {
 	@SuppressWarnings("rawtypes")
 	public static <T> Object parseToCollection(String jsonStr, Class<? extends Collection> collectionClass,
 			Class<T> clazz) {
-		if(StringUtil.isEmpty(jsonStr)) return null;
+		if(StringTool.isEmpty(jsonStr)) return null;
 		Object collectionObj = null;
 		try {
 			collectionObj = mapper.readValue(jsonStr,
@@ -175,7 +175,7 @@ public class JsonUtil {
 	 * @return
 	 */
 	public static <T> T parseToGeneric(String jsonStr, Class<T> genericClass, Class<?>... parameterClasses) {
-		if(StringUtil.isEmpty(jsonStr)) return null;
+		if(StringTool.isEmpty(jsonStr)) return null;
 		T genericObject = null;
 		try {
 			genericObject = mapper.readValue(jsonStr,
@@ -193,7 +193,7 @@ public class JsonUtil {
 	 * @return
 	 */
 	public static <T> T parseToGeneric(String jsonStr, Class<T> genericClass, JavaType... parameterClasses) {
-		if(StringUtil.isEmpty(jsonStr)) return null;
+		if(StringTool.isEmpty(jsonStr)) return null;
 		T genericObject = null;
 		try {
 			genericObject = mapper.readValue(jsonStr,

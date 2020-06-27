@@ -8,7 +8,7 @@ import java.security.MessageDigest;
 import com.kingbo401.commons.exception.MixedBagException;
 import com.kingbo401.commons.util.Constants;
 import com.kingbo401.commons.util.HexUtil;
-import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.util.StringTool;
 
 /**
  * MD5加密
@@ -35,15 +35,15 @@ public class MD5Util {
 	 * @return 加密后结果
 	 */
 	public static String encrypt(String content) {
-		if (StringUtil.isEmpty(content))
+		if (StringTool.isEmpty(content))
 			throw new MixedBagException("Empty MD5 source content.");
 		return encrypt0(content, Constants.DFT_CHARSET);
 	}
 	
 	public static String encrypt(String content, String charset) {
-			if (StringUtil.isEmpty(content))
+			if (StringTool.isEmpty(content))
 				throw new MixedBagException("Empty MD5 source content.");
-		if (StringUtil.isEmpty(charset)) charset = Constants.DFT_CHARSET;
+		if (StringTool.isEmpty(charset)) charset = Constants.DFT_CHARSET;
 		return encrypt0(content, charset);
 	}
 	

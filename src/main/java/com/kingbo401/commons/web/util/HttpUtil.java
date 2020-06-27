@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import com.kingbo401.commons.exception.MixedBagException;
 import com.kingbo401.commons.util.Constants;
-import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.util.StringTool;
 
 /**
  * 简版http工具类
@@ -76,7 +76,7 @@ public class HttpUtil {
             		connection.setRequestProperty(entry.getKey(), entry.getValue());
             	}
             }
-            encode = StringUtil.isEmpty(encode) ? Constants.DFT_CHARSET : encode;
+            encode = StringTool.isEmpty(encode) ? Constants.DFT_CHARSET : encode;
             connection.setUseCaches(false);
             connection.setDoOutput(true);
             connection.setConnectTimeout(connectTimeout);

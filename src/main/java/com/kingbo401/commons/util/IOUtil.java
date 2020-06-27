@@ -97,7 +97,7 @@ public class IOUtil {
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(textFile), Constants.DFT_CHARSET));
 			String line;
 			while ((line = br.readLine()) != null) {
-				ret.add(StringUtil.getString(line));
+				ret.add(StringTool.getString(line));
 			}
 		} catch (Exception e) {
 			throw new MixedBagException("can't read file" + textFile, e);

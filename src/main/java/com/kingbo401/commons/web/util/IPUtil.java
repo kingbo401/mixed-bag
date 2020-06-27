@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.util.StringTool;
 
 public class IPUtil {
 	private static final String ipPattern = "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9]{1,2})(\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9]{1,2})){3}$";   
@@ -16,19 +16,19 @@ public class IPUtil {
 	
 	public static String getIpAddr(HttpServletRequest request) {
 		String ip = request.getHeader("X-Forwarded-For");
-		if (StringUtil.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
+		if (StringTool.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getHeader("Proxy-Client-IP");
 		}
-		if (StringUtil.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
+		if (StringTool.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getHeader("WL-Proxy-Client-IP");
 		}
-		if (StringUtil.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
+		if (StringTool.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getHeader("HTTP_CLIENT_IP");
 		}
-		if (StringUtil.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
+		if (StringTool.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getHeader("HTTP_X_FORWARDED_FOR");
 		}
-		if (StringUtil.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
+		if (StringTool.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
 		return ip;

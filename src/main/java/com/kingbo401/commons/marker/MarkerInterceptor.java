@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kingbo401.commons.marker.annotation.Marker;
-import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.util.StringTool;
 
 public class MarkerInterceptor implements MethodInterceptor{
 	private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -35,7 +35,7 @@ public class MarkerInterceptor implements MethodInterceptor{
 		try {
 			return invocation.proceed();
 		}finally {
-			if (StringUtil.isNotEmpty(orginMaker)) {
+			if (StringTool.isNotEmpty(orginMaker)) {
 				this.markerHolder.setMaker(orginMaker);
 				this.logger.debug("Set thread local markerHolder to before value:" + orginMaker);
 			} else {

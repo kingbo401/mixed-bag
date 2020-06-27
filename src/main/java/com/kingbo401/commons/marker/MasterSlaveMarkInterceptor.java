@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.kingbo401.commons.marker.annotation.Master;
 import com.kingbo401.commons.marker.annotation.Slave;
-import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.util.StringTool;
 
 public class MasterSlaveMarkInterceptor implements MethodInterceptor{
 	private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -41,7 +41,7 @@ public class MasterSlaveMarkInterceptor implements MethodInterceptor{
 		try {
 			return invocation.proceed();
 		}finally {
-			if (StringUtil.isNotEmpty(orginMaker)) {
+			if (StringTool.isNotEmpty(orginMaker)) {
 				this.masterSlaveHolder.setMaker(orginMaker);
 				this.logger.debug("Set thread local masterSlaveHolder to before value:" + orginMaker);
 			} else {

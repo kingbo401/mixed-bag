@@ -12,25 +12,13 @@ import com.kingbo401.commons.exception.MixedBagException;
 /**
  * 字符串工具类
  */
-public class StringUtil {
-	/** 单例 */
-	private static final StringUtil instance = new StringUtil();
+public class StringTool {
 	/** 随机数对象 */
 	private static final Random random = new Random();
 	/** 数字与字母字典 */
 	private static final char[] LETTER_AND_DIGIT = ("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ").toCharArray();
 	/** 数字与字母字典长度 */
 	private static final int LETTER_AND_DIGIT_LENGTH = LETTER_AND_DIGIT.length;
-	
-	private StringUtil() {}
-	
-	/**
-	 * 取得该类唯一实例
-	 * @return 该类唯实例
-	 */
-	public static StringUtil instance() {
-		return instance;
-	}
 	
 	/**
 	 * 检测字符串是否为空字符串
@@ -79,7 +67,7 @@ public class StringUtil {
      * @since 3.0 Changed signature from isNotBlank(String) to isNotBlank(CharSequence)
      */
     public static boolean isNotBlank(final CharSequence cs) {
-        return !StringUtil.isBlank(cs);
+        return !StringTool.isBlank(cs);
     }
     
 	/**

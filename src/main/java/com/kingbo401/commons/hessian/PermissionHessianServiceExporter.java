@@ -14,7 +14,7 @@ import org.springframework.remoting.caucho.HessianServiceExporter;
 
 import com.kingbo401.commons.encrypt.MD5Util;
 import com.kingbo401.commons.util.CollectionUtil;
-import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.util.StringTool;
 import com.kingbo401.commons.web.util.IPUtil;
 
 public class PermissionHessianServiceExporter extends HessianServiceExporter{
@@ -34,7 +34,7 @@ public class PermissionHessianServiceExporter extends HessianServiceExporter{
 			}
 		}
 		//验证签名
-		if(!StringUtil.isEmpty(secretKey)){
+		if(!StringTool.isEmpty(secretKey)){
 	        String sign = request.getHeader("Signature-Sign");
 	        String timestamp = request.getHeader("Signature-Timestamp");
 	        if (!MD5Util.encrypt(timestamp + secretKey).equals(sign)){
@@ -65,7 +65,7 @@ public class PermissionHessianServiceExporter extends HessianServiceExporter{
 	} 
 	
 	public List<String> getWhiteIpList(){
-		if(!StringUtil.isEmpty(whiteIps)){
+		if(!StringTool.isEmpty(whiteIps)){
 			return Arrays.asList(whiteIps.split(","));
 		}
 		return null;

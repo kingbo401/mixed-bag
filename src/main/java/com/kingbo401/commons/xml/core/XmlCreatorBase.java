@@ -15,7 +15,7 @@ import org.dom4j.tree.DefaultCDATA;
 import com.kingbo401.commons.exception.MixedBagException;
 import com.kingbo401.commons.util.Constants;
 import com.kingbo401.commons.util.IOUtil;
-import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.util.StringTool;
 import com.kingbo401.commons.xml.XmlCreator;
 import com.kingbo401.commons.xml.XmlParser;
 
@@ -74,7 +74,7 @@ public class XmlCreatorBase implements XmlCreator {
 
 	@Override
 	public String toString() {
-		return StringUtil.newString(getBytes(), Constants.DFT_CHARSET);
+		return StringTool.newString(getBytes(), Constants.DFT_CHARSET);
 	}
 	
 	@Override

@@ -20,7 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.kingbo401.commons.util.CollectionUtil;
 import com.kingbo401.commons.util.Constants;
 import com.kingbo401.commons.util.DateUtil;
-import com.kingbo401.commons.util.StringUtil;
+import com.kingbo401.commons.util.StringTool;
 import com.kingbo401.commons.web.util.FileDownloadUtil;
 /**
  * ExcelWriter
@@ -45,12 +45,12 @@ public class ExcelWriter {
 	 * @param datas
 	 */
 	public void addSheet(String sheetName, List<String> headers, List<List<Object>> datas) {
-		if(StringUtil.isEmpty(sheetName) || CollectionUtil.isEmpty(headers) || CollectionUtil.isEmpty(datas)) return;
+		if(StringTool.isEmpty(sheetName) || CollectionUtil.isEmpty(headers) || CollectionUtil.isEmpty(datas)) return;
 		Sheet sheet = workbook.createSheet(sheetName);
 		Row head = sheet.createRow(0);
 		for (int i = 0; i < headers.size(); i++) {
 			Cell headCell = head.createCell(i);
-			headCell.setCellValue(StringUtil.getString(headers.get(i)));
+			headCell.setCellValue(StringTool.getString(headers.get(i)));
 		}
 		
 		for (int j = 0, rowIdx = 1; j < datas.size(); j++, rowIdx++) {

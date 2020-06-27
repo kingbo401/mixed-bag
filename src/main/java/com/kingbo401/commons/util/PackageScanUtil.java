@@ -127,7 +127,7 @@ public class PackageScanUtil {
         ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
         MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resourcePatternResolver);
         for (String basePackage : packages) {
-            if (StringUtil.isBlank(basePackage)) {
+            if (StringTool.isBlank(basePackage)) {
                 continue;
             }
             String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
@@ -188,13 +188,13 @@ public class PackageScanUtil {
      */
 	private static Set<String> optimizePackage(String scanPackages) {
         Set<String> packages = new HashSet<String>();
-        if (StringUtil.isBlank(scanPackages)) {
+        if (StringTool.isBlank(scanPackages)) {
             return packages;
         }
         //排重路径
         Collections.addAll(packages, scanPackages.split(","));
         for (String packageItem : packages) {
-            if (StringUtil.isBlank(packageItem) || packageItem.equals(".") || packageItem.startsWith(".")) {
+            if (StringTool.isBlank(packageItem) || packageItem.equals(".") || packageItem.startsWith(".")) {
                 continue;
             }
             if (packageItem.endsWith(".")) {
