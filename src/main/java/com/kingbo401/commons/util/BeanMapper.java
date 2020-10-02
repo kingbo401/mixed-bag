@@ -16,7 +16,7 @@ import ma.glasnost.orika.metadata.ClassMapBuilder;
  * @author tianqiongbo195
  *
  */
-public class BeanMappper {
+public class BeanMapper {
 	/**
      * 默认字段工厂
      */
@@ -40,9 +40,11 @@ public class BeanMappper {
      * @return 映射类对象
      */
     public <E, T> E map(Class<E> toClass, T data) {
+        if (data == null){
+            return null;
+        }
         return MAPPER_FACADE.map(data, toClass);
     }
-
 
     /**
      * 映射集合（默认字段）
@@ -52,21 +54,12 @@ public class BeanMappper {
      * @return 映射类对象
      */
     public <E, T> List<E> mapAsList(Class<E> toClass, Collection<T> data) {
+        if (data == null || data.isEmpty()){
+            return null;
+        }
         return MAPPER_FACADE.mapAsList(data, toClass);
     }
     
-    /**
-     * 映射实体（自定义配置）
-     *
-     * @param toClass   映射类对象
-     * @param data      数据（对象）
-     * @param configMap 自定义配置
-     * @return 映射类对象
-     */
-    public <E, T> E map(Class<E> toClass, T data, Map<String, String> configMap) {
-        MapperFacade mapperFacade = this.getMapperFacade(toClass, data.getClass(), configMap, false);
-        return mapperFacade.map(data, toClass);
-    }
 
     /**
      * 映射实体（自定义配置）
@@ -78,22 +71,11 @@ public class BeanMappper {
      * @return 映射类对象
      */
     public <E, T> E map(Class<E> toClass, T data, Map<String, String> configMap, boolean facadeCache) {
-        MapperFacade mapperFacade = this.getMapperFacade(toClass, data.getClass(), configMap, facadeCache);
+    	if (data == null){
+            return null;
+        }
+        MapperFacade mapperFacade = this.getMapperFacade(toClass, data.getClass(), configMap, false);
         return mapperFacade.map(data, toClass);
-    }
-    
-    /**
-     * 映射集合（自定义配置）
-     *
-     * @param toClass   映射类
-     * @param data      数据（集合）
-     * @param configMap 自定义配置
-     * @return 映射类对象
-     */
-    public <E, T> List<E> mapAsList(Class<E> toClass, Collection<T> data, Map<String, String> configMap) {
-        T t = data.stream().findFirst().orElse(null);
-        MapperFacade mapperFacade = this.getMapperFacade(toClass, t.getClass(), configMap, false);
-        return mapperFacade.mapAsList(data, toClass);
     }
     
     /**
@@ -106,7 +88,10 @@ public class BeanMappper {
      * @return 映射类对象
      */
     public <E, T> List<E> mapAsList(Class<E> toClass, Collection<T> data, Map<String, String> configMap, boolean facadeCache) {
-        T t = data.stream().findFirst().orElse(null);
+    	if (data == null || data.isEmpty()){
+            return null;
+        }
+    	T t = data.stream().findFirst().orElse(null);
         MapperFacade mapperFacade = this.getMapperFacade(toClass, t.getClass(), configMap, facadeCache);
         return mapperFacade.mapAsList(data, toClass);
     }
