@@ -39,7 +39,7 @@ public class BeanMapper {
      * @param data    数据（对象）
      * @return 映射类对象
      */
-    public <E, T> E map(Class<E> toClass, T data) {
+    public static <E, T> E map(Class<E> toClass, T data) {
         if (data == null){
             return null;
         }
@@ -53,7 +53,7 @@ public class BeanMapper {
      * @param data    数据（集合）
      * @return 映射类对象
      */
-    public <E, T> List<E> mapAsList(Class<E> toClass, Collection<T> data) {
+    public static <E, T> List<E> mapAsList(Class<E> toClass, Collection<T> data) {
         if (data == null || data.isEmpty()){
             return null;
         }
@@ -70,11 +70,11 @@ public class BeanMapper {
      * @param facadeCache 是否使用缓存的facade
      * @return 映射类对象
      */
-    public <E, T> E map(Class<E> toClass, T data, Map<String, String> configMap, boolean facadeCache) {
+    public static <E, T> E map(Class<E> toClass, T data, Map<String, String> configMap, boolean facadeCache) {
     	if (data == null){
             return null;
         }
-        MapperFacade mapperFacade = this.getMapperFacade(toClass, data.getClass(), configMap, false);
+        MapperFacade mapperFacade = getMapperFacade(toClass, data.getClass(), configMap, false);
         return mapperFacade.map(data, toClass);
     }
     
@@ -87,12 +87,12 @@ public class BeanMapper {
      * @param facadeCache 是否使用缓存的facade
      * @return 映射类对象
      */
-    public <E, T> List<E> mapAsList(Class<E> toClass, Collection<T> data, Map<String, String> configMap, boolean facadeCache) {
+    public static <E, T> List<E> mapAsList(Class<E> toClass, Collection<T> data, Map<String, String> configMap, boolean facadeCache) {
     	if (data == null || data.isEmpty()){
             return null;
         }
     	T t = data.stream().findFirst().orElse(null);
-        MapperFacade mapperFacade = this.getMapperFacade(toClass, t.getClass(), configMap, facadeCache);
+        MapperFacade mapperFacade = getMapperFacade(toClass, t.getClass(), configMap, facadeCache);
         return mapperFacade.mapAsList(data, toClass);
     }
 
@@ -105,7 +105,7 @@ public class BeanMapper {
      * @param facadeCache 是否使用缓存的facade
      * @return 映射类对象
      */
-    private <E, T> MapperFacade getMapperFacade(Class<E> toClass, Class<T> dataClass, Map<String, String> configMap, boolean facadeCache) {
+    private static <E, T> MapperFacade getMapperFacade(Class<E> toClass, Class<T> dataClass, Map<String, String> configMap, boolean facadeCache) {
         String mapKey = dataClass.getCanonicalName() + "_" + toClass.getCanonicalName();
         MapperFacade mapperFacade = CACHE_MAPPER_FACADE_MAP.get(mapKey);
         if (Objects.isNull(mapperFacade)) {
