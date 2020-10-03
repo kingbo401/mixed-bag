@@ -2,14 +2,10 @@ package com.kingbo401.commons.util;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
-import ma.glasnost.orika.metadata.ClassMapBuilder;
 
 /**
  * beancopy工具类
@@ -18,103 +14,82 @@ import ma.glasnost.orika.metadata.ClassMapBuilder;
  */
 public class BeanMapper {
 	/**
-     * 默认字段工厂
+     * 默认Mapper工厂
      */
-    private static final MapperFactory MAPPER_FACTORY = new DefaultMapperFactory.Builder().build();
+    private static final MapperFactory MAPPER_FACTORY_DEFAULT = new DefaultMapperFactory.Builder().build();
 
     /**
-     * 默认字段实例
+     * 默认Mapper实例
      */
-    private static final MapperFacade MAPPER_FACADE = MAPPER_FACTORY.getMapperFacade();
+    private static final MapperFacade MAPPER_FACADE_DEFAULT = MAPPER_FACTORY_DEFAULT.getMapperFacade();
 
     /**
-     * 默认字段实例集合
+     * Mapper工厂,空字段不复制
      */
-    private static Map<String, MapperFacade> CACHE_MAPPER_FACADE_MAP = new ConcurrentHashMap<>();
+    private static final MapperFactory MAPPER_FACTORY_NOT_NULL = new DefaultMapperFactory.Builder()
+            .mapNulls(false).build();
 
     /**
-     * 映射实体（默认字段）
+     * Mapper实例,空字段不复制
+     */
+    private static final MapperFacade MAPPER_FACADE_NOT_NULL = MAPPER_FACTORY_NOT_NULL.getMapperFacade();
+
+    /**
+     * 映射实体
      *
      * @param toClass 映射类对象
      * @param data    数据（对象）
      * @return 映射类对象
      */
     public static <E, T> E map(Class<E> toClass, T data) {
-        if (data == null){
-            return null;
-        }
-        return MAPPER_FACADE.map(data, toClass);
+        return map(toClass, data, true);
     }
 
     /**
-     * 映射集合（默认字段）
+     * 映射实体
+     *
+     * @param toClass 映射类对象
+     * @param data    数据（对象）
+     * @param mapNull 是否复制空字段
+     * @return 映射类对象
+     */
+    public static <E, T> E map(Class<E> toClass, T data, boolean mapNull) {
+        if(data == null){
+            return null;
+        }
+        if (mapNull){
+            return MAPPER_FACADE_DEFAULT.map(data, toClass);
+        } else {
+            return MAPPER_FACADE_NOT_NULL.map(data, toClass);
+        }
+    }
+
+    /**
+     * 映射集合
      *
      * @param toClass 映射类对象
      * @param data    数据（集合）
      * @return 映射类对象
      */
     public static <E, T> List<E> mapAsList(Class<E> toClass, Collection<T> data) {
+        return mapAsList(toClass, data, true);
+    }
+
+    /**
+     * 映射集合
+     *
+     * @param toClass 映射类对象
+     * @param data    数据（集合）
+     * @return 映射类对象
+     */
+    public static <E, T> List<E> mapAsList(Class<E> toClass, Collection<T> data, boolean mapNull) {
         if (data == null || data.isEmpty()){
             return null;
         }
-        return MAPPER_FACADE.mapAsList(data, toClass);
-    }
-    
-
-    /**
-     * 映射实体（自定义配置）
-     *
-     * @param toClass   映射类对象
-     * @param data      数据（对象）
-     * @param configMap 自定义配置
-     * @param facadeCache 是否使用缓存的facade
-     * @return 映射类对象
-     */
-    public static <E, T> E map(Class<E> toClass, T data, Map<String, String> configMap, boolean facadeCache) {
-    	if (data == null){
-            return null;
+        if (mapNull){
+            return MAPPER_FACADE_DEFAULT.mapAsList(data, toClass);
+        } else {
+            return MAPPER_FACADE_NOT_NULL.mapAsList(data, toClass);
         }
-        MapperFacade mapperFacade = getMapperFacade(toClass, data.getClass(), configMap, false);
-        return mapperFacade.map(data, toClass);
-    }
-    
-    /**
-     * 映射集合（自定义配置）
-     *
-     * @param toClass   映射类
-     * @param data      数据（集合）
-     * @param configMap 自定义配置
-     * @param facadeCache 是否使用缓存的facade
-     * @return 映射类对象
-     */
-    public static <E, T> List<E> mapAsList(Class<E> toClass, Collection<T> data, Map<String, String> configMap, boolean facadeCache) {
-    	if (data == null || data.isEmpty()){
-            return null;
-        }
-    	T t = data.stream().findFirst().orElse(null);
-        MapperFacade mapperFacade = getMapperFacade(toClass, t.getClass(), configMap, facadeCache);
-        return mapperFacade.mapAsList(data, toClass);
-    }
-
-    /**
-     * 获取自定义映射
-     *
-     * @param toClass   映射类
-     * @param dataClass 数据映射类
-     * @param configMap 自定义配置
-     * @param facadeCache 是否使用缓存的facade
-     * @return 映射类对象
-     */
-    private static <E, T> MapperFacade getMapperFacade(Class<E> toClass, Class<T> dataClass, Map<String, String> configMap, boolean facadeCache) {
-        String mapKey = dataClass.getCanonicalName() + "_" + toClass.getCanonicalName();
-        MapperFacade mapperFacade = CACHE_MAPPER_FACADE_MAP.get(mapKey);
-        if (Objects.isNull(mapperFacade)) {
-            ClassMapBuilder<T, E> classMapBuilder = MAPPER_FACTORY.classMap(dataClass, toClass);
-            configMap.forEach(classMapBuilder::field);
-            classMapBuilder.byDefault().register();
-            mapperFacade = MAPPER_FACTORY.getMapperFacade();
-            CACHE_MAPPER_FACADE_MAP.put(mapKey, mapperFacade);
-        }
-        return mapperFacade;
     }
 }
