@@ -1,14 +1,14 @@
 package com.kingbo401.commons.util;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 /**
- * beancopy工具类
+ * bean mapper工具类
  * @author tianqiongbo195
  *
  */
@@ -30,24 +30,46 @@ public class BeanMapper {
      * @param data    数据（对象）
      * @return 映射类对象
      */
-    public static <E, T> E map(Class<E> toClass, T data) {
-    	if(data == null){
+    public static <E, T> E map(Class<E> toClass, T source) {
+    	if(source == null){
             return null;
         }
-        return MAPPER_FACADE_DEFAULT.map(data, toClass);
+        return MAPPER_FACADE_DEFAULT.map(source, toClass);
     }
 
     /**
-     * 映射集合
+     * 映射list
      *
      * @param toClass 映射类对象
-     * @param data    数据（集合）
+     * @param source    数据（集合）
      * @return 映射类对象
      */
-    public static <E, T> List<E> mapAsList(Class<E> toClass, Collection<T> data) {
-    	 if (data == null || data.isEmpty()){
+    public static <E, T> List<E> mapAsList(Class<E> toClass, Iterable<T> source) {
+    	 if (source == null){
              return null;
          }
-    	 return MAPPER_FACADE_DEFAULT.mapAsList(data, toClass);
+    	 return MAPPER_FACADE_DEFAULT.mapAsList(source, toClass);
+    }
+    
+    /**
+     * 映射Set
+     *
+     * @param toClass 映射类对象
+     * @param source    数据（集合）
+     * @return 映射类对象
+     */
+    public static <E, T> Set<E> mapAsSet(Class<E> toClass, Iterable<T> source) {
+    	 if (source == null){
+             return null;
+         }
+    	 return MAPPER_FACADE_DEFAULT.mapAsSet(source, toClass);
+    }
+    
+    /**
+     * 返回默认MapperFacade
+     * @return
+     */
+    public static MapperFacade getDefaultMapperFacade() {
+    	return MAPPER_FACADE_DEFAULT;
     }
 }
