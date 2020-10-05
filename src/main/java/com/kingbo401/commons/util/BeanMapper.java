@@ -27,7 +27,7 @@ public class BeanMapper {
      * 映射实体
      *
      * @param toClass 映射类对象
-     * @param data    数据（对象）
+     * @param source    数据（对象）
      * @return 映射类对象
      */
     public static <E, T> E map(Class<E> toClass, T source) {

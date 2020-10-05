@@ -50,7 +50,7 @@ public class BeanCopierUtil {
      * 生成key
      * @param srcClazz 源文件的class
      * @param tgtClazz 目标文件的class
-     * @param 是否使用converter
+     * @param useConverter 是否使用converter
      * @return string
      */
     private static String generateKey(Class<?> srcClazz, Class<?> tgtClazz, boolean useConverter) {
