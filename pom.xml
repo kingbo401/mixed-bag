@@ -286,7 +286,7 @@
 		<spring-version>4.3.12.RELEASE</spring-version>
 		<poi-version>3.10-FINAL</poi-version>
 		<dom4j-version>1.6.1</dom4j-version>
-		<junit-version>4.11</junit-version>
+		<junit-version>4.13.1</junit-version>
 		<jdk-version>1.8</jdk-version>
 		<javadoc.skip>true</javadoc.skip>
 		<slf4j-version>1.7.21</slf4j-version>
