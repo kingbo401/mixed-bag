@@ -283,7 +283,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring-version>4.3.12.RELEASE</spring-version>
+		<spring-version>5.2.22.RELEASE</spring-version>
 		<poi-version>3.10-FINAL</poi-version>
 		<dom4j-version>1.6.1</dom4j-version>
 		<junit-version>4.11</junit-version>
